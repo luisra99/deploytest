@@ -127,7 +127,7 @@ Gestion(id,4)
         <div onClick={hide}>
           <Alerta2 ref={childCompRef} visible={alerta} />
         </div>
-        <div id="ptable">
+        <div id="ptable" >
         <table className="col-md-12 table cf">
           <thead className="cf">
             <tr>
@@ -142,7 +142,7 @@ Gestion(id,4)
           <tbody>
             {productos_existencia.map((producto) => {
               return (
-                <tr key={producto.id_existencia}>
+                <tr key={producto.id_existencia} style={{ marginTop:"5px"}}>
                   <td style={{minWidth:"140px"}}
                     data-title="Artículo"
                   >
