@@ -57,7 +57,7 @@ export const Navbar = ({ children }) => {
     <div>
       <header className="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
         <h4
-          className="navbar-brand col-md-3 col-lg-2 me-0 px-3"
+          className="navbar-brand col-md-3 col-lg-2 col-xl-2 me-0 px-3"
           onClick={toggle}
         >
           CASACALZADO
@@ -93,8 +93,8 @@ export const Navbar = ({ children }) => {
             id="sidebarMenu"
             className={
               isOpen
-                ? "col-md-3 col-lg-2 d-md-block bg-light sidebar collapse show"
-                : "col-md-3 col-lg-2 d-md-block bg-light sidebar collapse"
+                ? "col-md-3 col-lg-3 d-md-block bg-light sidebar collapse show"
+                : "col-md-3 col-lg-3 d-md-block bg-light sidebar collapse"
             }
             style={{ paddingLeft: "0px", paddingRight: "0px" }}
           >
