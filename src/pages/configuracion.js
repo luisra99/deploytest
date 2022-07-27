@@ -26,7 +26,9 @@ function Configuration(props) {
 
   const Eliminar = (id) => {
     axios
-      .delete(process.env.REACT_APP_SERVER + "" + ruta + "/" + id)
+      .delete(process.env.REACT_APP_SERVER + "" + ruta + "/" + id,  {headers:{
+        "Bypass-Tunnel-Reminder":1
+      }})
       .then((response) => {
         Notificar(response);
         Load();
@@ -37,7 +39,9 @@ function Configuration(props) {
     var newVal = '{"' + elemento + '":"' + newValue + '"}';
     const data = JSON.parse(newVal);
     axios
-      .post(process.env.REACT_APP_SERVER + "" + ruta, data)
+      .post(process.env.REACT_APP_SERVER + "" + ruta, data,  {headers:{
+        "Bypass-Tunnel-Reminder":1
+      }})
       .then((response) => {
         Notificar(response);
         Load();
@@ -62,7 +66,9 @@ function Configuration(props) {
     var newVal = '{"' + elemento + '":"' + elementoEdit + '"}';
     const data = JSON.parse(newVal);
     axios
-      .put(process.env.REACT_APP_SERVER + "" + ruta + "/" + id, data)
+      .put(process.env.REACT_APP_SERVER + "" + ruta + "/" + id, data,  {headers:{
+        "Bypass-Tunnel-Reminder":1
+      }})
       .then((response) => {
         Notificar(response);
         Load();
@@ -74,7 +80,9 @@ function Configuration(props) {
   const [elementos, setElementos] = useState([]);
 
   function Load() {
-    axios.get(process.env.REACT_APP_SERVER + "" + ruta).then((response) => {
+    axios.get(process.env.REACT_APP_SERVER + "" + ruta,  {headers:{
+      "Bypass-Tunnel-Reminder":1
+    }}).then((response) => {
       setElementos(response.data);
       setElementosFiltrados(response.data);
     });

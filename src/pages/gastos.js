@@ -29,12 +29,16 @@ function Gastos() {
   const [id, setId] = useState("");
   const [montoNuevo, setMontoNuevo] = useState("");
   function Load() {
-    axios.get(process.env.REACT_APP_SERVER + "view/gastos").then((response) => {
+    axios.get(process.env.REACT_APP_SERVER + "view/gastos",  {headers:{
+      "Bypass-Tunnel-Reminder":1
+    }}).then((response) => {
       setGastos(response.data);
     });
   }
   useEffect(() => {
-    axios.get(process.env.REACT_APP_SERVER + "tipogasto").then((response) => {
+    axios.get(process.env.REACT_APP_SERVER + "tipogasto",  {headers:{
+      "Bypass-Tunnel-Reminder":1
+    }}).then((response) => {
       setTipoGastos(response.data);
     });
   }, []);
@@ -50,7 +54,9 @@ function Gastos() {
     var newVal = '{"monto":"' + montoNuevo + '"}';
     const data = JSON.parse(newVal);
     axios
-      .put(process.env.REACT_APP_SERVER + "gasto/" + id, data)
+      .put(process.env.REACT_APP_SERVER + "gasto/" + id, data,  {headers:{
+        "Bypass-Tunnel-Reminder":1
+      }})
       .then((response) => {
         Notificar(response);
         Load();
@@ -63,7 +69,9 @@ function Gastos() {
   };
   const Eliminar = (id) => {
     axios
-      .delete(process.env.REACT_APP_SERVER + "gasto/" + id)
+      .delete(process.env.REACT_APP_SERVER + "gasto/" + id,  {headers:{
+        "Bypass-Tunnel-Reminder":1
+      }})
       .then((response) => {
         Notificar(response);
         Load();
@@ -118,7 +126,9 @@ function Gastos() {
           if (!modoEdicion) {
             console.log(values);
             axios
-              .post(process.env.REACT_APP_SERVER + "gasto", values)
+              .post(process.env.REACT_APP_SERVER + "gasto", values,  {headers:{
+                "Bypass-Tunnel-Reminder":1
+              }})
               .then((response) => {
                 Notificar(response);
                 if (response.data.status === "success") {
@@ -128,7 +138,9 @@ function Gastos() {
               });
           } else {
             axios
-              .put(process.env.REACT_APP_SERVER + "local/" + id, values)
+              .put(process.env.REACT_APP_SERVER + "local/" + id, values,  {headers:{
+                "Bypass-Tunnel-Reminder":1
+              }})
               .then((response) => {
                 Load();
               });

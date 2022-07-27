@@ -22,7 +22,9 @@ function Existencia() {
   const [productos_existencia, setProductosExistentes] = useState([]);
   function Load() {
     axios
-      .get(process.env.REACT_APP_SERVER + "view/existencia")
+      .get(process.env.REACT_APP_SERVER + "view/existencia",  {headers:{
+        "Bypass-Tunnel-Reminder":1
+      }})
       .then((response) => {
         setProductosExistentes(
           orden
@@ -58,7 +60,9 @@ function Existencia() {
     switch (opcion) {
       case 1:
         axios
-          .post(process.env.REACT_APP_SERVER + "productoexist/sold/" + id)
+          .post(process.env.REACT_APP_SERVER + "productoexist/sold/" + id,  {headers:{
+            "Bypass-Tunnel-Reminder":1
+          }})
           .then((response) => {
             Notificar(response);
             Load();
@@ -76,7 +80,9 @@ function Existencia() {
       case 5:
         if (window.confirm("Esta seguro que desea eliminar el producto?")) {
           axios
-            .delete(process.env.REACT_APP_SERVER + "productoexist/" + id)
+            .delete(process.env.REACT_APP_SERVER + "productoexist/" + id,  {headers:{
+              "Bypass-Tunnel-Reminder":1
+            }})
             .then((response) => {
               childCompRef.current.AlertaConfig(response);
               setAlerta(true);

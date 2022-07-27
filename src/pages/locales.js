@@ -31,7 +31,9 @@ function Locales() {
   const [tipo, settipo] = useState(0);
   const [locales, setLocal] = useState([]);
   function Load() {
-    axios.get(process.env.REACT_APP_SERVER + "local").then((response) => {
+    axios.get(process.env.REACT_APP_SERVER + "local",  {headers:{
+      "Bypass-Tunnel-Reminder":1
+    }}).then((response) => {
       setLocal(response.data);
     });
   }
@@ -53,7 +55,9 @@ function Locales() {
   };
   const Eliminar = (id) => {
     axios
-      .delete(process.env.REACT_APP_SERVER + "local/" + id)
+      .delete(process.env.REACT_APP_SERVER + "local/" + id,  {headers:{
+        "Bypass-Tunnel-Reminder":1
+      }})
       .then((response) => {
         Notificar(response);
         Load();
@@ -132,7 +136,9 @@ function Locales() {
         onSubmit={(values, { resetForm }) => {
           if (!modoEdicion) {
             axios
-              .post(process.env.REACT_APP_SERVER + "local", values)
+              .post(process.env.REACT_APP_SERVER + "local", values,  {headers:{
+                "Bypass-Tunnel-Reminder":1
+              }})
               .then((response) => {
                 Notificar(response);
                 resetFields();
@@ -140,7 +146,9 @@ function Locales() {
               });
           } else {
             axios
-              .put(process.env.REACT_APP_SERVER + "local/" + id, values)
+              .put(process.env.REACT_APP_SERVER + "local/" + id, values,  {headers:{
+                "Bypass-Tunnel-Reminder":1
+              }})
               .then((response) => {
                 Notificar(response);
                 resetFields();

@@ -35,7 +35,9 @@ function Trabajadores() {
   const [localSelected, setLocaleSelected] = useState(-1);
   const [trabajadores, setTrabajadores] = useState([]);
   function Load() {
-    axios.get(process.env.REACT_APP_SERVER + "trabajador").then((response) => {
+    axios.get(process.env.REACT_APP_SERVER + "trabajador",  {headers:{
+      "Bypass-Tunnel-Reminder":1
+    }}).then((response) => {
       setTrabajadores(response.data);
     });
   }
@@ -61,12 +63,16 @@ function Trabajadores() {
   //   console.log(localSelected)
   // }, [localSelected]);
   useEffect(() => {
-    axios.get(process.env.REACT_APP_SERVER + "local").then((response) => {
+    axios.get(process.env.REACT_APP_SERVER + "local",  {headers:{
+      "Bypass-Tunnel-Reminder":1
+    }}).then((response) => {
       setLocales(response.data);
     });
   }, []);
   const Eliminar = (id) => {
-    axios.delete(process.env.REACT_APP_SERVER + "trabajador/" + id).then(() => {
+    axios.delete(process.env.REACT_APP_SERVER + "trabajador/" + id,  {headers:{
+      "Bypass-Tunnel-Reminder":1
+    }}).then(() => {
       Load();
     });
   };
@@ -182,7 +188,9 @@ function Trabajadores() {
         onSubmit={(values) => {
           if (!modoEdicion) {
             axios
-              .post(process.env.REACT_APP_SERVER + "trabajador", values)
+              .post(process.env.REACT_APP_SERVER + "trabajador", values,  {headers:{
+                "Bypass-Tunnel-Reminder":1
+              }})
               .then((response) => {
                 Notificar(response);
                 if (response.data.status !== "primary") resetFields();
@@ -190,7 +198,9 @@ function Trabajadores() {
               });
           } else {
             axios
-              .put(process.env.REACT_APP_SERVER + "trabajador/" + id, values)
+              .put(process.env.REACT_APP_SERVER + "trabajador/" + id, values,  {headers:{
+                "Bypass-Tunnel-Reminder":1
+              }})
               .then((response) => {
                 Notificar(response);
 
