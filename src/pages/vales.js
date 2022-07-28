@@ -4,7 +4,7 @@ import { Table } from "react-bootstrap";
 import { useState, useEffect } from "react";
 
 function Vales() {
-  const [vales_de_venta, setValesDeVenta] = useState([]);
+  const [vales_de_venta, setValesDeVenta] = useState([{"id":151,"sub_categoria":"Cartera","curvatura":"Niño","material":"Tela","color":"Verde","descripcion":"Cartera chica con imagen de Ben10","fecha":"2022-02-02T08:00:00.000Z","costo":"50","precio":"100","comision":"10","unidades":1,"importe":"100","utilidades":"10","ganancia":"90","ganancia_pura":"40","nombre":"Luis Raul","primer_apellido":"Alfonso","segundo_apellido":"Caballero","tienda":"Tienda Jaguey"}]);
   useEffect(() => {
     axios.get(process.env.REACT_APP_SERVER + "view/vales").then((response) => {
       setValesDeVenta(response.data);

@@ -19,7 +19,7 @@ function Existencia() {
     setAlerta(false);
   }
   const [seleccionado, setSeleccionado] = useState("");
-  const [productos_existencia, setProductosExistentes] = useState([]);
+  const [productos_existencia, setProductosExistentes] = useState([{"id_existencia":67,"descripcion":"Acabado rojo  y cordones de cuero","costo":"175","precio":"300","comision":"25","merma_c":false,"total":20,"almacen":19,"area_de_venta":1,"id_producto":18,"sub_categoria":"Mocasines","curvatura":"Hombre","material":"Cuero","talla":"38","nombre":"Tienda Jaguey","color":"Negro"},{"id_existencia":42,"descripcion":"Venta en pares 20% de algodon","costo":"100","precio":"175","comision":"15","merma_c":false,"total":0,"almacen":0,"area_de_venta":0,"id_producto":20,"sub_categoria":"Muñequera","curvatura":"Niño","material":"Tela","talla":"10","nombre":"Tienda Jaguey","color":"Rojo"},{"id_existencia":68,"descripcion":"Cartera chica con imagen de Ben10","costo":"50","precio":"100","comision":"10","merma_c":false,"total":3,"almacen":3,"area_de_venta":0,"id_producto":36,"sub_categoria":"Cartera","curvatura":"Niño","material":"Tela","talla":"10","nombre":"Tienda Jaguey","color":"Verde"}]);
   function Load() {
     axios
       .get(process.env.REACT_APP_SERVER + "view/existencia",  {headers:{
@@ -35,7 +35,7 @@ function Existencia() {
   }
   useEffect(() => {
     Load();
-  });
+  },[]);
   useEffect(() => {
     if (alerta) setTimeout(hide, 15000);
   }, [alerta]);

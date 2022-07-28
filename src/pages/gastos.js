@@ -23,7 +23,7 @@ function Gastos() {
   //#region Variables
   const [monto, setmonto] = useState("");
   const [descripcion, setdescripcion] = useState("");
-  const [gastos, setGastos] = useState([]);
+  const [gastos, setGastos] = useState([{"id":28,"fecha":"2022-07-07","monto":1000,"descripcion":"Viaje a matanzas","createdAt":"2022-07-26T21:45:45.670Z","updatedAt":"2022-07-26T21:45:45.670Z","id_tipogasto":1},{"id":31,"fecha":"2022-07-15","monto":20004,"descripcion":"Cientos y cientos de tiritas de cuero","createdAt":"2022-07-26T21:52:27.211Z","updatedAt":"2022-07-26T21:52:40.180Z","id_tipogasto":2},{"id":32,"fecha":"2022-07-28","monto":2,"descripcion":"Cartera de Tela Color: Rojo CVT: Hombre (Tienda Jaguey)","createdAt":"2022-07-28T09:23:22.986Z","updatedAt":"2022-07-28T09:23:22.986Z","id_tipogasto":11}]);
   const [tipoGastos, setTipoGastos] = useState([]);
   const [modoEdicion, setmodoEdicion] = useState(false);
   const [id, setId] = useState("");
@@ -44,8 +44,8 @@ function Gastos() {
   }, []);
   useEffect(() => {
     Load();
-  });
-  const Editar = (id, monto) => {
+  },[]);
+   const Editar = (id, monto) => {
     setMontoNuevo(monto);
     setmodoEdicion(true);
     setId(id);

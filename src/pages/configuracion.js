@@ -77,7 +77,7 @@ function Configuration(props) {
   };
   //#region CARGA
   //Categorias
-  const [elementos, setElementos] = useState([]);
+  const [elementos, setElementos] = useState([{"id":1,"categoria":"Talabartería","createdAt":"2022-06-26T07:15:13.627Z","updatedAt":"2022-06-26T07:15:13.627Z"},{"id":2,"categoria":"Calzado","createdAt":"2022-06-26T07:15:20.452Z","updatedAt":"2022-06-26T07:15:20.452Z"},{"id":3,"categoria":"Accesorios","createdAt":"2022-06-26T07:16:09.264Z","updatedAt":"2022-06-26T07:16:09.264Z"},{"id":7,"categoria":"Joyeria","createdAt":"2022-07-26T21:26:08.442Z","updatedAt":"2022-07-26T21:27:16.541Z"}]);
 
   function Load() {
     axios.get(process.env.REACT_APP_SERVER + "" + ruta,  {headers:{
@@ -90,9 +90,9 @@ function Configuration(props) {
 
   useEffect(() => {
     Load();
-  });
+  },[]);
 
-  const [elementosFiltrados, setElementosFiltrados] = useState([]);
+  const [elementosFiltrados, setElementosFiltrados] = useState([{"id":1,"categoria":"Talabartería","createdAt":"2022-06-26T07:15:13.627Z","updatedAt":"2022-06-26T07:15:13.627Z"},{"id":2,"categoria":"Calzado","createdAt":"2022-06-26T07:15:20.452Z","updatedAt":"2022-06-26T07:15:20.452Z"},{"id":3,"categoria":"Accesorios","createdAt":"2022-06-26T07:16:09.264Z","updatedAt":"2022-06-26T07:16:09.264Z"},{"id":7,"categoria":"Joyeria","createdAt":"2022-07-26T21:26:08.442Z","updatedAt":"2022-07-26T21:27:16.541Z"}]);
   useEffect(() => {
     if (buscar === "") {
       setElementosFiltrados(elementos);

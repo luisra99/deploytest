@@ -26,7 +26,7 @@ function SubCatConfig(props) {
   const [elementoEdit, setElementoEdit] = useState("");
   const [verExist, setVerExist] = useState([]);
   const [buscar, setbuscar] = useState("");
-  const [categorias, setCategorias] = useState([]);
+  const [categorias, setCategorias] = useState([{"id":1,"categoria":"Talabartería","createdAt":"2022-06-26T07:15:13.627Z","updatedAt":"2022-06-26T07:15:13.627Z"},{"id":2,"categoria":"Calzado","createdAt":"2022-06-26T07:15:20.452Z","updatedAt":"2022-06-26T07:15:20.452Z"},{"id":3,"categoria":"Accesorios","createdAt":"2022-06-26T07:16:09.264Z","updatedAt":"2022-06-26T07:16:09.264Z"},{"id":7,"categoria":"Joyeria","createdAt":"2022-07-26T21:26:08.442Z","updatedAt":"2022-07-26T21:27:16.541Z"}]);
   const [catSelected, setCatSelected] = useState(-1);
 
   function LoadCats() {
@@ -125,11 +125,9 @@ function SubCatConfig(props) {
       setElementos(response.data);
     });
   }
-
   useEffect(() => {
     Load();
-  });
-
+  },[]);
   const [elementosFiltrados, setElementosFiltrados] = useState([]);
   useEffect(() => {
     if (buscar === "") {

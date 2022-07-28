@@ -29,7 +29,7 @@ function Locales() {
   const [provincia, setprovincia] = useState("");
   const [municipio, setmunicipio] = useState("");
   const [tipo, settipo] = useState(0);
-  const [locales, setLocal] = useState([]);
+  const [locales, setLocal] = useState([{"id":2,"direccion":"Matanzas, Jaguey, calle 36 /5 y 7 507A","nombre":"Tienda Jaguey","trabajadores":0,"tipo":0,"createdAt":"2022-07-27T05:50:40.116Z","updatedAt":"2022-07-27T05:51:19.932Z"},{"id":4,"direccion":"Matanzas, Jaguey, Calle 36 / 5 y 7","nombre":"Taller Jaguey","trabajadores":0,"tipo":1,"createdAt":"2022-07-27T05:53:19.348Z","updatedAt":"2022-07-27T05:53:19.348Z"}]);
   function Load() {
     axios.get(process.env.REACT_APP_SERVER + "local",  {headers:{
       "Bypass-Tunnel-Reminder":1
@@ -39,7 +39,7 @@ function Locales() {
   }
   useEffect(() => {
     Load();
-  });
+  },[]);
   useEffect(() => {
     console.log(tipo);
   }, [tipo]);

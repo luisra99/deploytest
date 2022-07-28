@@ -33,7 +33,7 @@ function Trabajadores() {
   const [contacto, setContacto] = useState("");
   const [local, setLocales] = useState([]);
   const [localSelected, setLocaleSelected] = useState(-1);
-  const [trabajadores, setTrabajadores] = useState([]);
+  const [trabajadores, setTrabajadores] = useState([{"id":7,"ci":"99080100702","direccion":"calle 36 entre 5 y 7","nombre":"Luis Raul","primer_apellido":"Alfonso","segundo_apellido":"Caballero","contacto":"55432748 luisraul.alfonso@gmail.com","salario_base":1000,"createdAt":"2022-07-27T05:59:41.856Z","updatedAt":"2022-07-27T06:00:01.769Z","id_local":2}]);
   function Load() {
     axios.get(process.env.REACT_APP_SERVER + "trabajador",  {headers:{
       "Bypass-Tunnel-Reminder":1
@@ -58,7 +58,7 @@ function Trabajadores() {
   }
   useEffect(() => {
     Load();
-  });
+  },[]);
   // useEffect(() => {
   //   console.log(localSelected)
   // }, [localSelected]);

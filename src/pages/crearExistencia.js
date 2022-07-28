@@ -66,7 +66,9 @@ function CrearExistencia({ id, close, load }) {
   useEffect(() => {
     if (id !== undefined) {
       axios
-        .get(process.env.REACT_APP_SERVER + "productoexist/" + id)
+        .get(process.env.REACT_APP_SERVER + "productoexist/" + id,  {headers:{
+          "Bypass-Tunnel-Reminder":1
+        }})
         .then((response) => {
           setProductoEditable(response.data);
         });
@@ -78,39 +80,53 @@ function CrearExistencia({ id, close, load }) {
     }
   }, [productoEditable]);
   useEffect(() => {
-    axios.get(process.env.REACT_APP_SERVER + "categoria").then((response) => {
+    axios.get(process.env.REACT_APP_SERVER + "categoria",  {headers:{
+      "Bypass-Tunnel-Reminder":1
+    }}).then((response) => {
       setCategorias(response.data);
     });
   }, []);
   useEffect(() => {
     axios
-      .get(process.env.REACT_APP_SERVER + "subcategoria")
+      .get(process.env.REACT_APP_SERVER + "subcategoria",  {headers:{
+        "Bypass-Tunnel-Reminder":1
+      }})
       .then((response) => {
         setSubCategorias(response.data);
       });
   }, []);
   useEffect(() => {
-    axios.get(process.env.REACT_APP_SERVER + "talla").then((response) => {
+    axios.get(process.env.REACT_APP_SERVER + "talla",  {headers:{
+      "Bypass-Tunnel-Reminder":1
+    }}).then((response) => {
       setTallas(response.data);
     });
   }, []);
   useEffect(() => {
-    axios.get(process.env.REACT_APP_SERVER + "material").then((response) => {
+    axios.get(process.env.REACT_APP_SERVER + "material",  {headers:{
+      "Bypass-Tunnel-Reminder":1
+    }}).then((response) => {
       setMaterial(response.data);
     });
   }, []);
   useEffect(() => {
-    axios.get(process.env.REACT_APP_SERVER + "color").then((response) => {
+    axios.get(process.env.REACT_APP_SERVER + "color",  {headers:{
+      "Bypass-Tunnel-Reminder":1
+    }}).then((response) => {
       setColor(response.data);
     });
   }, []);
   useEffect(() => {
-    axios.get(process.env.REACT_APP_SERVER + "curvatura").then((response) => {
+    axios.get(process.env.REACT_APP_SERVER + "curvatura",  {headers:{
+      "Bypass-Tunnel-Reminder":1
+    }}).then((response) => {
       setCurvaturas(response.data);
     });
   }, []);
   useEffect(() => {
-    axios.get(process.env.REACT_APP_SERVER + "local").then((response) => {
+    axios.get(process.env.REACT_APP_SERVER + "local",  {headers:{
+      "Bypass-Tunnel-Reminder":1
+    }}).then((response) => {
       setLocal(response.data);
     });
   }, []);
@@ -279,7 +295,9 @@ function CrearExistencia({ id, close, load }) {
         onSubmit={(values, { resetForm }) => {
           if (id === undefined) {
             axios
-              .post(process.env.REACT_APP_SERVER + "productoexist", values)
+              .post(process.env.REACT_APP_SERVER + "productoexist", values,  {headers:{
+                "Bypass-Tunnel-Reminder":1
+              }})
               .then((response) => {
                 Notificar(response);
                 response.data.titulo = "Producto Creado" ? resetForm() : "";
@@ -287,7 +305,9 @@ function CrearExistencia({ id, close, load }) {
               });
           } else {
             axios
-              .put(process.env.REACT_APP_SERVER + "productoexist/" + id, values)
+              .put(process.env.REACT_APP_SERVER + "productoexist/" + id, values,  {headers:{
+                "Bypass-Tunnel-Reminder":1
+              }})
               .then((response) => {
                 close(response);
                 load();
