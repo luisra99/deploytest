@@ -3,6 +3,7 @@ import axios from "axios";
 import { useState, useEffect, useRef } from "react";
 import { Table, Dropdown, Modal } from "react-bootstrap";
 import CrearExistencia from "./crearExistencia.js";
+import MrmaForm from "./mrmaform.js";
 import Alerta2 from "./notify.js";
 
 function Existencia() {
@@ -11,7 +12,6 @@ function Existencia() {
   const [orden, setOrden] = useState(true);
   function Notificar(respuesta) {
     setAlerta(false);
-
     childCompRef.current.AlertaConfig(respuesta);
     setAlerta(true);
   }
@@ -40,10 +40,27 @@ function Existencia() {
     if (alerta) setTimeout(hide, 15000);
   }, [alerta]);
   const [show, setShow] = useState(false);
+  const [showm, setShowM] = useState(false);
   const handleClose = (respuesta) => {
     if (!respuesta === undefined) Notificar(respuesta);
     setShow(false);
+    setShowM(false);
   };
+  const [totalm, settotalm] = useState(0);
+  const [almam, setalmam] = useState(0);
+  const [exposm, setexposm] = useState(0);
+  const [costo, setcosto] = useState(0);
+  const [precio, setprecio] = useState(0);
+  const [mrmc, setmrmc] = useState(false);
+  const GestionMerma=(id,total,almacen,exp,mc,c,p)=>{
+setmrmc(mc)
+settotalm(total)
+setalmam(almacen)
+setexposm(exp)
+setcosto(c)
+setprecio(p)
+Gestion(id,4)
+  }
   const Ordenar = () => {
     setOrden(!orden);
     orden
@@ -55,6 +72,7 @@ function Existencia() {
         );
   };
   const handleShow = () => setShow(true);
+  const handleShowM = () => setShowM(true);
 
   function Gestion(id, opcion) {
     switch (opcion) {
@@ -75,7 +93,7 @@ function Existencia() {
         handleShow();
         break;
       case 4:
-        console.log("Mermar");
+        handleShowM()
         break;
       case 5:
         if (window.confirm("Esta seguro que desea eliminar el producto?")) {
@@ -179,7 +197,10 @@ function Existencia() {
                               Trasladar
                             </Dropdown.Item>
                             <Dropdown.Item
-                              onClick={() => Gestion(producto.id_existencia, 4)}
+                              onClick={() => {
+                                setSeleccionado(producto.id_existencia);
+                                GestionMerma(producto.id_existencia,producto.total,producto.almacen,producto.area_de_venta,producto.merma_c,producto.costo,producto.precio)}
+                              }
                             >
                               Mermar
                             </Dropdown.Item>
@@ -218,6 +239,26 @@ function Existencia() {
             <CrearExistencia
               id={seleccionado}
               close={handleClose}
+              load={Load}
+            />
+          </div>
+        </Modal>
+        <Modal
+          show={showm}
+          onHide={handleClose}
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+        >
+          <div className="container">
+            <MrmaForm
+              id={seleccionado}
+              totalp={totalm}
+              alp={almam}
+              exp={exposm}
+              c={costo}
+              p={precio}
+              close={handleClose}
+              mrmc={mrmc}
               load={Load}
             />
           </div>

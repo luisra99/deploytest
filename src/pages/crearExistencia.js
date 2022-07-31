@@ -194,6 +194,7 @@ function CrearExistencia({ id, close, load }) {
       "merma_c",
       productoEditable.productoExist.merma_c
     );
+    setActiveState(productoEditable.productoExist.merma_c)
     setcosto(productoEditable.productoExist.costo);
     setprecio(productoEditable.productoExist.precio);
     setcomision(productoEditable.productoExist.comision);
