@@ -7,14 +7,10 @@ import axios from "axios";
 
 function MrmaForm({ id, close,save, load,totalp,alp,exp,mrmc,p,c }) {
   //#region Contenido
-  const childCompRef = useRef();
   const [activeState, setActiveState] = useState(false);
   const [merma, setmerma] = useState("");
-  const [total, settotal] = useState(totalp);
-  const [av, setAv] = useState(exp);
   const [precion, setprecion] = useState(p);
   const [avmc, setavmc] = useState(0);
-  const [al, setAl] = useState(alp);
   const [totaln, settotaln] = useState(totalp);
   const [avn, setAvn] = useState(exp);
   const [aln, setAln] = useState(alp);
@@ -26,16 +22,16 @@ function setn(t,e,a) {
 
   useEffect(() => {
 if(merma===""){
-  setn(total,av,al)
+  setn(totalp,exp,alp)
 }else{
-  if(merma>al){
-setAvn(av-merma+al)
-settotaln(total-merma)
+  if(merma>alp){
+setAvn(exp-merma+alp)
+settotaln(totalp-merma)
 setAln(0)
 
   }else{
-settotaln(total-merma)
-setAln(al-merma)
+settotaln(totalp-merma)
+setAln(alp-merma)
   }
 }
   }, [merma]);
@@ -64,7 +60,7 @@ avmc:""
     total: Yup.number()
       .typeError(" (valor numérico)")
       .required(" *")
-      .max(total, " Inaceptable"),
+      .max(totalp, " Inaceptable"),
     merma_c: Yup.boolean(),
       avmc: Yup.number()
       .when(["merma_c"],{
@@ -206,7 +202,7 @@ avmc:""
                   <div className="col-12">
                     <label><b> Costo:</b> {c} </label> <label> <b>Precio:</b> {p} </label> <br/>
                     <label>Estado Actual </label><br/>
-                    <label><b> Total:</b> {total} </label> <label> <b>Almacen:</b> {al} </label> <label> <b> Exposición:</b> {av} </label><br/>
+                    <label><b> Total:</b> {totalp} </label> <label> <b>Almacen:</b> {alp} </label> <label> <b> Exposición:</b> {exp} </label><br/>
                     <label>Nuevo Estado </label><br/>
                     <label><b> Total:</b> {totaln} </label> <label> <b>Almacen:</b> {aln} </label> <label> <b> Exposición:</b> {avn} </label><br/>
                   </div>
@@ -214,7 +210,7 @@ avmc:""
               <div className="row justify-content-center">
 
                 <button
-                  className="btn btn-primary col-11 col-sm-5 col-md-5 col-lg-5"
+                  className="btn btn-secondary col-11 col-sm-5 col-md-5 col-lg-5"
                   variant="secondary"
                   type="button"
                   onClick={close}
@@ -225,11 +221,13 @@ avmc:""
                  Cancelar
                 </button>
                 <button
-                  className="btn btn-warning col-12 "
+                  className="btn btn-warning col-11 col-sm-5 col-md-5 col-lg-5"
                   variant="success"
                   disabled={!props.isValid}
                   type="submit"
-                  
+                  style={{
+                    margin: "5px",
+                  }}
                 >
                 Mermar
                 </button>
