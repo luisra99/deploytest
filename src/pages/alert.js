@@ -9,12 +9,7 @@ const Alerta = forwardRef((props, ref) => {
   useImperativeHandle(ref, () => ({
     AlertaConfig(respuesta) {
       const tipo =
-        respuesta.status > 300
-          ? "danger"
-          : respuesta.status < 200
-          ? "primary"
-          : "success";
-      setTipoAlerta(tipo);
+      setTipoAlerta(respuesta.data.status);
       setTitulo(respuesta.data.titulo);
       setMensaje(respuesta.data.mensaje);
     },

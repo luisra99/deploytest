@@ -1,33 +1,15 @@
 import React from "react";
 import { useState, useEffect, useRef } from "react";
 import { Formik, Form, ErrorMessage, Field } from "formik";
-import { Row, Col } from "react-bootstrap";
-import Alerta2 from "./notify.js";
+import { Row } from "react-bootstrap";
 import * as Yup from "yup";
 import axios from "axios";
-import { GiAvoidance } from "react-icons/gi";
 
-function MrmaForm({ id, close, load,totalp,alp,exp,mrmc,p,c }) {
+function MrmaForm({ id, close,save, load,totalp,alp,exp,mrmc,p,c }) {
   //#region Contenido
   const childCompRef = useRef();
-  const [alerta, setAlerta] = useState(false);
-  function Notificar(respuesta) {
-    setAlerta(false);
-    childCompRef.current.AlertaConfig(respuesta);
-    setAlerta(true);
-  }
-  function hide() {
-    setAlerta(false);
-  }
-  // useEffect(() => {
-  //   if (productoEditable.productoExist.id !== "") {
-  //     setEditValues();
-  //   }
-  // }, [productoEditable]);
-  
   const [activeState, setActiveState] = useState(false);
   const [merma, setmerma] = useState("");
-  const [idd, setid] = useState(67);
   const [total, settotal] = useState(totalp);
   const [av, setAv] = useState(exp);
   const [precion, setprecion] = useState(p);
@@ -41,12 +23,7 @@ function setn(t,e,a) {
   setAvn(e)
   setAln(a)
 }
-  function resetFields() {
-    setActiveState(false);
-    settotal("");
-    setAl("");
-    setAv("");
-  }
+
   useEffect(() => {
 if(merma===""){
   setn(total,av,al)
@@ -121,7 +98,7 @@ avmc:""
               },
             })
             .then((response) => {
-              close(response);
+              save(response);
               load();
             });
         }
@@ -131,9 +108,6 @@ avmc:""
           //  console.log(props);
           return (
             <Form className="Formi" style={{margin:"15px"}}>
-              <div onClick={hide}>
-                <Alerta2 ref={childCompRef} visible={alerta} />
-              </div>
               <div>
                 <Row className="justify-content-center">
                   <div className="col-12">
@@ -237,15 +211,29 @@ avmc:""
                     <label><b> Total:</b> {totaln} </label> <label> <b>Almacen:</b> {aln} </label> <label> <b> Exposición:</b> {avn} </label><br/>
                   </div>
                 </Row>
+              <div className="row justify-content-center">
+
                 <button
-                  className="btn btn-primary col-12 "
+                  className="btn btn-primary col-11 col-sm-5 col-md-5 col-lg-5"
+                  variant="secondary"
+                  type="button"
+                  onClick={close}
+                  style={{
+                    margin: "5px",
+                  }}
+                >
+                 Cancelar
+                </button>
+                <button
+                  className="btn btn-warning col-12 "
                   variant="success"
                   disabled={!props.isValid}
                   type="submit"
                   
                 >
-                  {id === undefined ? "Guardar" : "Actualizar"}
+                Mermar
                 </button>
+                </div>
               </div>
               </Form>
           );

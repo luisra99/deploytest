@@ -6,7 +6,7 @@ import Alerta2 from "./notify.js";
 import * as Yup from "yup";
 import axios from "axios";
 
-function CrearExistencia({ id, close, load }) {
+function CrearExistencia({ id, close, load,save }) {
   //#region Contenido
   const childCompRef = useRef();
   const [alerta, setAlerta] = useState(false);
@@ -310,7 +310,7 @@ function CrearExistencia({ id, close, load }) {
                 "Bypass-Tunnel-Reminder":1
               }})
               .then((response) => {
-                close(response);
+                save(response);
                 load();
               });
           }
@@ -402,7 +402,7 @@ function CrearExistencia({ id, close, load }) {
                       ))}
                     </Field>
                   </Col>
-                  <Col>
+                  {id === undefined ? (<Col>
                     <label>Curvatura </label>
                     <Field
                       as="select"
@@ -421,7 +421,7 @@ function CrearExistencia({ id, close, load }) {
                         </option>
                       ))}
                     </Field>
-                  </Col>
+                  </Col>):""}
                   {id === undefined ? (
                     <Col>
                       <label>Material </label>
@@ -626,7 +626,8 @@ function CrearExistencia({ id, close, load }) {
                       type="text"
                       value={av}
                       style={
-                        av === "Déficit" ? { color: "red" } : { color: "green" }
+                        av === "Déficit" ? { color: "red" ,marginBottom:"5px"} : { color: "green",marginBottom:"5px" }
+                        
                       }
                       /* This name property is used to access the value of the form element via values.nameOfElement */
                       name="area_de_venta"
@@ -637,14 +638,25 @@ function CrearExistencia({ id, close, load }) {
                   </div>
                 </Row>
               </div>
-              <div className="text-center">
+              <div className="row justify-content-center">
+              {id !== undefined ?<button
+                  className="btn btn-secondary col-11 col-sm-5 col-md-5 col-lg-5"
+                  variant="secondary"
+                  type="button"
+                  onClick={close}
+                  style={{
+                    margin: "5px",
+                  }}
+                >
+                 Cancelar
+                </button>:""}
                 <button
-                  className="btn btn-primary col-xs-11 col-sm-7 col-md-7 col-lg-7"
+                  className="btn btn-primary col-11 col-sm-5 col-md-5 col-lg-5"
                   variant="success"
                   disabled={!props.isValid}
                   type="submit"
                   style={{
-                    margin: "10px",
+                    margin: "5px",
                   }}
                 >
                   {id === undefined ? "Guardar" : "Actualizar"}

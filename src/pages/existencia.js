@@ -42,7 +42,11 @@ function Existencia() {
   const [show, setShow] = useState(false);
   const [showm, setShowM] = useState(false);
   const handleClose = (respuesta) => {
-    if (!respuesta === undefined) Notificar(respuesta);
+    Notificar(respuesta);
+    setShow(false);
+    setShowM(false);
+  };
+  const Close = () => {
     setShow(false);
     setShowM(false);
   };
@@ -231,21 +235,23 @@ Gestion(id,4)
         </Table>
         <Modal
           show={show}
-          onHide={handleClose}
+          onHide={Close}
           aria-labelledby="contained-modal-title-vcenter"
           centered
         >
           <div className="container">
             <CrearExistencia
               id={seleccionado}
-              close={handleClose}
+              close={Close}
+              save={handleClose}
+
               load={Load}
             />
           </div>
         </Modal>
         <Modal
           show={showm}
-          onHide={handleClose}
+          onHide={Close}
           aria-labelledby="contained-modal-title-vcenter"
           centered
         >
@@ -257,7 +263,8 @@ Gestion(id,4)
               exp={exposm}
               c={costo}
               p={precio}
-              close={handleClose}
+              close={Close}
+              save={handleClose}
               mrmc={mrmc}
               load={Load}
             />
