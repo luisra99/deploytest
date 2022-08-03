@@ -114,7 +114,7 @@ function Configuration(props) {
   //#endregion
   return (
     <div
-      className="col-sm-4 col-md-4 col-lg-4 "
+      className="col-12 col-sm-6 col-md-6 col-lg-4 "
       style={{ paddingBottom: "12px" }}
     >
       <div onClick={hide}>
@@ -162,7 +162,7 @@ function Configuration(props) {
                     // LLave
                     <tr key={item.id}>
                       {/* Celdas */}
-                      <td onClick={() => Editar(item.id)}>
+                      <td className="col-8" onClick={() => Editar(item.id)}>
                         {id === item.id && modoEdicion ? (
                           <React.Fragment>
                             <input
@@ -178,37 +178,46 @@ function Configuration(props) {
                           <React.Fragment>{item[elemento]}</React.Fragment>
                         )}
                       </td>
-                      <td>
+                      <td className="col-4">
                         {id === item.id && modoEdicion ? (
-                          <React.Fragment>
+                          <div
+                            style={{
+                              justifyContent: "flex-end",
+                              display: "flex",
+                            }}
+                          >
                             <button
-                              className="btn btn-primary btn-sm float-right mx-2"
-                              type="submit"
-                              style={{ display: "inline-block" }}
+                              className="btn btn-primary btn-sm"
+                              style={{ display: "inline-block", margin: "0px" }}
                               onClick={Guardar}
                             >
                               <MdSave size={20} />
                             </button>
                             <button
-                              className="btn btn-secondary btn-sm float-right mx-2"
-                              type="submit"
-                              style={{ display: "inline-block" }}
+                              className="btn btn-secondary btn-sm "
+                              style={{
+                                display: "inline-block",
+                                marginLeft: "2px",
+                              }}
                               onClick={() => Cancelar()}
                             >
                               <MdCancel size={20} />
                             </button>
-                          </React.Fragment>
+                          </div>
                         ) : (
-                          <React.Fragment>
+                          <div
+                            style={{
+                              justifyContent: "flex-end",
+                              display: "flex",
+                            }}
+                          >
                             <button
                               className="btn btn-danger btn-sm"
-                              type="submit"
-                              style={{ display: "inline-block" }}
                               onClick={() => Eliminar(item.id)}
                             >
                               <MdDelete size={20} />
                             </button>
-                          </React.Fragment>
+                          </div>
                         )}
                       </td>
                     </tr>

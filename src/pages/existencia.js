@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { useState, useEffect, useRef } from "react";
-import { Table, Dropdown, Modal } from "react-bootstrap";
+import {Modal } from "react-bootstrap";
 import CrearExistencia from "./crearExistencia.js";
 import MrmaForm from "./mrmaform.js";
 import Alerta2 from "./notify.js";
@@ -127,8 +127,9 @@ Gestion(id,4)
         <div onClick={hide}>
           <Alerta2 ref={childCompRef} visible={alerta} />
         </div>
-        <Table className="table table-striped table-sm">
-          <thead>
+        <div id="ptable">
+        <table className="col-md-12 table cf">
+          <thead className="cf">
             <tr>
               <th>Artículo</th>
               <th>Detalles</th>
@@ -142,7 +143,9 @@ Gestion(id,4)
             {productos_existencia.map((producto) => {
               return (
                 <tr key={producto.id_existencia}>
-                  <td>
+                  <td style={{minWidth:"140px"}}
+                    data-title="Artículo"
+                  >
                     <b>
                       {producto.sub_categoria} de {producto.material}
                       <br />
@@ -152,21 +155,30 @@ Gestion(id,4)
                     <br />
                     <b>Color:</b> {producto.color}
                   </td>
-                  <td>
+                  <td
+style={{minWidth:"100px"}}
+                    data-title="Detalles"
+                  >
                     <b>Talla:</b> {producto.talla}
                     <br />
                     <b>Precio:</b> {producto.precio}
                     <br />
                     <b>Total:</b> {producto.total}
                   </td>
-                  <td>{producto.descripcion}</td>
                   <td
+                    data-title="Descripción"
+                    style={{ minWidth:"150px"}}
+                  >
+                    {producto.descripcion}
+                  </td>
+                  <td
+                    data-title="Existencias"
                     style={
                       producto.total > 0
                         ? producto.area_de_venta === 0
-                          ? { color: "coral" }
-                          : { color: "black" }
-                        : { color: "red" }
+                          ? { color: "coral",minWidth:"140px" }
+                          : { color: "black" ,minWidth:"140px"}
+                        : { color: "red",minWidth:"140px"}
                     }
                   >
                     <b>{producto.total > 0 ? "Total: " : "Inexistente"}</b>{" "}
@@ -181,58 +193,71 @@ Gestion(id,4)
                         : "No Representado"
                       : ""}
                   </td>
-                  <td>{producto.nombre}</td>
-                  <td>
-                    <Dropdown id={producto.id_existencia}>
-                      <Dropdown.Toggle variant="success" id="dropdown-basic">
-                        Acciones
-                      </Dropdown.Toggle>
-                      <Dropdown.Menu>
-                        {producto.total > 0 ? (
-                          <>
-                            <Dropdown.Item
-                              onClick={() => Gestion(producto.id_existencia, 1)}
-                            >
-                              Vender
-                            </Dropdown.Item>
-                            <Dropdown.Item
-                              onClick={() => Gestion(producto.id_existencia, 2)}
-                            >
-                              Trasladar
-                            </Dropdown.Item>
-                            <Dropdown.Item
-                              onClick={() => {
-                                setSeleccionado(producto.id_existencia);
-                                GestionMerma(producto.id_existencia,producto.total,producto.almacen,producto.area_de_venta,producto.merma_c,producto.costo,producto.precio)}
-                              }
-                            >
-                              Mermar
-                            </Dropdown.Item>
-                          </>
-                        ) : (
-                          ""
-                        )}
-                        <Dropdown.Item
+                  <td
+                    data-title="Local"
+                  >
+                    {producto.nombre}
+                  </td>
+                  <td id="acciones" style={{padding:"0px" }}
+                  >
+                    <div className="text-center" >
+                    {producto.total > 0 ? (
+                      <>
+                        <button
+                              className="btn btn-success btn-sm "
+                          onClick={() => Gestion(producto.id_existencia, 1)}
+                        >
+                          Vender
+                        </button>
+                        <button
+                              className="btn btn-warning btn-sm "
                           onClick={() => {
                             setSeleccionado(producto.id_existencia);
-                            Gestion(producto.id_existencia, 3);
+                            GestionMerma(
+                              producto.id_existencia,
+                              producto.total,
+                              producto.almacen,
+                              producto.area_de_venta,
+                              producto.merma_c,
+                              producto.costo,
+                              producto.precio
+                            );
                           }}
+                          
                         >
-                          Modificar
-                        </Dropdown.Item>
-                        <Dropdown.Item
-                          onClick={() => Gestion(producto.id_existencia, 5)}
-                        >
-                          Eliminar
-                        </Dropdown.Item>
-                      </Dropdown.Menu>
-                    </Dropdown>
+                          Mermar
+                        </button>
+                        
+                      </>
+                    ) : (
+                      ""
+                    )}
+                    <>
+                    <button
+                              className="btn btn-primary btn-sm "
+
+                      onClick={() => {
+                        setSeleccionado(producto.id_existencia);
+                        Gestion(producto.id_existencia, 3);
+                      }}
+                    >
+                      Modificar
+                    </button>
+                    <button 
+                              className="btn btn-danger btn-sm "
+                              onClick={() => Gestion(producto.id_existencia, 5)}>
+                      Eliminar
+                    </button>
+                    </>
+                    </div>
                   </td>
                 </tr>
               );
             })}
           </tbody>
-        </Table>
+        </table>
+        </div>
+        
         <Modal
           show={show}
           onHide={Close}

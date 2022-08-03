@@ -479,10 +479,14 @@ function Trabajadores() {
                   <td>{item.contacto}</td>
                   <td>{item.id_local}</td>
                   <td>
+                  <div
+                      style={{
+                        justifyContent: "flex-end",
+                        display: "flex",
+                      }}>
                     <button
-                      className="btn btn-success btn-sm float-right mx-2"
-                      type="submit"
-                      style={{ display: "inline-block" }}
+                      className="btn btn-success btn-sm"
+                      style={{ display: "inline-block" , margin: "0px" }}
                       onClick={() =>
                         Editar(
                           item.id,
@@ -501,12 +505,12 @@ function Trabajadores() {
                     </button>
                     <button
                       className="btn btn-danger btn-sm"
-                      type="submit"
-                      style={{ display: "inline-block" }}
+                      style={{ display: "inline-block" , marginLeft: "2px" }}
                       onClick={() => Eliminar(item.id)}
                     >
                       <MdDelete size={20} />
                     </button>
+                    </div>
                   </td>
                 </tr>
               );

@@ -37,8 +37,8 @@ export const Navbar = ({ children }) => {
       icon: <BsPeopleFill />,
     },
     {
-      path: "/merma",
-      name: "Reparación",
+      path: "/test",
+      name: "Test",
       icon: <GiSewingMachine />,
     },
     {
