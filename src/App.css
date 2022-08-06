@@ -38,6 +38,11 @@ padding:0px;
 @media (max-width: 767.98px) {
   .sidebar {
     top: 5rem;
+    padding-top:0px
+  }
+  .link-nav{
+    color:#fff;
+    padding-left: 25px;
   }
 }
 
@@ -160,11 +165,19 @@ box-shadow: -10px 0px 13px -7px #000000, 10px 0px 13px -7px #000000, inset 0px 0
   font-size:auto;
 }
 #ptable button{
- margin:2px;
- width: 75px;
-height: 35px;
+  margin: 2px;
+  width: 40px;
+  height: 40px;
+  transition:all 0.3s;
+  border-radius: 40px;
+   -webkit-box-shadow: 0px 10px 13px -7px #000000, inset 0px 0px 1px -8px rgba(0,0,0,0); 
+box-shadow: 0px 10px 13px -7px #000000, inset 0px 0px 13px -8px rgba(0,0,0,0);
 }
-
+#ptable button:hover{
+  transform: scale(1.1);
+  -webkit-box-shadow: 0px 10px 13px -7px #000000, inset 0px 0px 13px -8px rgba(0,0,0,0); 
+box-shadow: 0px 10px 13px -7px #000000, inset 0px 0px 13px -8px rgba(0,0,0,0);
+}
 
 @media only screen and (max-width: 450px) {
 #ptable table, 
@@ -175,7 +188,9 @@ height: 35px;
 	#ptable tr { 
 		display: block; 
 	}
-  
+  #ptable button{
+    margin-left:15px
+  }
 	/* Hide table headers (but not display: none;, for accessibility) */
 	#ptable thead tr { 
 		position: absolute;

@@ -4,6 +4,8 @@ import { useState, useEffect, useRef } from "react";
 import {Modal } from "react-bootstrap";
 import CrearExistencia from "./crearExistencia.js";
 import MrmaForm from "./mrmaform.js";
+import { MdDelete,MdOutlineProductionQuantityLimits,MdOutlineAttachMoney,MdEdit} from "react-icons/md";
+
 import Alerta2 from "./notify.js";
 
 function Existencia() {
@@ -207,7 +209,7 @@ style={{minWidth:"100px"}}
                               className="btn btn-success btn-sm "
                           onClick={() => Gestion(producto.id_existencia, 1)}
                         >
-                          Vender
+                          <MdOutlineAttachMoney size={20}/>
                         </button>
                         <button
                               className="btn btn-warning btn-sm "
@@ -224,8 +226,7 @@ style={{minWidth:"100px"}}
                             );
                           }}
                           
-                        >
-                          Mermar
+                        ><MdOutlineProductionQuantityLimits  size={20}/>
                         </button>
                         
                       </>
@@ -241,12 +242,13 @@ style={{minWidth:"100px"}}
                         Gestion(producto.id_existencia, 3);
                       }}
                     >
-                      Modificar
+                                               <MdEdit size={20}/>
+
                     </button>
                     <button 
                               className="btn btn-danger btn-sm "
-                              onClick={() => Gestion(producto.id_existencia, 5)}>
-                      Eliminar
+                              onClick={() => Gestion(producto.id_existencia, 5)}><MdDelete size={20} />
+                      
                     </button>
                     </>
                     </div>

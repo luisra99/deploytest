@@ -1,10 +1,7 @@
 import React, { useState } from "react";
 import { Form } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
-import { HiShoppingCart } from "react-icons/hi";
-import { IoIosAddCircle } from "react-icons/io";
-import { BsReceiptCutoff, BsPeopleFill } from "react-icons/bs";
-import { AiFillHome, AiFillSetting, AiTwotoneShop } from "react-icons/ai";
+import{ MdAddCircle,MdHome,MdShoppingCart,MdReceipt,MdStore,MdPeopleAlt,MdMonetizationOn,MdSettings} from 'react-icons/md'
 import { GiSewingMachine, GiTakeMyMoney } from "react-icons/gi";
 export const Navbar = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,49 +9,49 @@ export const Navbar = ({ children }) => {
   const close = () => setIsOpen(false);
   const menuItem = [
     {
-      path: "/home",
+      path: "/",
       name: "Inicio",
-      icon: <AiFillHome />,
+      icon: <MdHome size={25}/>,
     },
     {
-      path: "/",
+      path: "/existencia",
       name: "Existencia",
-      icon: <HiShoppingCart />,
+      icon: <MdShoppingCart size={25}/>,
     },
     {
       path: "/exist/create",
-      name: "Nuevo Producto",
-      icon: <IoIosAddCircle />,
+      name: "Producto",
+      icon: <MdAddCircle size={25}/>,
     },
     {
       path: "/vales",
       name: "Vales",
-      icon: <BsReceiptCutoff />,
+      icon: <MdReceipt size={25}/>,
     },
     {
       path: "/locales",
       name: "Locales",
-      icon: <AiTwotoneShop />,
+      icon: <MdStore size={25}/>,
     },
     {
       path: "/trabajadores",
       name: "Trabajadores",
-      icon: <BsPeopleFill />,
+      icon: <MdPeopleAlt size={25}/>,
     },
     {
       path: "/test",
       name: "Test",
-      icon: <GiSewingMachine />,
+      icon: <MdSettings size={25}/>,
     },
     {
       path: "/cont",
       name: "Contabilidad",
-      icon: <GiTakeMyMoney />,
+      icon: <MdMonetizationOn size={25}/>,
     },
     {
       path: "/config",
       name: "Configuración",
-      icon: <AiFillSetting />,
+      icon: <MdSettings size={25}/>,
     },
     
   ];

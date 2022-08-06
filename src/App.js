@@ -21,14 +21,14 @@ function App() {
         <Navbar>
           <Routes>
             <Route path="/vales" element={<Vales />} exact />
-            <Route path="/" element={<Existencia />} exact />
+            <Route path="/existencia" element={<Existencia />} exact />
             <Route path="/exist/create" element={<CrearExistencia />} exact />
             <Route path="/config" element={<Configuration2 />} exact />
             <Route path="/locales" element={<Locales />} exact />
             <Route path="/trabajadores" element={<Trabajadores />} exact />
             <Route path="/cont" element={<Gastos />} exact />
-            <Route path="/home" element={<Home />} exact />
-            <Route path="/test" element={<ResumeCard title="Gastos" day="100" week="5000" month="7500" year="14000" link="/"/>} exact />
+            <Route path="/" element={<Home />} exact />
+            {/* <Route path="/test" element={<ResumeCard title="Gastos" day="100" week="5000" month="7500" year="14000" link="/"/>} exact /> */}
           </Routes>
         </Navbar>
       </Router>
