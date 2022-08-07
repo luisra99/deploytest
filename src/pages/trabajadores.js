@@ -452,7 +452,7 @@ function Trabajadores() {
       <h3>
         Empleados <i>{trabajadores.length}</i>
       </h3>
-      <div className="table-responsive" style={{ paddingBottom: "30px" }}>
+      <div id="ptable" style={{ paddingBottom: "30px" }}>
         <Table className="table table-striped table-sm">
           <thead>
             <tr>
@@ -460,33 +460,30 @@ function Trabajadores() {
               <th>Nombre</th>
               <th>Contacto</th>
               <th>Local</th>
+              <th style={{textAlign:"center"}}>Acciones</th>
             </tr>
           </thead>
           <tbody>
             {trabajadores.map((item) => {
               return (
                 <tr key={item.id}>
-                  <td>
+                  <td  data-title="CI">
                     {item.ci}
                     <br />
                     {item.direccion}
                   </td>
-                  <td>
+                  <td  data-title="Nombre">
                     {item.nombre}
                     <br />
                     {item.primer_apellido} {item.segundo_apellido}
                   </td>
-                  <td>{item.contacto}</td>
-                  <td>{item.id_local}</td>
-                  <td>
+                  <td  data-title="Contacto">{item.contacto}</td>
+                  <td  data-title="Local">{item.id_local}</td>
+                  <td style={{paddingLeft: "0px"}}>
                   <div
-                      style={{
-                        justifyContent: "flex-end",
-                        display: "flex",
-                      }}>
+                      className="text-center" >
                     <button
-                      className="btn btn-success btn-sm"
-                      style={{ display: "inline-block" , margin: "0px" }}
+                      className="btn btn-sm "
                       onClick={() =>
                         Editar(
                           item.id,
@@ -500,15 +497,15 @@ function Trabajadores() {
                           item.id_local
                         )
                       }
-                    >
-                      <MdEdit size={20} />
+                    > <MdEdit size={18}/>
+                    Editar
                     </button>
                     <button
-                      className="btn btn-danger btn-sm"
-                      style={{ display: "inline-block" , marginLeft: "2px" }}
+                      className="btn btn-sm "
                       onClick={() => Eliminar(item.id)}
                     >
                       <MdDelete size={20} />
+                      Eliminar
                     </button>
                     </div>
                   </td>

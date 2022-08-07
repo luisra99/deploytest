@@ -318,7 +318,7 @@ function Locales() {
       <h3>
         Locales <i>{locales.length}</i>
       </h3>
-      <div className="table-responsive" style={{ paddingBottom: "30px" }}>
+      <div className="table-responsive" id="ptable" style={{ paddingBottom: "30px" }}>
         <Table className="table table-striped table-sm">
           <thead>
             <tr>
@@ -326,6 +326,7 @@ function Locales() {
               <th>Direccion</th>
               <th>Tipo</th>
               <th>Trabajadores</th>
+              <th style={{textAlign:"center"}}>Acciones</th>
             </tr>
           </thead>
           <tbody>
@@ -336,15 +337,12 @@ function Locales() {
                   <td>{local.direccion}</td>
                   <td>{local.tipo === 0 ? "Tienda" : "Taller"}</td>
                   <td>{local.trabajadores}</td>
-                  <td>
+                  <td style={{paddingLeft: "0px"}}>
                   <div
-                      style={{
-                        justifyContent: "flex-end",
-                        display: "flex",
-                      }}>
+                      className="text-center" >
                     <button
-                      className="btn btn-success btn-sm"
-                      style={{ display: "inline-block" , margin: "0px" }}
+                      className="btn btn-sm"
+                      
                       onClick={() =>
                         Editar(
                           local.id,
@@ -355,13 +353,14 @@ function Locales() {
                       }
                     >
                       <MdEdit size={20} />
+                      Editar
                     </button>
                     <button
-                     className="btn btn-danger btn-sm"
-                     style={{ display: "inline-block" , marginLeft: "2px" }}
+                     className="btn btn-sm"
+                   
                       onClick={() => Eliminar(local.id)}
                     >
-                      <MdDelete size={20} />
+                      <MdDelete size={20} />Eliminar
                     </button>
                     </div>
                   </td>

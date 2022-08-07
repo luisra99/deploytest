@@ -278,7 +278,7 @@ function Gastos() {
       <h3>
         Gastos <i>{gastos.length}</i>
       </h3>
-      <div className="table-responsive" style={{ paddingBottom: "30px" }}>
+      <div id="ptable" className="table-responsive" style={{ paddingBottom: "30px" }}>
         <Table className="table table-striped table-sm">
           <thead>
             <tr>
@@ -286,6 +286,7 @@ function Gastos() {
               <th>Tipo</th>
               <th>Descripción</th>
               <th>Monto</th>
+              <th style={{textAlign:"center"}}>Acciones</th>
             </tr>
           </thead>
           <tbody>
@@ -321,44 +322,38 @@ function Gastos() {
                   <td>
                     {id === gasto.id && modoEdicion ? (
                       <div
-                      style={{
-                        justifyContent: "flex-end",
-                        display: "flex",
-                      }}>
+                      className="text-center">
                         <button
-                          className="btn btn-primary btn-sm"
-                          style={{ display: "inline-block" , margin: "0px" }}
+                          className="btn btn-sm"
                           onClick={Guardar}
+                          style={{paddingLeft:"5px"}}
+
                         >
-                          <MdSave size={20} />
+                          <MdSave size={20} /> Guardar
                         </button>
                         <button
-                          className="btn btn-secondary btn-sm"
-                          style={{ display: "inline-block", marginLeft: "2px" }}
+                          className="btn btn-sm"
+                          style={{paddingLeft:"5px"}}
                           onClick={() => Cancelar()}
                         >
-                          <MdCancel size={20} />
+                          <MdCancel size={20} />Cancelar
                         </button>
                       </div>
                     ) : (
                       <div
-                            style={{
-                              justifyContent: "flex-end",
-                              display: "flex",
-                            }}
+                            className="text-center"
                           >
                         <button
-                          className="btn btn-success btn-sm float-right mx-2"
-                          style={{ display: "inline-block" }}
+                          className="btn btn-sm "
                           onClick={() => Editar(gasto.id, gasto.monto)}
                         >
-                          <MdEdit size={20} />
+                          <MdEdit size={20} />Editar
                         </button>
                         <button
-                          className="btn btn-danger btn-sm"
+                          className="btn btn-sm"
                           onClick={() => Eliminar(gasto.id)}
                         >
-                          <MdDelete size={20} />
+                          <MdDelete size={20} />Eliminar
                         </button>
                       </div>
                     )}

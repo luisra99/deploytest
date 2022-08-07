@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import {Modal,Table } from "react-bootstrap";
 import CrearExistencia from "./crearExistencia.js";
 import MrmaForm from "./mrmaform.js";
-import { MdDelete,MdOutlineProductionQuantityLimits,MdOutlineAttachMoney,MdEdit} from "react-icons/md";
+import { MdWarning,MdOutlineProductionQuantityLimits,MdOutlineAttachMoney,MdEdit} from "react-icons/md";
 
 import Alerta2 from "./notify.js";
 
@@ -152,10 +152,18 @@ Gestion(id,4)
                       {producto.sub_categoria} de {producto.material}
                       <br />
                       {producto.curvatura === "Standar" ? "" : "para"}{" "}
-                      {producto.curvatura}
+                      {producto.curvatura} <MdWarning size={25}
+                     style={
+                      producto.total > 0
+                        ? producto.area_de_venta === 0
+                          ? { animation: "blinkingText3 2s infinite",color:"orange",marginTop: "-9px" }
+                          : {minWidth:"140px",display:"none"}
+                        : {
+                          animation: "blinkingText3 2s infinite",color:"red",marginTop: "-9px"}
+                    }/>
                     </b>
                     <br />
-                    <b>Color:</b> {producto.color}
+                    <b>Color:</b> {producto.color} 
                   </td>
                   <td
 style={{minWidth:"100px"}}
@@ -178,9 +186,10 @@ style={{minWidth:"100px"}}
                     style={
                       producto.total > 0
                         ? producto.area_de_venta === 0
-                          ? { color: "coral",minWidth:"140px" }
+                          ? { animation: "blinkingText 2s infinite",minWidth:"140px" }
                           : { color: "black" ,minWidth:"140px"}
-                        : { color: "red",minWidth:"140px"}
+                        : {
+                          animation: "blinkingText 2s infinite",minWidth:"140px"}
                     }
                   >
                     <b>{producto.total > 0 ? "Total: " : "Inexistente"}</b>{" "}
@@ -249,7 +258,7 @@ Editar
                     </button>
                     <button 
                               className="btn btn-sm "
-                              onClick={() => Gestion(producto.id_existencia, 5)}><MdDelete size={18} />
+                              onClick={() => Gestion(producto.id_existencia, 5)}><MdWarning size={18} />
                       Borrar
                     </button>
                     </>

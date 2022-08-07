@@ -12,7 +12,7 @@ function Vales() {
   }, []);
 
   return (
-    <div className="table-responsive">
+    <div  id="ptable">
       <Table className="table table-striped table-sm">
         <thead>
           <tr>
