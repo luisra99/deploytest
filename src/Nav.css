@@ -32,3 +32,9 @@
 .resume-card:hover{
   transform: scale(1.1);
 }
+#ptable table{
+  --bs-table-striped-bg: rgba(44, 105, 117, 0.13);
+}
+.table-hover > tbody > tr:hover > * {
+  color: #225059;
+  background: #2c69752b;}

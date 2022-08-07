@@ -21,12 +21,7 @@ function Home() {
   return (
     <div className="text-center">
       <div className="row justify-content-center">
-        <Card
-          titulo="Ingreso Actual"
-          valor={resumen.ia}
-          etitulo="Ingreso Restante Estimado"
-          evalor={resumen.ier}
-        />
+        
         <Card
           titulo="Ingreso de hoy"
           valor={resumen.impd}
@@ -44,6 +39,12 @@ function Home() {
           valor={resumen.impm}
           etitulo="Ingreso promedio"
           evalor={resumen.pimpm}
+        />
+        <Card
+          titulo="Este año"
+          valor={resumen.ia}
+          etitulo="Ingreso Estimado"
+          evalor={resumen.ier}
         />
         <Card
           titulo="Comisiones"

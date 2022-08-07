@@ -166,12 +166,24 @@ box-shadow: -10px 0px 13px -7px #000000, 10px 0px 13px -7px #000000, inset 0px 0
 }
 #ptable button{
   margin: 2px;
-  width: 40px;
-  height: 40px;
+  width: 89px;
+  height: 33px;
   transition:all 0.3s;
-  border-radius: 40px;
-   -webkit-box-shadow: 0px 10px 13px -7px #000000, inset 0px 0px 1px -8px rgba(0,0,0,0); 
-box-shadow: 0px 10px 13px -7px #000000, inset 0px 0px 13px -8px rgba(0,0,0,0);
+  background: #2c6975;
+border-color: #2c6975;
+font-weight: 600;
+color:whitesmoke;
+  /* border-radius: 40px; */
+/* box-shadow: 0px 10px 20px -7px #000000, inset 0px 0px 13px -8px rgba(0,0,0,0); */
+}
+#ptable th{
+  background:#2c6975;
+  color: whitesmoke;
+text-shadow: 1px 1px 3px black;
+border:#2c6975;
+}
+#ptable tr{
+  text-shadow: 1px 1px 1px #00000045;
 }
 #ptable button:hover{
   transform: scale(1.1);

@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { useState, useEffect, useRef } from "react";
-import {Modal } from "react-bootstrap";
+import {Modal,Table } from "react-bootstrap";
 import CrearExistencia from "./crearExistencia.js";
 import MrmaForm from "./mrmaform.js";
 import { MdDelete,MdOutlineProductionQuantityLimits,MdOutlineAttachMoney,MdEdit} from "react-icons/md";
@@ -130,7 +130,7 @@ Gestion(id,4)
           <Alerta2 ref={childCompRef} visible={alerta} />
         </div>
         <div id="ptable" >
-        <table className="col-md-12 table cf">
+        <Table striped bordered hover >
           <thead className="cf">
             <tr>
               <th>Artículo</th>
@@ -206,13 +206,14 @@ style={{minWidth:"100px"}}
                     {producto.total > 0 ? (
                       <>
                         <button
-                              className="btn btn-success btn-sm "
+                              className="btn btn-sm "
                           onClick={() => Gestion(producto.id_existencia, 1)}
                         >
-                          <MdOutlineAttachMoney size={20}/>
+                          <MdOutlineAttachMoney size={18}/>
+                          Vender
                         </button>
                         <button
-                              className="btn btn-warning btn-sm "
+                              className="btn btn-sm "
                           onClick={() => {
                             setSeleccionado(producto.id_existencia);
                             GestionMerma(
@@ -226,7 +227,8 @@ style={{minWidth:"100px"}}
                             );
                           }}
                           
-                        ><MdOutlineProductionQuantityLimits  size={20}/>
+                        ><MdOutlineProductionQuantityLimits  size={18}/>
+                        Mermar
                         </button>
                         
                       </>
@@ -235,20 +237,20 @@ style={{minWidth:"100px"}}
                     )}
                     <>
                     <button
-                              className="btn btn-primary btn-sm "
+                              className="btn btn-sm "
 
                       onClick={() => {
                         setSeleccionado(producto.id_existencia);
                         Gestion(producto.id_existencia, 3);
                       }}
                     >
-                                               <MdEdit size={20}/>
-
+                                               <MdEdit size={18}/>
+Editar
                     </button>
                     <button 
-                              className="btn btn-danger btn-sm "
-                              onClick={() => Gestion(producto.id_existencia, 5)}><MdDelete size={20} />
-                      
+                              className="btn btn-sm "
+                              onClick={() => Gestion(producto.id_existencia, 5)}><MdDelete size={18} />
+                      Borrar
                     </button>
                     </>
                     </div>
@@ -257,7 +259,7 @@ style={{minWidth:"100px"}}
               );
             })}
           </tbody>
-        </table>
+        </Table>
         </div>
         
         <Modal
