@@ -152,7 +152,11 @@ Gestion(id,4)
                       {producto.sub_categoria} de {producto.material}
                       <br />
                       {producto.curvatura === "Standar" ? "" : "para"}{" "}
-                      {producto.curvatura} <MdWarning size={25}
+                      {producto.curvatura} 
+                    </b>
+                    <br />
+                    <b>Color:</b> {producto.color} <br/>
+                    <MdWarning size={25}
                      style={
                       producto.total > 0
                         ? producto.area_de_venta === 0
@@ -161,9 +165,6 @@ Gestion(id,4)
                         : {
                           animation: "blinkingText3 2s infinite",color:"red",marginTop: "-9px"}
                     }/>
-                    </b>
-                    <br />
-                    <b>Color:</b> {producto.color} 
                   </td>
                   <td
 style={{minWidth:"100px"}}

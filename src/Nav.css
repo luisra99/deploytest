@@ -26,18 +26,28 @@
 }
 .resume-card{
   transition:0.3s;
+  transition: all .2s ease-in-out;
   cursor:pointer;
   margin-bottom: 13px;
-  transition: all .2s ease-in-out;
   background:linear-gradient(340deg, rgb(159, 180, 185) 1%, rgba(255, 255, 255, 0.89) 67%)
 }
 .card-container{
   border-radius: 1rem;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 2px 2px;
-    margin-bottom:12px;
-    margin-left:0px;
-    margin-right:0px;
-    background: linear-gradient(0grad, rgb(34, 80, 89) 22%, rgba(255, 255, 255, 0.94) 150%)
+  box-shadow: rgb(6, 49, 57) 0px 0px 5px 0px;
+  margin-bottom: 12px;
+  margin-left: 0px;
+  margin-right: 0px;
+  background: linear-gradient(0grad, rgb(38, 90, 100) 22%, rgba(255, 255, 255, 0.94) 150%);
+}
+.resume-option{
+  transition:0.3s;
+  transition: all .2s ease-in-out;
+  cursor:pointer;
+  font-size: 20px;
+}
+.resume-option:hover{
+  transform: scale(1.1);
+
 }
 .card-container > h2 > b{
   color:white;
