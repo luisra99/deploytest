@@ -12,7 +12,7 @@ import Trabajadores from "./pages/trabajadores.js";
 import MrmaForm from "./pages/mrmaform.js";
 import { Navbar } from "./components/Navbar.jsx";
 import Gastos from "./pages/gastos.js";
-import ResumeCard from "./pages/card.js";
+import Test from "./pages/test.js";
 import Home from "./pages/home.js"
 function App() {
   return (
@@ -28,7 +28,7 @@ function App() {
             <Route path="/trabajadores" element={<Trabajadores />} exact />
             <Route path="/cont" element={<Gastos />} exact />
             <Route path="/" element={<Home />} exact />
-            {/* <Route path="/test" element={<ResumeCard title="Gastos" day="100" week="5000" month="7500" year="14000" link="/"/>} exact /> */}
+            <Route path="/test" element={<Test titulo="Gastos" valor="4"/>} exact />
           </Routes>
         </Navbar>
       </Router>

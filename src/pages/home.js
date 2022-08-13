@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import Card from "./card.js";
 function Home() {
-  const [resumen, setResumen] = useState({"ier":"6830","ia":"520","ger":"6492","ga":"475","ceap":"338","ca":"45","impd":"40","pimpd":"130","impw":"440","pimpw":"260","impm":"520","pimpm":"520","gastos":null});
+  const [resumen, setResumen] = useState({"comision_actual":"45","comision_estimada":"338","ganancia_actual":"475","ganancia_estimada":"6492","ingreso_actual":"520","ingreso_estimado":"6830","iday":"400","pdia":"130","cdia":"0","imes":"520","pmes":"520","cmes":"45","isemana":"440","psemana":"260","csemana":"15","gasto_dia":null,"gasto_semana":"223","gasto_mes":"235","gasto_year":"356"});
   function Load() {
     axios
       .get(process.env.REACT_APP_SERVER + "view/resumen/general", {
@@ -12,64 +12,106 @@ function Home() {
         },
       })
       .then((response) => {
+        console.log(response.data);
         setResumen(response.data);
       });
   }
   useEffect(() => {
-    Load()
+    Load();
   }, []);
   return (
     <div className="text-center">
-      <div className="row justify-content-center">
-        
+      <div className="card-container row justify-content-around">
+        <h2 className="text-sm mb-0 text font-weight-bold">
+          <b>Hoy</b>
+        </h2>
         <Card
-          titulo="Ingreso de hoy"
-          valor={resumen.impd}
+          titulo="Ingreso"
+          valor={resumen.iday}
           etitulo="Ingreso promedio"
-          evalor={resumen.pimpd}
-        />
-        <Card
-          titulo="Esta semana"
-          valor={resumen.impw}
-          etitulo="Ingreso promedio"
-          evalor={resumen.pimpw}
-        />
-        <Card
-          titulo="Este mes"
-          valor={resumen.impm}
-          etitulo="Ingreso promedio"
-          evalor={resumen.pimpm}
-        />
-        <Card
-          titulo="Este año"
-          valor={resumen.ia}
-          etitulo="Ingreso Estimado"
-          evalor={resumen.ier}
+          evalor={resumen.pdia}
         />
         <Card
           titulo="Comisiones"
-          valor={resumen.ca}
-          etitulo="Comisiones estimadas"
-          evalor={resumen.ceap}
-        />
-        <Card
-          titulo="Ganancia"
-          valor={resumen.ga}
-          etitulo="Ganancia Estimada"
-          evalor={resumen.ger}
+          valor={resumen.cdia}
+          etitulo="Ganancia"
+          evalor={resumen.iday - resumen.cdia}
         />
         <Card
           titulo="Gastos"
-          valor={resumen.gastos}
-          etitulo="Dinero Libre"
-          evalor={(resumen.ia-resumen.gastos)}
+          valor={resumen.gasto_dia}
+          etitulo="Capital restante"
+          evalor={resumen.iday - resumen.cdia - resumen.gasto_dia}
         />
-        {/* <Card
-          titulo="Productos"
-          valor="$53,000"
-          etitulo="Existencias Totales"
-          evalor="$53,000"
-        /> */}
+      </div>
+      <div className="card-container row justify-content-around">
+        <h2 className="text-sm mb-0 text font-weight-bold">
+          <b>Esta semana</b>
+        </h2>
+        <Card
+          titulo="Ingreso"
+          valor={resumen.iday}
+          etitulo="Ingreso promedio"
+          evalor={resumen.pdia}
+        />
+        <Card
+          titulo="Comisiones"
+          valor={resumen.cdia}
+          etitulo="Ganancia"
+          evalor={resumen.iday - resumen.cdia}
+        />
+        <Card
+          titulo="Gastos"
+          valor={resumen.gasto_dia}
+          etitulo="Capital restante"
+          evalor={resumen.iday - resumen.cdia - resumen.gasto_dia}
+        />
+      </div>
+      <div className="card-container row justify-content-around">
+        <h2 className="text-sm mb-0 text font-weight-bold">
+          <b>Este Mes</b>
+        </h2>
+        <Card
+          titulo="Ingreso"
+          valor={resumen.iday}
+          etitulo="Ingreso promedio"
+          evalor={resumen.pdia}
+        />
+        <Card
+          titulo="Comisiones"
+          valor={resumen.cdia}
+          etitulo="Ganancia"
+          evalor={resumen.iday - resumen.cdia}
+        />
+        <Card
+          titulo="Gastos"
+          valor={resumen.gasto_dia}
+          etitulo="Capital restante"
+          evalor={resumen.iday - resumen.cdia - resumen.gasto_dia}
+        />
+      </div>
+      <div className="card-container row justify-content-around">
+        <h2 className="text-sm mb-0 text font-weight-bold">
+          <b>Este Año</b>
+        </h2>
+        <Card
+          titulo="Ingreso"
+          valor={resumen.iday}
+          etitulo="Ingreso promedio"
+          evalor={resumen.pdia}
+        />
+        <Card
+          titulo="Comisiones"
+          valor={resumen.cdia}
+          etitulo="Ganancia"
+          evalor={resumen.iday - resumen.cdia}
+        />
+        <Card
+          titulo="Gastos"
+          valor={resumen.gasto_dia}
+          etitulo="Capital restante"
+          evalor={resumen.iday - resumen.cdia - resumen.gasto_dia}
+        />
       </div>
     </div>
   );
