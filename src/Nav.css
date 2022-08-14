@@ -4,7 +4,31 @@
   border-color: rgba(255, 255, 255, .1);
 }
 
-.form-control-dark:focus {
+.form-control:focus {
   border-color: transparent;
   box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
+}
+.link-nav{
+  font-weight: 600;
+  transition: all .2s ease-in-out;
+
+}
+.link-nav:active{
+  background: #2c6975;
+  
+}
+.link-nav:hover{
+  background: #2c6975;
+  transform: scale(1.1);
+}
+.sidebar{
+  background:#e0ecde
+}
+.resume-card{
+  transition:0.3s;
+  cursor:pointer;
+  transition: all .2s ease-in-out;
+}
+.resume-card:hover{
+  transform: scale(1.1);
 }

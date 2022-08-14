@@ -4,13 +4,18 @@ import { NavLink } from "react-router-dom";
 import { HiShoppingCart } from "react-icons/hi";
 import { IoIosAddCircle } from "react-icons/io";
 import { BsReceiptCutoff, BsPeopleFill } from "react-icons/bs";
-import { AiFillSetting, AiTwotoneShop } from "react-icons/ai";
+import { AiFillHome, AiFillSetting, AiTwotoneShop } from "react-icons/ai";
 import { GiSewingMachine, GiTakeMyMoney } from "react-icons/gi";
 export const Navbar = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
   const close = () => setIsOpen(false);
   const menuItem = [
+    {
+      path: "/home",
+      name: "Inicio",
+      icon: <AiFillHome />,
+    },
     {
       path: "/",
       name: "Existencia",
@@ -51,11 +56,12 @@ export const Navbar = ({ children }) => {
       name: "Configuración",
       icon: <AiFillSetting />,
     },
+    
   ];
 
   return (
     <div>
-      <header className="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+      <header className="navbar navbar-dark sticky-top  flex-md-nowrap p-0 shadow" style={{background:"#063139"}}>
         <h4
           className="navbar-brand col-md-3 col-lg-2 col-xl-2 me-0 px-3"
           onClick={toggle}
@@ -76,16 +82,17 @@ export const Navbar = ({ children }) => {
           <span className="navbar-toggler-icon"></span>
         </button>
         <Form.Control
-          className="form-control form-control-dark w-100"
+          className="form-control form-control w-100"
           type="text"
           placeholder="Search"
           aria-label="Search"
+          style={{background:"#225059"}}
         />
-        <div className="navbar-nav">
+        {/* <div className="navbar-nav">
           <div className="nav-item text-nowrap">
             <h6 className="nav-link h5x-3">Sign out</h6>
           </div>
-        </div>
+        </div> */}
       </header>
       <div className="container-fluid">
         <div className="row">
@@ -93,8 +100,8 @@ export const Navbar = ({ children }) => {
             id="sidebarMenu"
             className={
               isOpen
-                ? "col-md-3 col-lg-3 d-md-block bg-light sidebar collapse show"
-                : "col-md-3 col-lg-3 d-md-block bg-light sidebar collapse"
+                ? "col-md-3 col-lg-2 col-xl-2 d-md-block sidebar collapse show"
+                : "col-md-3 col-lg-2 col-xl-2 d-md-block sidebar collapse"
             }
             style={{ paddingLeft: "0px", paddingRight: "0px" }}
           >
@@ -131,6 +138,7 @@ export const Navbar = ({ children }) => {
           <main
             className="col-md-9 ms-sm-auto col-lg-10 px-md-4"
             style={{ marginTop: "10px" }}
+            
           >
             {children}
           </main>

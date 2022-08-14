@@ -2,9 +2,11 @@
  margin:0;
  padding:0;
  text-decoration:none;  
+ 
 }
 body {
   font-size: .875rem;
+  background:#fafff9;;
 }
 
 .feather {
@@ -141,15 +143,18 @@ padding-right: 0px;
 }
 .link-nav:hover{
   color:#fff;
-  transition:all 0.5s;
-  background: rgb(45,45,45);
+  transition:all 0.1s;
+  -webkit-box-shadow: 0px 10px 13px -7px #000000, inset 0px 0px 13px -8px rgba(0,0,0,0); 
+box-shadow: 0px 10px 13px -7px #000000, inset 0px 0px 13px -8px rgba(0,0,0,0);
 }
 #ptable td{
   max-width:234px;
 }
 .active{
   color:#fff;
-  background: rgb(45,45,45);
+  background: #2c6975;
+  -webkit-box-shadow: -10px 0px 13px -7px #000000, 10px 0px 13px -7px #000000, inset 0px 0px 13px -8px rgba(0,0,0,0); 
+box-shadow: -10px 0px 13px -7px #000000, 10px 0px 13px -7px #000000, inset 0px 0px 13px -8px rgba(0,0,0,0);
 }
 .icon,.link_text-nav{
   font-size:auto;
@@ -229,7 +234,6 @@ a:hover { text-decoration: none; }
 
 a:active { text-decoration: none; }
 body {
-
   --margin-xl: 4rem;
   --margin-lg: 3rem;
   --margin-md: 2rem;
@@ -242,10 +246,9 @@ body {
   --padding-sm: 1rem;
   --padding-xs: 0.8rem;
   --padding-xxs: 0.5rem;
-
   /* font-family: "Poppins", "sans-serif"; */
   /* overflow: hidden; */
-  background: rgb(240, 244, 248);
+  background: ghostwhite;
 }
 .navbar-brand {
   background: transparent;}

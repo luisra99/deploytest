@@ -13,6 +13,7 @@ import MrmaForm from "./pages/mrmaform.js";
 import { Navbar } from "./components/Navbar.jsx";
 import Gastos from "./pages/gastos.js";
 import ResumeCard from "./pages/card.js";
+import Home from "./pages/home.js"
 function App() {
   return (
     <div>
@@ -26,6 +27,7 @@ function App() {
             <Route path="/locales" element={<Locales />} exact />
             <Route path="/trabajadores" element={<Trabajadores />} exact />
             <Route path="/cont" element={<Gastos />} exact />
+            <Route path="/home" element={<Home />} exact />
             <Route path="/test" element={<ResumeCard title="Gastos" day="100" week="5000" month="7500" year="14000" link="/"/>} exact />
           </Routes>
         </Navbar>
