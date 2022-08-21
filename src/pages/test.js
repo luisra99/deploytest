@@ -1,6 +1,5 @@
 import React from "react";
 import  RadioButtons  from "../components/radioButtons.js";
-import Badge from 'react-bootstrap/Badge';
 function Existencia() {
   return (<div>
 

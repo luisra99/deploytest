@@ -110,6 +110,7 @@ function Existencia() {
     setAlerta(false);
   }
   function resetFilters() {
+    setFiltroGeneral("1")
     setlocalFilter(-1)
     setsubcatFilter(-1)
     settallasFilter(-1)
@@ -118,7 +119,7 @@ function Existencia() {
     setmaterialesFilter(-1)
   }
   function checkFilters() {
-    setFiltrosActivados(localFilter !==-1 || subcatFilter !==-1 ||curvaturaFilter !==-1 ||materialesFilter !==-1 ||tallasFilter !==-1 ||coloresFilter !==-1 )
+    setFiltrosActivados(filtroGeneral !=="1" || localFilter !==-1 || subcatFilter !==-1 ||curvaturaFilter !==-1 ||materialesFilter !==-1 ||tallasFilter !==-1 ||coloresFilter !==-1 )
   }
   const [seleccionado, setSeleccionado] = useState("");
   const [productos_existencia, setProductosExistentes] = useState([{"id_existencia":95,"descripcion":"Pulsera de hilo","costo":"100","precio":"120","comision":"10","merma_c":true,"total":10,"almacen":8,"area_de_venta":2,"id_producto":45,"sub_categoria":"Pulsera","curvatura":"Niño","material":"Tela","talla":"34","nombre":"Tienda Jaguey","color":"Rojo","sc_id":7,"curv_id":3,"mat_id":2,"tall_id":36,"loc_id":6,"col_id":18},{"id_existencia":94,"descripcion":"Alpargatas","costo":"120","precio":"250","comision":"12","merma_c":false,"total":10,"almacen":8,"area_de_venta":2,"id_producto":44,"sub_categoria":"Mocasines","curvatura":"Hombre","material":"Tela","talla":"35","nombre":"Tienda Jaguey","color":"Rojo","sc_id":5,"curv_id":2,"mat_id":2,"tall_id":37,"loc_id":6,"col_id":18},{"id_existencia":93,"descripcion":"Cinto con evilla de plata","costo":"140","precio":"1220","comision":"20","merma_c":false,"total":1,"almacen":1,"area_de_venta":0,"id_producto":32,"sub_categoria":"Cinto","curvatura":"Mujer","material":"Tela","talla":"35","nombre":"Tienda Cardenaz","color":"Rojo","sc_id":2,"curv_id":1,"mat_id":2,"tall_id":37,"loc_id":7,"col_id":18},{"id_existencia":96,"descripcion":"Dige de sombrero de cobre","costo":"10","precio":"12","comision":"12","merma_c":false,"total":0,"almacen":0,"area_de_venta":0,"id_producto":46,"sub_categoria":"Colgante","curvatura":"Mujer","material":"Cuero","talla":"36","nombre":"Tienda Jaguey","color":"Negro","sc_id":8,"curv_id":1,"mat_id":1,"tall_id":38,"loc_id":6,"col_id":21},{"id_existencia":92,"descripcion":"Cartera con adornos en oro","costo":"12","precio":"120","comision":"12","merma_c":false,"total":100,"almacen":99,"area_de_venta":1,"id_producto":9,"sub_categoria":"Cartera","curvatura":"Hombre","material":"Cuero","talla":"3","nombre":"Tienda Cardenaz","color":"Negro","sc_id":1,"curv_id":2,"mat_id":1,"tall_id":42,"loc_id":7,"col_id":21}]);
