@@ -32,7 +32,7 @@ function Gastos() {
     axios.get(process.env.REACT_APP_SERVER + "view/gastos",  {headers:{
       "Bypass-Tunnel-Reminder":1
     }}).then((response) => {
-if(response.data.status!="danger")
+if(response.data.status!=="danger")
   setGastos(response.data);
     });
   }

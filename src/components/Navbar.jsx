@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Form } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import{ MdAddCircle,MdHome,MdShoppingCart,MdReceipt,MdStore,MdPeopleAlt,MdMonetizationOn,MdSettings} from 'react-icons/md'
-import { GiSewingMachine, GiTakeMyMoney } from "react-icons/gi";
 export const Navbar = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);

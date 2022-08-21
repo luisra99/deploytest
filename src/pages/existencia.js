@@ -2,13 +2,102 @@ import React from "react";
 import axios from "axios";
 import { useState, useEffect, useRef } from "react";
 import {Modal,Table } from "react-bootstrap";
+import  RadioButtons  from "../components/radioButtons.js";
+import Badge from 'react-bootstrap/Badge';
+
 import CrearExistencia from "./crearExistencia.js";
+import  SelectList  from "../components/selectList.js";
 import MrmaForm from "./mrmaform.js";
+import Accordion from 'react-bootstrap/Accordion';
 import { MdWarning,MdOutlineProductionQuantityLimits,MdOutlineAttachMoney,MdEdit} from "react-icons/md";
 
 import Alerta2 from "./notify.js";
 
 function Existencia() {
+  const [elementosFiltrados, setElementosFiltrados] = useState([{"id_existencia":95,"descripcion":"Pulsera de hilo","costo":"100","precio":"120","comision":"10","merma_c":true,"total":10,"almacen":8,"area_de_venta":2,"id_producto":45,"sub_categoria":"Pulsera","curvatura":"Niño","material":"Tela","talla":"34","nombre":"Tienda Jaguey","color":"Rojo","sc_id":7,"curv_id":3,"mat_id":2,"tall_id":36,"loc_id":6,"col_id":18},{"id_existencia":94,"descripcion":"Alpargatas","costo":"120","precio":"250","comision":"12","merma_c":false,"total":10,"almacen":8,"area_de_venta":2,"id_producto":44,"sub_categoria":"Mocasines","curvatura":"Hombre","material":"Tela","talla":"35","nombre":"Tienda Jaguey","color":"Rojo","sc_id":5,"curv_id":2,"mat_id":2,"tall_id":37,"loc_id":6,"col_id":18},{"id_existencia":93,"descripcion":"Cinto con evilla de plata","costo":"140","precio":"1220","comision":"20","merma_c":false,"total":1,"almacen":1,"area_de_venta":0,"id_producto":32,"sub_categoria":"Cinto","curvatura":"Mujer","material":"Tela","talla":"35","nombre":"Tienda Cardenaz","color":"Rojo","sc_id":2,"curv_id":1,"mat_id":2,"tall_id":37,"loc_id":7,"col_id":18},{"id_existencia":96,"descripcion":"Dige de sombrero de cobre","costo":"10","precio":"12","comision":"12","merma_c":false,"total":0,"almacen":0,"area_de_venta":0,"id_producto":46,"sub_categoria":"Colgante","curvatura":"Mujer","material":"Cuero","talla":"36","nombre":"Tienda Jaguey","color":"Negro","sc_id":8,"curv_id":1,"mat_id":1,"tall_id":38,"loc_id":6,"col_id":21},{"id_existencia":92,"descripcion":"Cartera con adornos en oro","costo":"12","precio":"120","comision":"12","merma_c":false,"total":100,"almacen":99,"area_de_venta":1,"id_producto":9,"sub_categoria":"Cartera","curvatura":"Hombre","material":"Cuero","talla":"3","nombre":"Tienda Cardenaz","color":"Negro","sc_id":1,"curv_id":2,"mat_id":1,"tall_id":42,"loc_id":7,"col_id":21}]);
+  const [filtrosActivados, setFiltrosActivados] = useState(false);
+  const [localFilter, setlocalFilter] = useState(-1);
+  const [subcatFilter, setsubcatFilter] = useState(-1);
+  const [curvaturaFilter, setcurvaturaFilter] = useState(-1);
+  const [materialesFilter, setmaterialesFilter] = useState(-1);
+  const [tallasFilter, settallasFilter] = useState(-1);
+  const [coloresFilter, setcoloresFilter] = useState(-1);
+  const [filtroGeneral, setFiltroGeneral] = useState("1");
+
+
+  useEffect(() => {
+    let exist = productos_existencia;
+    if (localFilter !==-1) {
+      exist = exist.filter((item) => {
+        return item.loc_id === localFilter;
+      });
+    }else
+    if (subcatFilter !==-1) {
+      exist = exist.filter((item) => {
+        return item.sc_id === subcatFilter;
+      });
+    }
+    if (materialesFilter !==-1) {
+      exist = exist.filter((item) => {
+        return item.mat_id === materialesFilter;
+      });
+    }
+    if (tallasFilter !==-1) {
+      exist = exist.filter((item) => {
+        return item.tall_id === tallasFilter;
+      });
+    }
+    if (curvaturaFilter !==-1) {
+      exist = exist.filter((item) => {
+        return item.curv_id === curvaturaFilter;
+      });
+    }
+    if (coloresFilter !==-1) {
+      exist = exist.filter((item) => {
+        return item.col_id === coloresFilter;
+      });
+    }
+    switch (filtroGeneral) {
+      case "2":
+        exist = exist.filter((item) => {
+          return item.merma_c;
+        });
+        break;
+        case "3":
+          exist = exist.filter((item) => {
+            return item.almacen>0 && item.area_de_venta===0;
+          });
+          break;
+          case "4":
+        exist = exist.filter((item) => {
+          return item.total===0;
+        });
+        break;
+      default:
+        break;
+    }
+    setElementosFiltrados(exist);
+    // console.log(localFilter,exist);
+    checkFilters()
+  }, [
+    localFilter,filtroGeneral,
+    subcatFilter,
+    curvaturaFilter,
+    materialesFilter,
+    tallasFilter,
+    coloresFilter,
+  ]);
+
+
+  var [counter, setCounter] = useState({"inx":"1","nr":"1","mc":"1"});
+  var [countermc, setCounterm] = useState(0);
+  var [counterinx, setCounteri] = useState(0);
+  var [counternr, setCountern] = useState(0);
+  useEffect(() => {
+    setCounteri(counter.inx)
+    setCounterm(counter.mc)
+    setCountern(counter.nr)
+  }, [counter]);
   const childCompRef = useRef();
   const [alerta, setAlerta] = useState(false);
   const [orden, setOrden] = useState(true);
@@ -20,8 +109,19 @@ function Existencia() {
   function hide() {
     setAlerta(false);
   }
+  function resetFilters() {
+    setlocalFilter(-1)
+    setsubcatFilter(-1)
+    settallasFilter(-1)
+    setcoloresFilter(-1)
+    setcurvaturaFilter(-1)
+    setmaterialesFilter(-1)
+  }
+  function checkFilters() {
+    setFiltrosActivados(localFilter !==-1 || subcatFilter !==-1 ||curvaturaFilter !==-1 ||materialesFilter !==-1 ||tallasFilter !==-1 ||coloresFilter !==-1 )
+  }
   const [seleccionado, setSeleccionado] = useState("");
-  const [productos_existencia, setProductosExistentes] = useState([{"id_existencia":67,"descripcion":"Acabado rojo  y cordones de cuero","costo":"175","precio":"300","comision":"25","merma_c":false,"total":20,"almacen":19,"area_de_venta":1,"id_producto":18,"sub_categoria":"Mocasines","curvatura":"Hombre","material":"Cuero","talla":"38","nombre":"Tienda Jaguey","color":"Negro"},{"id_existencia":42,"descripcion":"Venta en pares 20% de algodon","costo":"100","precio":"175","comision":"15","merma_c":false,"total":0,"almacen":0,"area_de_venta":0,"id_producto":20,"sub_categoria":"Muñequera","curvatura":"Niño","material":"Tela","talla":"10","nombre":"Tienda Jaguey","color":"Rojo"},{"id_existencia":68,"descripcion":"Cartera chica con imagen de Ben10","costo":"50","precio":"100","comision":"10","merma_c":false,"total":3,"almacen":3,"area_de_venta":0,"id_producto":36,"sub_categoria":"Cartera","curvatura":"Niño","material":"Tela","talla":"10","nombre":"Tienda Jaguey","color":"Verde"}]);
+  const [productos_existencia, setProductosExistentes] = useState([{"id_existencia":95,"descripcion":"Pulsera de hilo","costo":"100","precio":"120","comision":"10","merma_c":true,"total":10,"almacen":8,"area_de_venta":2,"id_producto":45,"sub_categoria":"Pulsera","curvatura":"Niño","material":"Tela","talla":"34","nombre":"Tienda Jaguey","color":"Rojo","sc_id":7,"curv_id":3,"mat_id":2,"tall_id":36,"loc_id":6,"col_id":18},{"id_existencia":94,"descripcion":"Alpargatas","costo":"120","precio":"250","comision":"12","merma_c":false,"total":10,"almacen":8,"area_de_venta":2,"id_producto":44,"sub_categoria":"Mocasines","curvatura":"Hombre","material":"Tela","talla":"35","nombre":"Tienda Jaguey","color":"Rojo","sc_id":5,"curv_id":2,"mat_id":2,"tall_id":37,"loc_id":6,"col_id":18},{"id_existencia":93,"descripcion":"Cinto con evilla de plata","costo":"140","precio":"1220","comision":"20","merma_c":false,"total":1,"almacen":1,"area_de_venta":0,"id_producto":32,"sub_categoria":"Cinto","curvatura":"Mujer","material":"Tela","talla":"35","nombre":"Tienda Cardenaz","color":"Rojo","sc_id":2,"curv_id":1,"mat_id":2,"tall_id":37,"loc_id":7,"col_id":18},{"id_existencia":96,"descripcion":"Dige de sombrero de cobre","costo":"10","precio":"12","comision":"12","merma_c":false,"total":0,"almacen":0,"area_de_venta":0,"id_producto":46,"sub_categoria":"Colgante","curvatura":"Mujer","material":"Cuero","talla":"36","nombre":"Tienda Jaguey","color":"Negro","sc_id":8,"curv_id":1,"mat_id":1,"tall_id":38,"loc_id":6,"col_id":21},{"id_existencia":92,"descripcion":"Cartera con adornos en oro","costo":"12","precio":"120","comision":"12","merma_c":false,"total":100,"almacen":99,"area_de_venta":1,"id_producto":9,"sub_categoria":"Cartera","curvatura":"Hombre","material":"Cuero","talla":"3","nombre":"Tienda Cardenaz","color":"Negro","sc_id":1,"curv_id":2,"mat_id":1,"tall_id":42,"loc_id":7,"col_id":21}]);
   function Load() {
     axios
       .get(process.env.REACT_APP_SERVER + "view/existencia",  {headers:{
@@ -30,13 +130,17 @@ function Existencia() {
       .then((response) => {
         setProductosExistentes(
           orden
-            ? response.data.sort((a, b) => a.area_de_venta - b.area_de_venta)
-            : response.data.sort((a, b) => a.total - b.total)
+            ? response.data[0].sort((a, b) => a.area_de_venta - b.area_de_venta)
+            : response.data[0].sort((a, b) => a.total - b.total)
         );
+        setElementosFiltrados(response.data[0])
+        setCounter(response.data[1][0])
+        // console.log(response.data[1][0])
       });
   }
   useEffect(() => {
     Load();
+
   },[]);
   useEffect(() => {
     if (alerta) setTimeout(hide, 15000);
@@ -71,15 +175,14 @@ Gestion(id,4)
     setOrden(!orden);
     orden
       ? setProductosExistentes(
-          productos_existencia.sort((a, b) => a.area_de_venta - b.area_de_venta)
+          elementosFiltrados.sort((a, b) => a.area_de_venta - b.area_de_venta)
         )
       : setProductosExistentes(
-          productos_existencia.sort((a, b) => a.total - b.total)
+          elementosFiltrados.sort((a, b) => a.total - b.total)
         );
   };
   const handleShow = () => setShow(true);
   const handleShowM = () => setShowM(true);
-
   function Gestion(id, opcion) {
     switch (opcion) {
       case 1:
@@ -121,11 +224,47 @@ Gestion(id,4)
   }
   return (
     <div>
+      {productos_existencia.length>0?<div>
       {/* <Alerta2/> */}
-      <h5>Artículos: {productos_existencia.length}</h5>
+      <h5>Artículos <Badge pill bg="warning" onClick={resetFilters}
+            style={!filtrosActivados?{display:"none",cursor:"pointer"}:{cursor:"pointer"}}>Filtros Activados</Badge></h5>
+      <div className="row">
+<Accordion defaultActiveKey="1" flush className="col-12 text-center" style={{padding:"0px"}}>
+      <Accordion.Item eventKey="0">
+      <RadioButtons radios={[
+      { name: 'Todos', value: '1',counter:productos_existencia.length},
+      { name: 'MC', value: '2',counter:countermc },
+      { name: 'NR', value: '3',counter:counternr},
+      { name: 'INX', value: '4',counter:counterinx }
+    ]} pvalue={filtroGeneral} onChange={setFiltroGeneral}/>
+        <Accordion.Header style={{display: "inline-block"}}></Accordion.Header>
+        <Accordion.Body style={{padding:"0px"}}>
+      <div className="row" style={{margin:"5px"}}>
+        <div className="col-6 p-1">
+    <SelectList ruta="local" elemento="nombre" cvalue="id" value={localFilter} nombre="Locales" onChange={setlocalFilter}/>
+    </div>
+    <div className="col-6 p-1">
+    <SelectList ruta="subcategoria" elemento="sub_categoria" cvalue="id" value={subcatFilter} nombre="Sub-Categorias" onChange={setsubcatFilter}/>
+    </div>
+    <div className="col-6 col-sm-3 col-lg-3 col-xl-3 p-1">
+    <SelectList ruta="curvatura" elemento="curvatura" cvalue="id" value={curvaturaFilter} nombre="Curvaturas" onChange={setcurvaturaFilter}/>
+    </div>
+    <div className="col-6 col-sm-3 col-lg-3 col-xl-3 p-1">
+    <SelectList ruta="material" elemento="material" cvalue="id" value={materialesFilter} nombre="Materiales" onChange={setmaterialesFilter}/>
+    </div>
+    <div className="col-6 col-sm-3 col-lg-3 col-xl-3 p-1">
+    <SelectList ruta="talla" elemento="talla" cvalue="id" value={tallasFilter} nombre="Tallas"  tipo={"number"} onChange={settallasFilter}/>
+    </div>
+    <div className="col-6 col-sm-3 col-lg-3 col-xl-3 p-1">
+    <SelectList ruta="color" elemento="color" cvalue="id" value={coloresFilter} nombre="Colores" onChange={setcoloresFilter}/>
+    </div>
+    </div>
+        </Accordion.Body>
+      </Accordion.Item>
+      </Accordion>
+    </div>
       {/* <h1>{process.env.REACT_APP_SERVER}</h1> */}
-
-      <div className="table-responsive" style={{ paddingBottom: "30px" }}>
+      {elementosFiltrados.length>0?<div className="table-responsive" style={{ paddingBottom: "30px" }}>
         <div onClick={hide}>
           <Alerta2 ref={childCompRef} visible={alerta} />
         </div>
@@ -142,9 +281,13 @@ Gestion(id,4)
             </tr>
           </thead>
           <tbody>
-            {productos_existencia.map((producto) => {
+            {elementosFiltrados.map(function(producto) {
+              
               return (
+
                 <tr key={producto.id_existencia} style={{ marginTop:"5px"}}>
+
+                 
                   <td style={{minWidth:"140px"}}
                     data-title="Artículo"
                   >
@@ -268,6 +411,7 @@ Editar
                 </tr>
               );
             })}
+            
           </tbody>
         </Table>
         </div>
@@ -283,7 +427,6 @@ Editar
               id={seleccionado}
               close={Close}
               save={handleClose}
-
               load={Load}
             />
           </div>
@@ -309,7 +452,14 @@ Editar
             />
           </div>
         </Modal>
-      </div>
+      </div>:<h1 style={{textAlign: "center",
+color: "#2c6975",
+textShadow: "1px 1px 3px rgb(34, 80, 89)"}}>No existen productos con estas características</h1>}
+    
+    
+    </div>:<h1 style={{textAlign: "center",
+color: "#2c6975",
+textShadow: "1px 1px 3px rgb(34, 80, 89)"}}>No existen productos registrados por el momento</h1>}
     </div>
   );
 }
