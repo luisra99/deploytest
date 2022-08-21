@@ -333,10 +333,10 @@ function Locales() {
             {locales.map((local) => {
               return (
                 <tr key={local.id}>
-                  <td>{local.nombre}</td>
-                  <td>{local.direccion}</td>
-                  <td>{local.tipo === 0 ? "Tienda" : "Taller"}</td>
-                  <td>{local.trabajadores}</td>
+                  <td data-title="Nombre">{local.nombre}</td>
+                  <td data-title="Dirección">{local.direccion}</td>
+                  <td data-title="Tipo">{local.tipo === 0 ? "Tienda" : "Taller"}</td>
+                  <td data-title="Trabajadores">{local.trabajadores}</td>
                   <td style={{paddingLeft: "0px"}}>
                   <div
                       className="text-center" >

@@ -294,10 +294,10 @@ if(response.data.status!=="danger")
             {gastos.map((gasto) => {
               return (
                 <tr key={gasto.id}>
-                  <td>{gasto.fecha}</td>
-                  <td>{gasto.tipo_gasto}</td>
-                  <td>{gasto.descripcion}</td>
-                  <td>
+                  <td data-title="Fecha">{gasto.fecha}</td>
+                  <td data-title="Tipo de gasto">{gasto.tipo_gasto}</td>
+                  <td data-title="Descripción">{gasto.descripcion}</td>
+                  <td data-title="Monto">
                     {id === gasto.id && modoEdicion ? (
                       <React.Fragment>
                         <input
@@ -320,7 +320,7 @@ if(response.data.status!=="danger")
                       <React.Fragment>{gasto.monto}</React.Fragment>
                     )}
                   </td>
-                  <td>
+                  <td  style={{paddingLeft: "0px"}}>
                     {id === gasto.id && modoEdicion ? (
                       <div
                       className="text-center">
@@ -343,6 +343,7 @@ if(response.data.status!=="danger")
                     ) : (
                       <div
                             className="text-center"
+                          
                           >
                         <button
                           className="btn btn-sm "

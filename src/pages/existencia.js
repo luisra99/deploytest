@@ -241,22 +241,22 @@ Gestion(id,4)
         <Accordion.Header style={{display: "inline-block"}}></Accordion.Header>
         <Accordion.Body style={{padding:"0px"}}>
       <div className="row" style={{margin:"5px"}}>
-        <div className="col-6 p-1">
+        <div className="col-6 col-sm-6 col-lg-4 col-xl-4 p-1">
     <SelectList ruta="local" elemento="nombre" cvalue="id" value={localFilter} nombre="Locales" onChange={setlocalFilter}/>
     </div>
-    <div className="col-6 p-1">
+    <div className="col-6 col-sm-6 col-lg-4 col-xl-4 p-1">
     <SelectList ruta="subcategoria" elemento="sub_categoria" cvalue="id" value={subcatFilter} nombre="Sub-Categorias" onChange={setsubcatFilter}/>
     </div>
-    <div className="col-6 col-sm-3 col-lg-3 col-xl-3 p-1">
+    <div className="col-6 col-sm-6 col-lg-4 col-xl-4 p-1">
     <SelectList ruta="curvatura" elemento="curvatura" cvalue="id" value={curvaturaFilter} nombre="Curvaturas" onChange={setcurvaturaFilter}/>
     </div>
-    <div className="col-6 col-sm-3 col-lg-3 col-xl-3 p-1">
+    <div className="col-6 col-sm-6 col-lg-4 col-xl-4 p-1">
     <SelectList ruta="material" elemento="material" cvalue="id" value={materialesFilter} nombre="Materiales" onChange={setmaterialesFilter}/>
     </div>
-    <div className="col-6 col-sm-3 col-lg-3 col-xl-3 p-1">
+    <div className="col-6 col-sm-6 col-lg-4 col-xl-4 p-1">
     <SelectList ruta="talla" elemento="talla" cvalue="id" value={tallasFilter} nombre="Tallas"  tipo={"number"} onChange={settallasFilter}/>
     </div>
-    <div className="col-6 col-sm-3 col-lg-3 col-xl-3 p-1">
+    <div className="col-6 col-sm-6 col-lg-4 col-xl-4 p-1">
     <SelectList ruta="color" elemento="color" cvalue="id" value={coloresFilter} nombre="Colores" onChange={setcoloresFilter}/>
     </div>
     </div>

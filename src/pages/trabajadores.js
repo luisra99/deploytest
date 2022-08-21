@@ -497,7 +497,7 @@ function Trabajadores() {
                           item.id_local
                         )
                       }
-                    > <MdEdit size={18}/>
+                    > <MdEdit size={20}/>
                     Editar
                     </button>
                     <button

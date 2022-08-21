@@ -27,7 +27,7 @@ function Vales() {
           {vales_de_venta.map((vale) => {
             return (
               <tr key={vale.id} id={vale.id}>
-                <td>
+                <td data-title="Producto">
                   <b>
                     {vale.sub_categoria} de {vale.material}
                     <br />
@@ -37,8 +37,8 @@ function Vales() {
                   <br />
                   <b>Color:</b> {vale.color}
                 </td>
-                <td>{vale.descripcion}</td>
-                <td>
+                <td data-title="Descripción">{vale.descripcion}</td>
+                <td data-title="Detalles">
                   <b>Costo:</b> {vale.costo} <br />
                   <b>Precio:</b> {vale.precio}
                   <br />
@@ -51,7 +51,7 @@ function Vales() {
                   <br />
                   <b>Ganancia Pura:</b> {vale.ganancia_pura}
                 </td>
-                <td>
+                <td data-title="Local">
                   <b>{vale.tienda}</b>
                   <br />
                   <b>Empleado:</b>
