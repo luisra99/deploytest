@@ -31,7 +31,7 @@ function Existencia() {
       exist = exist.filter((item) => {
         return item.loc_id === localFilter;
       });
-    }else
+    }
     if (subcatFilter !==-1) {
       exist = exist.filter((item) => {
         return item.sc_id === subcatFilter;
