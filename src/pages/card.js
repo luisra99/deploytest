@@ -13,8 +13,8 @@ boxShadow: "rgba(0, 0, 0, 0.3) 0px 10px 9px 0px",margin:"5px"}}>
                   <b style={{color: "#2c6975",textShadow: "rgba(0, 0, 0, 0.1) 0px 1px 3px"}}>{props.titulo}</b>
                 </h2>
                 <h3 className="font-weight-bolder mb-0" style={{color:"#68b2a0" ,textShadow: "rgba(0, 0, 0, 0.1) 0px 1px 2px"}}><b>{"$ "+ (props.valor===null?"0":props.valor)}</b></h3>
-                <h5 className="text-sm mb-0 text-weight-bolder" style={{color: "#2c6975",textShadow: "rgba(0, 0, 0, 0.1) 0px 1px 3px"}}><b>{props.etitulo}</b>
-                </h5>
+                <h4 className="text-sm mb-0 text-weight-bolder" style={{color: "#2c6975",textShadow: "rgba(0, 0, 0, 0.1) 0px 1px 3px"}}><b>{props.etitulo}</b>
+                </h4>
                 <h5 className="font-weight-bold mb-0" style={{color:"#2c6975" ,textShadow: "rgba(0, 0, 0, 0.1) 0px 1px 2px"}}><b>{"$ "+ (props.evalor===null?"0":props.evalor)}</b></h5>
               </div>
           </div>
