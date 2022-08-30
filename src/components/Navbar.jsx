@@ -18,11 +18,6 @@ export const Navbar = ({ children }) => {
       icon: <MdShoppingCart size={25}/>,
     },
     {
-      path: "/exist/create",
-      name: "Producto",
-      icon: <MdAddCircle size={25}/>,
-    },
-    {
       path: "/vales",
       name: "Vales",
       icon: <MdReceipt size={25}/>,

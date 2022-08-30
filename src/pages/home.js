@@ -1,7 +1,7 @@
 import React from "react";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
-import ResumenData from "./resumenData.js";
+// import ResumenData from "./resumenData.js";
 import Card from "./card.js";
 function Home() {
   const [resumen, setResumen] = useState({"comision_actual":"45","comision_estimada":"338","ganancia_actual":"475","ganancia_estimada":"6492","ingreso_actual":"520","ingreso_estimado":"6830","iday":"400","pdia":"130","cdia":"0","imes":"520","pmes":"520","cmes":"45","isemana":"440","psemana":"260","csemana":"15","gasto_dia":null,"gasto_semana":"223","gasto_mes":"235","gasto_year":"356"});

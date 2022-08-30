@@ -1,5 +1,4 @@
 *{
- margin:0;
  padding:0;
  text-decoration:none;  
  
@@ -8,28 +7,22 @@ body {
   font-size: .875rem;
   background:#fafff9;;
 }
-
+.Formi{
+  padding:20px
+}
 .feather {
   width: 16px;
   height: 16px;
   vertical-align: text-bottom;
 }
 
-/*
- * Sidebar
- */
-
 .sidebar {
   position: fixed;
   top: 0;
-  /* rtl:raw:
-  right: 0;
-  */
   bottom: 0;
-  /* rtl:remove */
   left: 0;
-  z-index: 100; /* Behind the navbar */
-  padding: 48px 0 0; /* Height of navbar */
+  z-index: 100; 
+  padding: 48px 0 0;
   box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
 }
 .sidebar>.row>*{
@@ -44,15 +37,6 @@ padding:0px;
     color:#fff;
     padding-left: 25px;
   }
-}
-
-.sidebar-sticky {
-  position: relative;
-  top: 0;
-  height: calc(100vh - 48px);
-  padding-top: .5rem;
-  overflow-x: hidden;
-  overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
 }
 
 .sidebar .nav-link {
@@ -106,13 +90,8 @@ padding:0px;
 .App {
   display: flex;
 }
-/* -------------------------------------------------------------------------------------------------------- */
 
-.container-nav{
-  transition:all 0.5s;
-  display:flex;
-  height: 100%;
-}
+
 .up-error{
   color:red;
 }
@@ -134,11 +113,7 @@ padding-right: 0px;
 .dropdown-menu.show {
   display:flex;
 }
-.top_section{
-  display:flex;
-  align-items:center;
-  padding:20px 15px;
-} 
+
 .link-nav{
   display:flex;
   color:rgb(45,45,45);
@@ -173,8 +148,6 @@ box-shadow: -10px 0px 13px -7px #000000, 10px 0px 13px -7px #000000, inset 0px 0
 border-color: #2c6975;
 font-weight: 600;
 color:whitesmoke;
-  /* border-radius: 40px; */
-/* box-shadow: 0px 10px 20px -7px #000000, inset 0px 0px 13px -8px rgba(0,0,0,0); */
 }
 #ptable th{
   background:#2c6975;
@@ -183,29 +156,10 @@ text-shadow: 1px 1px 3px black;
 border:#2c6975;
 }
 @keyframes blinkingText{
-  /* 0%		{ color: #10c018;}
-  25%		{ color: #1056c0;} */
-  /* 15%	{  text-shadow: 1px 1px 10px red;} */
   50%	{  text-shadow: 1px 1px 15px #2c6975;transform: scale(1.040) }
-  
-  /* 75%		{ color: #254878;}
-  100%	{ color: #04a1d5;} */
 }
-/* @keyframes blinkingText2{
-  /* 0%		{ color: #10c018;}
-  25%		{ color: #1056c0;} */
-  /* 50%	{  text-shadow: 1px 1px 3px #2c6975;transform: scale(1.1)} */
-
-  /* 75%		{ color: #254878;}
-  100%	{ color: #04a1d5;} 
-}*/
 @keyframes blinkingText3{
-  /* 0%		{ color: #10c018;}
-  25%		{ color: #1056c0;} */
   50%	{ opacity:0%}
-
-  /* 75%		{ color: #254878;}
-  100%	{ color: #04a1d5;} */
 }
 #ptable tr{
   text-shadow: 1px 1px 1px #00000012;
@@ -240,16 +194,11 @@ box-shadow: 0px 10px 13px -7px #000000, inset 0px 0px 13px -8px rgba(0,0,0,0);
   margin-bottom:10px;
   border-radius:10px 
 }
-
- /* #ptable button{
-  font-size:0;
- } */
  #acciones{
   padding-left:0px;
   border:2px solid #ccc 
 }
 	#ptable td { 
-		/* Behave  like a "row"  */
 		border: none;
 		border-bottom: 1px solid #eee; 
 		position: relative;
@@ -261,9 +210,7 @@ box-shadow: 0px 10px 13px -7px #000000, inset 0px 0px 13px -8px rgba(0,0,0,0);
 	}
   
 	#ptable td:before { 
-		/* Now like a table header */
 		position: absolute;
-		/* Top/left values mimic padding */
 		top: 2px;
 		left: 6px;
 		width: 45%; 
@@ -274,10 +221,6 @@ box-shadow: 0px 10px 13px -7px #000000, inset 0px 0px 13px -8px rgba(0,0,0,0);
     margin:2px;
     
 	}
- 
-	/*
-	Label the data
-	*/
     #ptable td:before { content: attr(data-title); }}
 
 a:link { text-decoration: none; }
@@ -300,7 +243,7 @@ body {
   --padding-sm: 1rem;
   --padding-xs: 0.8rem;
   --padding-xxs: 0.5rem;
-  /* font-family: "Poppins", "sans-serif"; */
+  font-family: "Poppins", "sans-serif";
   /* overflow: hidden; */
   background: ghostwhite;
 }

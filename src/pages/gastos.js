@@ -1,8 +1,8 @@
 import React from "react";
 import { useState, useEffect, useRef } from "react";
 import { Formik, Form, ErrorMessage, Field } from "formik";
-import { Table, Row } from "react-bootstrap";
-import { MdEdit, MdDelete, MdSave, MdCancel } from "react-icons/md";
+import { Table, Row,Modal,Button } from "react-bootstrap";
+import { MdEdit, MdDelete, MdSave, MdCancel,MdAddCircle } from "react-icons/md";
 import Alerta2 from "./notify.js";
 import * as Yup from "yup";
 import axios from "axios";
@@ -83,6 +83,13 @@ if(response.data.status!=="danger")
     setdescripcion("");
     formikRef.current?.resetForm();
   }
+  const [show, setShow] = useState(false);
+  const Close = () => {
+    setShow(false);
+    setmonto("");
+    setdescripcion("");
+    formikRef.current?.resetForm();
+  };
 
   const formikRef = useRef();
   //#endregion
@@ -114,7 +121,7 @@ if(response.data.status!=="danger")
   //#endregion
   //#region Componente
   return (
-    <div className="newProduct">
+    <>
       <div onClick={hide}>
         <Alerta2 ref={childCompRef} visible={alerta} />
       </div>
@@ -150,9 +157,17 @@ if(response.data.status!=="danger")
       >
         {(props) => {
           // console.log(props);
-          return (
+          return (<>
+            <Modal
+              show={show}
+              onExiting={Cancelar}
+              onHide={Close}
+              aria-labelledby="contained-modal-title-vcenter"
+              centered
+            >
             <Form className="Formi">
               <div>
+                <h4 className="text-center">Crear Gasto</h4>
                 <Row>
                   <div className="col-xs-6 col-sm-4 col-md-4 col-lg-4 ">
                     <label>Fecha </label>
@@ -216,7 +231,7 @@ if(response.data.status!=="danger")
                   </div>
                 </Row>
                 <Row>
-                  <div className="col-xs-11 col-sm-11 col-md-11 col-lg-11 ">
+                  <div className="col-xs-10 col-sm-10 col-md-10 col-lg-10 ">
                     <label>Descripción</label>
                     <ErrorMessage
                       name="descripcion"
@@ -239,7 +254,7 @@ if(response.data.status!=="danger")
                       /* Set onChange to handleChange */
                     />
                   </div>
-                  <div className="col-xs-1 col-sm-1 col-md-1 col-lg-1 ">
+                  <div className="col-xs-2 col-sm-2 col-md-2 col-lg-2 ">
                     <label>
                       Nuevo
                       <Field
@@ -248,8 +263,8 @@ if(response.data.status!=="danger")
                         id="nuevo"
                         name="nuevo"
                         style={{
-                          marginRight: "30%",
-                          marginLeft: "30%",
+                          marginRight: "40%",
+                          marginLeft: "40%",
                           marginTop: "5px",
                         }}
                       />
@@ -258,6 +273,18 @@ if(response.data.status!=="danger")
                 </Row>
               </div>
               <div className="row justify-content-center">
+              <button
+                  className={
+                    "btn btn-secondary col-xs-11 col-sm-5 col-md-5 col-lg-5"
+                  }
+                  onClick={Close}
+                  type="button"
+                  style={{
+                    margin: "10px",
+                  }}
+                >
+                  Cancelar
+                </button>
                 <button
                   className={
                     "btn btn-success col-xs-11 col-sm-5 col-md-5 col-lg-5"
@@ -271,13 +298,23 @@ if(response.data.status!=="danger")
                 >
                   Guardar
                 </button>
+
               </div>
             </Form>
+            </Modal>
+            </>
           );
         }}
       </Formik>
       <h3>
-        Gastos <i>{gastos.length}</i>
+        Gastos{" "}
+        <Button
+          style={{ maxWidth: "150px" }}
+          variant="success btn-sm"
+          onClick={() => setShow(true)}
+        >
+          <MdAddCircle size={15} /> Agregar
+        </Button>
       </h3>
       <div id="ptable" className="table-responsive" style={{ paddingBottom: "30px" }}>
         <Table className="table table-striped table-sm">
@@ -299,7 +336,7 @@ if(response.data.status!=="danger")
                   <td data-title="Descripción">{gasto.descripcion}</td>
                   <td data-title="Monto">
                     {id === gasto.id && modoEdicion ? (
-                      <React.Fragment>
+                      < >
                         <input
                           type="text"
                           style={{ fontSize: 11 }}
@@ -315,9 +352,9 @@ if(response.data.status!=="danger")
                             )
                           }
                         />
-                      </React.Fragment>
+                      </ >
                     ) : (
-                      <React.Fragment>{gasto.monto}</React.Fragment>
+                      < >{gasto.monto}</ >
                     )}
                   </td>
                   <td  style={{paddingLeft: "0px"}}>
@@ -366,7 +403,7 @@ if(response.data.status!=="danger")
           </tbody>
         </Table>
       </div>
-    </div>
+    </>
   );
 }
 //#endregion

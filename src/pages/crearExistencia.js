@@ -5,9 +5,11 @@ import { Row, Col } from "react-bootstrap";
 import Alerta2 from "./notify.js";
 import * as Yup from "yup";
 import axios from "axios";
+import SelectList from "../components/selectList.js";
 
-function CrearExistencia({ id, close, load,save }) {
+function CrearExistencia({ id, close, load, save }) {
   //#region Contenido
+  const formikRef = useRef();
   const childCompRef = useRef();
   const [alerta, setAlerta] = useState(false);
   function Notificar(respuesta) {
@@ -42,7 +44,7 @@ function CrearExistencia({ id, close, load,save }) {
       createdAt: "",
       updatedAt: "",
       id_subcategoria: "",
-      id_curvatura: "",
+      curvatura: "",
       id_material: "",
     },
     productoCat: {
@@ -56,19 +58,16 @@ function CrearExistencia({ id, close, load,save }) {
   const [categorias, setCategorias] = useState([]);
   const [subCategorias, setSubCategorias] = useState([]);
   const [subcats, setSubCategoriasFiltradas] = useState([]);
-  const [tallas, setTallas] = useState([]);
-  const [materiales, setMaterial] = useState([]);
-  const [curvaturas, setCurvaturas] = useState([]);
-  const [local, setLocal] = useState([]);
-  const [colores, setColor] = useState([]);
   //#endregion
   //#region Relleno del Contenido
   useEffect(() => {
     if (id !== undefined) {
       axios
-        .get(process.env.REACT_APP_SERVER + "productoexist/" + id,  {headers:{
-          "Bypass-Tunnel-Reminder":1
-        }})
+        .get(process.env.REACT_APP_SERVER + "productoexist/" + id, {
+          headers: {
+            "Bypass-Tunnel-Reminder": 1,
+          },
+        })
         .then((response) => {
           setProductoEditable(response.data);
         });
@@ -80,55 +79,26 @@ function CrearExistencia({ id, close, load,save }) {
     }
   }, [productoEditable]);
   useEffect(() => {
-    axios.get(process.env.REACT_APP_SERVER + "categoria",  {headers:{
-      "Bypass-Tunnel-Reminder":1
-    }}).then((response) => {
-      setCategorias(response.data);
-    });
-  }, []);
-  useEffect(() => {
     axios
-      .get(process.env.REACT_APP_SERVER + "subcategoria",  {headers:{
-        "Bypass-Tunnel-Reminder":1
-      }})
+      .get(process.env.REACT_APP_SERVER + "categoria", {
+        headers: {
+          "Bypass-Tunnel-Reminder": 1,
+        },
+      })
       .then((response) => {
-        setSubCategorias(response.data);
+        setCategorias(response.data);
       });
   }, []);
   useEffect(() => {
-    axios.get(process.env.REACT_APP_SERVER + "talla",  {headers:{
-      "Bypass-Tunnel-Reminder":1
-    }}).then((response) => {
-      setTallas(response.data);
-    });
-  }, []);
-  useEffect(() => {
-    axios.get(process.env.REACT_APP_SERVER + "material",  {headers:{
-      "Bypass-Tunnel-Reminder":1
-    }}).then((response) => {
-      setMaterial(response.data);
-    });
-  }, []);
-  useEffect(() => {
-    axios.get(process.env.REACT_APP_SERVER + "color",  {headers:{
-      "Bypass-Tunnel-Reminder":1
-    }}).then((response) => {
-      setColor(response.data);
-    });
-  }, []);
-  useEffect(() => {
-    axios.get(process.env.REACT_APP_SERVER + "curvatura",  {headers:{
-      "Bypass-Tunnel-Reminder":1
-    }}).then((response) => {
-      setCurvaturas(response.data);
-    });
-  }, []);
-  useEffect(() => {
-    axios.get(process.env.REACT_APP_SERVER + "local",  {headers:{
-      "Bypass-Tunnel-Reminder":1
-    }}).then((response) => {
-      setLocal(response.data);
-    });
+    axios
+      .get(process.env.REACT_APP_SERVER + "subcategoria", {
+        headers: {
+          "Bypass-Tunnel-Reminder": 1,
+        },
+      })
+      .then((response) => {
+        setSubCategorias(response.data);
+      });
   }, []);
   //#endregion
 
@@ -194,7 +164,7 @@ function CrearExistencia({ id, close, load,save }) {
       "merma_c",
       productoEditable.productoExist.merma_c
     );
-    setActiveState(productoEditable.productoExist.merma_c)
+    setActiveState(productoEditable.productoExist.merma_c);
     setcosto(productoEditable.productoExist.costo);
     setprecio(productoEditable.productoExist.precio);
     setcomision(productoEditable.productoExist.comision);
@@ -203,7 +173,6 @@ function CrearExistencia({ id, close, load,save }) {
     setAv(productoEditable.productoExist.area_de_venta);
   }
   //#region Referencias
-  const formikRef = useRef();
   //#endregion
 
   //#region useEffects
@@ -239,11 +208,10 @@ function CrearExistencia({ id, close, load,save }) {
     precio: "",
     comision: "",
     merma_c: false,
-    id_color: "#A67B5B",
+    id_color: -1,
     total: "",
     almacen: "",
     area_de_venta: "",
-    color: "#A67B5B",
   };
   //#endregion
   //#region Esquema de Validación
@@ -296,19 +264,28 @@ function CrearExistencia({ id, close, load,save }) {
         onSubmit={(values, { resetForm }) => {
           if (id === undefined) {
             axios
-              .post(process.env.REACT_APP_SERVER + "productoexist", values,  {headers:{
-                "Bypass-Tunnel-Reminder":1
-              }})
+              .post(process.env.REACT_APP_SERVER + "productoexist", values, {
+                headers: {
+                  "Bypass-Tunnel-Reminder": 1,
+                },
+              })
               .then((response) => {
                 Notificar(response);
                 response.data.titulo = "Producto Creado" ? resetForm() : "";
                 resetFields();
+                load()
               });
           } else {
             axios
-              .put(process.env.REACT_APP_SERVER + "productoexist/" + id, values,  {headers:{
-                "Bypass-Tunnel-Reminder":1
-              }})
+              .put(
+                process.env.REACT_APP_SERVER + "productoexist/" + id,
+                values,
+                {
+                  headers: {
+                    "Bypass-Tunnel-Reminder": 1,
+                  },
+                }
+              )
               .then((response) => {
                 save(response);
                 load();
@@ -317,29 +294,27 @@ function CrearExistencia({ id, close, load,save }) {
         }}
       >
         {(props) => {
-          // console.log(props);
+          console.log(props);
           return (
             <Form className="Formi">
               <div onClick={hide}>
                 <Alerta2 ref={childCompRef} visible={alerta} />
               </div>
-              <div>
-                {id !== undefined ? (
-                  <h4 style={{ textAlign: "center" }}>Editar</h4>
-                ) : (
-                  ""
-                )}
+              <div><h4 style={{ textAlign: "center" }}>
+                {id !== undefined ?
+                  "Editar":"Nuevo Artículo"
+               }</h4>
                 <label>Local </label>
-                <Field as="select" className="form-control" name="id_local">
-                  <option key="-1" value="-1">
-                    Seleccione un local
-                  </option>
-                  {local.map((locales) => (
-                    <option key={locales.id} value={locales.id}>
-                      {locales.nombre + " - " + locales.direccion}
-                    </option>
-                  ))}
-                </Field>
+                <Field
+                  component={SelectList}
+                  name="id_local"
+                  ruta="local"
+                  elemento="nombre"
+                  fref="id_local"
+                  cvalue="id"
+                  nombre="una local"
+                  handleChange={props.setFieldValue}
+                />
               </div>
               {id === undefined ? (
                 <div>
@@ -388,64 +363,69 @@ function CrearExistencia({ id, close, load,save }) {
                 <Row>
                   <Col>
                     <label>Talla </label>
-                    <Field as="select" className="form-control" name="id_talla">
-                      <option key="0" value="0">
-                        Standar
-                      </option>
-                      <option key="-1" value="-1">
-                        Seleccionar Talla
-                      </option>
-                      {tallas.map((talla) => (
-                        <option key={talla.id} value={talla.id}>
-                          {talla.talla}
-                        </option>
-                      ))}
-                    </Field>
-                  </Col>
-                  {id === undefined ? (<Col>
-                    <label>Curvatura </label>
                     <Field
-                      as="select"
-                      className="form-control"
-                      name="id_curvatura"
-                    >
-                      <option key="0" value="0">
-                        Standar
-                      </option>
-                      <option key="-1" value="-1">
-                        Seleccionar Curvatura
-                      </option>
-                      {curvaturas.map((curvatura) => (
-                        <option key={curvatura.id} value={curvatura.id}>
-                          {curvatura.curvatura}
-                        </option>
-                      ))}
-                    </Field>
-                  </Col>):""}
+                      component={SelectList}
+                      name="id_talla"
+                      ruta="talla"
+                      elemento="talla"
+                      fref="id_talla"
+                      cvalue="id"
+                      nombre="una talla"
+                      tipo={"number"}
+                      handleChange={props.setFieldValue}
+                    />
+                  </Col>
                   {id === undefined ? (
                     <Col>
-                      <label>Material </label>
+                      <label>Curvatura </label>
                       <Field
-                        as="select"
-                        className="form-control"
-                        name="id_material"
-                      >
-                        <option key="-1" value="-1">
-                          Seleccionar Material
-                        </option>
-                        {materiales.map((material) => (
-                          <option key={material.id} value={material.id}>
-                            {material.material}
-                          </option>
-                        ))}
-                      </Field>
+                        component={SelectList}
+                        name="id_curvatura"
+                        ruta="curvatura"
+                        elemento="curvatura"
+                        fref="id_curvatura"
+                        cvalue="id"
+                        nombre="una curvatura"
+                        handleChange={props.setFieldValue}
+                      />
                     </Col>
                   ) : (
                     ""
                   )}
+                  {id === undefined ? (
+                    <Col>
+                      <label>Material </label>
+                      <Field
+                        component={SelectList}
+                        name="id_material"
+                        ruta="material"
+                        elemento="material"
+                        fref="id_material"
+                        cvalue="id"
+                        nombre="un material"
+                        handleChange={props.setFieldValue}
+                      />
+                    </Col>
+                  ) : (
+                    ""
+                  )}
+                  <Col>
+                    <label>Color </label>
+                    <Field
+                      component={SelectList}
+                      name="id_color"
+                      ruta="color"
+                      elemento="color"
+                      fref="id_color"
+                      cvalue="id"
+                      nombre="un color"
+                      handleChange={props.setFieldValue}
+                    />
+                  </Col>
                 </Row>
               </div>
               <Row>
+                
                 <Col>
                   <label>Descripción </label>
                   <ErrorMessage
@@ -459,19 +439,6 @@ function CrearExistencia({ id, close, load,save }) {
                     name="descripcion"
                     placeholder="Descripción"
                   />
-                </Col>
-                <Col>
-                  <label>Color </label>
-                  <Field as="select" className="form-control" name="id_color">
-                    <option key="-1" value="-1">
-                      Seleccionar Color
-                    </option>
-                    {colores.map((color) => (
-                      <option key={color.id} value={color.id}>
-                        {color.color}
-                      </option>
-                    ))}
-                  </Field>
                 </Col>
                 <Col>
                   <label>
@@ -626,8 +593,9 @@ function CrearExistencia({ id, close, load,save }) {
                       type="text"
                       value={av}
                       style={
-                        av === "Déficit" ? { color: "red" ,marginBottom:"5px"} : { color: "green",marginBottom:"5px" }
-                        
+                        av === "Déficit"
+                          ? { color: "red", marginBottom: "5px" }
+                          : { color: "green", marginBottom: "5px" }
                       }
                       /* This name property is used to access the value of the form element via values.nameOfElement */
                       name="area_de_venta"
@@ -639,17 +607,9 @@ function CrearExistencia({ id, close, load,save }) {
                 </Row>
               </div>
               <div className="row justify-content-center">
-              {id !== undefined ?<button
-                  className="btn btn-secondary col-11 col-sm-5 col-md-5 col-lg-5"
-                  variant="secondary"
-                  type="button"
-                  onClick={close}
-                  style={{
-                    margin: "5px",
-                  }}
-                >
-                 Cancelar
-                </button>:""}
+                
+                 
+               
                 <button
                   className="btn btn-primary col-11 col-sm-5 col-md-5 col-lg-5"
                   variant="success"
@@ -661,6 +621,17 @@ function CrearExistencia({ id, close, load,save }) {
                 >
                   {id === undefined ? "Guardar" : "Actualizar"}
                 </button>
+                <button
+                    className="btn btn-secondary col-11 col-sm-5 col-md-5 col-lg-5"
+                    variant="secondary"
+                    type="button"
+                    onClick={close}
+                    style={{
+                      margin: "5px",
+                    }}
+                  >
+                    Cancelar
+                  </button>
               </div>
             </Form>
           );

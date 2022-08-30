@@ -149,7 +149,7 @@ function Configuration(props) {
         </button>
       </div>
       {elementos.length > 0 ? (
-        <React.Fragment>
+        < >
           <div
             className="table-responsive"
             style={{ maxHeight: "210px", minHeight: "210px" }}
@@ -164,7 +164,7 @@ function Configuration(props) {
                       {/* Celdas */}
                       <td className="col-8" onClick={() => Editar(item.id)}>
                         {id === item.id && modoEdicion ? (
-                          <React.Fragment>
+                          < >
                             <input
                               type="text"
                               style={{ fontSize: 11 }}
@@ -173,9 +173,9 @@ function Configuration(props) {
                               defaultValue={item[elemento]}
                               onChange={handleChange}
                             />
-                          </React.Fragment>
+                          </ >
                         ) : (
-                          <React.Fragment>{item[elemento]}</React.Fragment>
+                          < >{item[elemento]}</ >
                         )}
                       </td>
                       <td className="col-4">
@@ -226,7 +226,7 @@ function Configuration(props) {
               </tbody>
             </Table>
           </div>
-        </React.Fragment>
+        </ >
       ) : (
         ""
       )}

@@ -202,7 +202,7 @@ function SubCatConfig(props) {
         </button>
       </div>
       {elementos.length > 0 ? (
-        <React.Fragment>
+        < >
           <div
             className="table-responsive"
             style={{ maxHeight: "210px", minHeight: "210px" }}
@@ -217,7 +217,7 @@ function SubCatConfig(props) {
                       {/* Celdas */}
                       <td onClick={() => Editar(item.id)}>
                         {id === item.id && modoEdicion ? (
-                          <React.Fragment>
+                          < >
                             <input
                               type="text"
                               style={{ fontSize: 11 }}
@@ -226,9 +226,9 @@ function SubCatConfig(props) {
                               defaultValue={item[elemento]}
                               onChange={handleChange}
                             />
-                          </React.Fragment>
+                          </ >
                         ) : (
-                          <React.Fragment>{item[elemento]}</React.Fragment>
+                          < >{item[elemento]}</ >
                         )}
                       </td>
                       <td>
@@ -278,7 +278,7 @@ function SubCatConfig(props) {
               </tbody>
             </Table>
           </div>
-        </React.Fragment>
+        </ >
       ) : (
         ""
       )}

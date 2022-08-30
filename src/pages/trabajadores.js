@@ -1,12 +1,12 @@
 import React from "react";
 import { useState, useEffect, useRef } from "react";
 import { Formik, Form, ErrorMessage, Field } from "formik";
-import { Row, Table } from "react-bootstrap";
+import { Row, Table,Button,Modal } from "react-bootstrap";
 import * as Yup from "yup";
 import Alerta2 from "./notify.js";
 
 import axios from "axios";
-import { MdEdit, MdDelete } from "react-icons/md";
+import { MdEdit, MdDelete,MdAddCircle} from "react-icons/md";
 
 function Trabajadores() {
   const childCompRef = useRef();
@@ -19,6 +19,11 @@ function Trabajadores() {
   function hide() {
     setAlerta(false);
   }
+  const [show, setShow] = useState(false);
+  const Close = () => {
+    setAlerta(false);
+    setShow(false);
+  };
 
   //#region Relleno del Contenido
   //#region Variables
@@ -42,6 +47,7 @@ function Trabajadores() {
     });
   }
   const Cancelar = () => {
+    setShow(false)
     setmodoEdicion(false);
     setId("");
     resetFields();
@@ -192,8 +198,11 @@ function Trabajadores() {
                 "Bypass-Tunnel-Reminder":1
               }})
               .then((response) => {
-                Notificar(response);
-                if (response.data.status !== "primary") resetFields();
+                Notificar(response)
+                if (response.data.status !== "primary"){
+                  resetFields();
+                }
+                Close()
                 Load();
               });
           } else {
@@ -203,22 +212,30 @@ function Trabajadores() {
               }})
               .then((response) => {
                 Notificar(response);
-
                 resetFields();
                 setmodoEdicion(false);
                 Load();
+                Close()
               });
           }
         }}
       >
         {(props) => {
           // console.log(props);
-          return (
-            <Form className="Formi">
-              <div>
+          return (<>
+          
                 <div onClick={hide}>
                   <Alerta2 ref={childCompRef} visible={alerta} />
                 </div>
+            <Modal
+              show={show}
+              onHide={Close}
+              onExiting={Cancelar}
+              aria-labelledby="contained-modal-title-vcenter"
+              centered
+            >
+            <Form className="Formi">
+              <div>
                 <Row>
                   <div className="col-xs-12 col-sm-6 col-md-6 col-lg-6 ">
                     <label>Carnet de identidad </label>
@@ -428,13 +445,10 @@ function Trabajadores() {
                 >
                   {!modoEdicion ? "Guardar" : "Actualizar"}
                 </button>
-                {!modoEdicion ? (
-                  ""
-                ) : (
-                  <React.Fragment>
+                
                     <button
-                      className="btn btn-danger col-xs-11 col-sm-5 col-md-5 col-lg-5"
-                      variant="success"
+                      className="btn btn-secondary col-xs-11 col-sm-5 col-md-5 col-lg-5"
+                      type="button"
                       style={{
                         margin: "10px",
                       }}
@@ -442,16 +456,22 @@ function Trabajadores() {
                     >
                       Cancelar
                     </button>
-                  </React.Fragment>
-                )}
+                  
               </div>
             </Form>
-          );
+            </Modal>
+            </> );
         }}
       </Formik>
-      <h3>
-        Empleados <i>{trabajadores.length}</i>
-      </h3>
+      <h4>
+        Empleados  <Button
+          style={{ maxWidth: "150px" }}
+          variant="success btn-sm"
+          onClick={() => setShow(true)}
+        >
+          <MdAddCircle size={15} /> Agregar
+        </Button>
+      </h4>
       <div id="ptable" style={{ paddingBottom: "30px" }}>
         <Table className="table table-striped table-sm">
           <thead>
@@ -484,7 +504,8 @@ function Trabajadores() {
                       className="text-center" >
                     <button
                       className="btn btn-sm "
-                      onClick={() =>
+                      onClick={() =>{
+                        setShow(true);
                         Editar(
                           item.id,
                           item.ci,
@@ -496,7 +517,7 @@ function Trabajadores() {
                           item.salario_base,
                           item.id_local
                         )
-                      }
+                      }}
                     > <MdEdit size={20}/>
                     Editar
                     </button>
@@ -516,7 +537,7 @@ function Trabajadores() {
         </Table>
       </div>
     </div>
-  );
+    );
 }
 //#endregion
 export default Trabajadores;

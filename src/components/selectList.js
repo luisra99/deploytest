@@ -3,8 +3,8 @@ import { Form } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-function SelectList(props, { onChange }) {
-  const { ruta, elemento, cvalue, value, nombre, tipo } = props;
+function SelectList(props, { handleChange }) {
+  const { ruta, elemento, cvalue, value, nombre, tipo,fref,name} = props;
   const [elementos, setElementos] = useState([]);
   function Load() {
     switch (ruta) {
@@ -55,15 +55,18 @@ function SelectList(props, { onChange }) {
 
   return (
     <Form.Select
+    className="form-control"
       name={elemento}
-      style={{ margin: "5px" }}
       onChange={(e) => {
-        props.onChange(parseInt(e.target.value));
+        if(value!==undefined)
+        props.handleChange(parseInt(e.target.value));
+        else{
+        props.handleChange(fref,parseInt(e.target.value))}
       }}
       value={value}
     >
       <option key={-1} value={-1}>
-        --{nombre} --
+        Seleccione {nombre}
       </option>
       {elementos.map((item) => {
         return (
