@@ -27,6 +27,36 @@
   margin-bottom: 13px;
   background:linear-gradient(340deg, rgb(159, 180, 185) 1%, rgba(255, 255, 255, 0.89) 67%)
 }
+.home-card{
+  box-shadow: rgb(6, 49, 57) 0px 0px 5px 0px;
+  margin-bottom: 13px;
+  border-radius:10px;
+  padding-bottom:var(--bs-gutter-x,.75rem);
+  padding-top:5px;
+  background: linear-gradient(340deg, rgb(6, 49, 57) 1%, rgb(34, 80, 89) 67%)
+}
+.home-header{
+  text-align: center;
+font-weight: 650;
+}
+.home-title{
+  font-weight: 350;
+  letter-spacing: 0.022em;
+}
+.home-main-value{
+  font-weight: 550;
+font-size: 21px;
+line-height: 0.7;
+letter-spacing: 0.042em;
+}
+.week-day{
+font-size: 21px;
+font-weight: 100;
+}
+.home-sec-value{
+  line-height: 0.2;
+  font-weight: 600;
+}
 .card-container{
   border-radius: 1rem;
   box-shadow: rgb(6, 49, 57) 0px 0px 5px 0px;

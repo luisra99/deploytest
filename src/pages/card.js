@@ -1,10 +1,8 @@
-import Card from 'react-bootstrap/Card';
-import ListGroup from 'react-bootstrap/ListGroup';
-import { NavLink } from "react-router-dom";
+
 function ResumeCard(props) {
   return (
-    <div className=" col-12 col-sm-6 col-xs-6 col-md-5 col-lg-4 col-xl-3" style={{marginBottom:"12px"}} >
-<div className="resume-card card-body p-3" style={{borderRadius: "1rem",
+    <div className=" col-4 col-sm-4 col-xs-4 col-md-3 col-lg-3 col-xl-3" style={{margin:"0px 0px 10px 0px",padding:"0px"}} >
+<div className="resume-card card-body" style={{borderRadius: "1rem",
 boxShadow: "rgba(0, 0, 0, 0.3) 0px 10px 9px 0px",margin:"5px"}}>
           <div className="row">
             
