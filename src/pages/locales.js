@@ -400,14 +400,14 @@ function Locales() {
                         }}
                       >
                         <MdEdit size={20} />
-                        Editar
+                       
                       </button>
                       <button
                         className="btn btn-sm"
                         onClick={() => Eliminar(local.id)}
                       >
                         <MdDelete size={20} />
-                        Eliminar
+                        
                       </button>
                     </div>
                   </td>
