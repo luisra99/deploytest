@@ -250,11 +250,4 @@ body {
 .navbar-brand {
   background: transparent;}
   imgBox:{
-maxWidth:"80px";
-maxHeight:"80px";
-margin:"10px"
-  }
-  img:{
-    height:"inherit";
-    maxWidth:"inherit"
-  }
+maxWidth:"80px";}
