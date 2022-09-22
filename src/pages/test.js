@@ -1,6 +1,5 @@
 import { useState } from "react";
 import {QrReader} from "react-qr-reader";
-
 const Test = () => {
   const [selected, setSelected] = useState("environment");
   const [startScan, setStartScan] = useState(false);
