@@ -188,6 +188,7 @@ box-shadow: 0px 10px 13px -7px #000000, inset 0px 0px 13px -8px rgba(0,0,0,0);
 		top: -9999px;
 		left: -9999px;
 	}
+  
  
 	#ptable tr { 
   border: 2px solid #ccc;
@@ -202,7 +203,7 @@ box-shadow: 0px 10px 13px -7px #000000, inset 0px 0px 13px -8px rgba(0,0,0,0);
 		border: none;
 		border-bottom: 1px solid #eee; 
 		position: relative;
-		padding-left:125px; 
+		padding-left:150px; 
 		white-space: normal;
 		text-align:left;
     max-width:100%;

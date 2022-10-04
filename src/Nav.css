@@ -13,6 +13,7 @@
   background: #2c6975;
   
 }
+
 .link-nav:hover{
   background: #2c6975;
   transform: scale(1.1);
@@ -115,7 +116,7 @@ border-color: #111516;
     padding-bottom: 1px;
     padding-left: 3px;
     padding-right: 1px;
-  
+  top:5px;
 }
 .buscar::placeholder {
   color: #fff;

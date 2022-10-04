@@ -5,6 +5,7 @@ import Alerta2 from "./notify.js";
 import { Table, Row, Modal, Button } from "react-bootstrap";
 import { MdEdit, MdDelete, MdAddCircle } from "react-icons/md";
 import * as Yup from "yup";
+import Accordion from "react-bootstrap/Accordion";
 import axios from "axios";
 
 function Locales() {
@@ -31,28 +32,11 @@ function Locales() {
   const [municipio, setmunicipio] = useState("");
   const [tipo, settipo] = useState(0);
   const [locales, setLocal] = useState([
-    {
-      id: 2,
-      direccion: "Matanzas, Jaguey, calle 36 /5 y 7 507A",
-      nombre: "Tienda Jaguey",
-      trabajadores: 0,
-      tipo: 0,
-      createdAt: "2022-07-27T05:50:40.116Z",
-      updatedAt: "2022-07-27T05:51:19.932Z",
-    },
-    {
-      id: 4,
-      direccion: "Matanzas, Jaguey, Calle 36 / 5 y 7",
-      nombre: "Taller Jaguey",
-      trabajadores: 0,
-      tipo: 1,
-      createdAt: "2022-07-27T05:53:19.348Z",
-      updatedAt: "2022-07-27T05:53:19.348Z",
-    },
+    {"id":1,"direccion":"Matanzas, Jaguey, Calle 36","nombre":"Tienda Jaguey 2","tipo":0,"importe_hoy":null,"comision_hoy":null,"importe_semana":"24","comision_semana":"2","importe_mes":"24","comision_mes":"2","l":"24","cl":"2","m":null,"cm":null,"w":null,"cw":null,"j":null,"cj":null,"v":null,"cv":null,"s":null,"cs":null,"d":null,"cd":null,"trabajadores":"2","importe_year":"216","comision_year":"18"},{"id":35,"direccion":"Matanzas, Cardenas, Calle real entres espada y cuchillo","nombre":"Tienda de Cardenas","tipo":0,"importe_hoy":null,"comision_hoy":null,"importe_semana":null,"comision_semana":null,"importe_mes":null,"comision_mes":null,"l":null,"cl":null,"m":null,"cm":null,"w":null,"cw":null,"j":null,"cj":null,"v":null,"cv":null,"s":null,"cs":null,"d":null,"cd":null,"trabajadores":"1","importe_year":null,"comision_year":null}
   ]);
   function Load() {
     axios
-      .get(process.env.REACT_APP_SERVER + "local", {
+      .get(process.env.REACT_APP_SERVER + "view/local", {
         headers: {
           "Bypass-Tunnel-Reminder": 1,
         },
@@ -77,7 +61,7 @@ function Locales() {
   };
   const Eliminar = (id) => {
     axios
-      .delete(process.env.REACT_APP_SERVER + "local/" + id, {
+      .delete(process.env.REACT_APP_SERVER + "local" + id, {
         headers: {
           "Bypass-Tunnel-Reminder": 1,
         },
@@ -350,6 +334,7 @@ function Locales() {
           );
         }}
       </Formik>
+      <div className="text-center">
       <h4>
         Locales{" "}
         <Button
@@ -360,7 +345,50 @@ function Locales() {
           <MdAddCircle size={15} /> Agregar
         </Button>
       </h4>
-      <div
+        </div>
+      {locales.map((local) => {
+              return (
+                <div key={local.id}>
+                
+                      <Accordion
+              defaultActiveKey="1"
+              flush
+              className="text-center col-12"
+              style={{ padding: "0px" }}
+            >
+              <Accordion.Item eventKey="0">
+              <b>{local.nombre} ({local.tipo === 0 ? "Tienda" : "Taller"}) </b> - <i>{local.direccion}</i> <h5>
+              <div className="text-center"> <button
+                className="btn btn-sm"
+                style={{padding:"0px",marginBottom:"3px", marginRight:"10px"}}
+                onClick={() => {
+                  setShow(true)
+                  Editar(
+                    local.id,
+                    local.nombre,
+                    local.direccion,
+                    local.tipo
+                  );
+                }}
+              >
+                <MdEdit size={20} />
+               
+              </button>
+              <button
+                className="btn btn-sm"
+                style={{padding:"0px",marginBottom:"3px"}}
+                onClick={() => Eliminar(local.id)}
+              >
+                <MdDelete size={20} />
+                
+              </button> <Accordion.Header
+                  style={{ display: "inline-block" ,marginTop:"3px"}}
+                >
+                  </Accordion.Header></div> </h5>
+               
+                <Accordion.Body style={{ padding: "0px" }}>
+                
+                <div
         className="table-responsive"
         id="ptable"
         style={{ paddingBottom: "30px" }}
@@ -368,56 +396,90 @@ function Locales() {
         <Table className="table table-striped table-sm">
           <thead>
             <tr>
-              <th>Nombre</th>
-              <th>Direccion</th>
-              <th>Tipo</th>
-              <th>Trabajadores</th>
-              <th style={{ textAlign: "center" }}>Acciones</th>
+              <th>Momento</th>
+              <th>Importe</th>
+              <th>Comisión</th>
+              <th>Margen</th>
             </tr>
           </thead>
-          <tbody>
-            {locales.map((local) => {
-              return (
-                <tr key={local.id}>
-                  <td data-title="Nombre">{local.nombre}</td>
-                  <td data-title="Dirección">{local.direccion}</td>
-                  <td data-title="Tipo">
-                    {local.tipo === 0 ? "Tienda" : "Taller"}
-                  </td>
-                  <td data-title="Trabajadores">{local.trabajadores}</td>
-                  <td style={{ paddingLeft: "0px" }}>
-                    <div className="text-center">
-                      <button
-                        className="btn btn-sm"
-                        onClick={() => {
-                          setShow(true)
-                          Editar(
-                            local.id,
-                            local.nombre,
-                            local.direccion,
-                            local.tipo
-                          );
-                        }}
-                      >
-                        <MdEdit size={20} />
-                       
-                      </button>
-                      <button
-                        className="btn btn-sm"
-                        onClick={() => Eliminar(local.id)}
-                      >
-                        <MdDelete size={20} />
-                        
-                      </button>
-                    </div>
-                  </td>
+          <tbody>  
+                <tr >
+                  <td data-title="Momento">Hoy</td>
+                  <td data-title="Importe">${local.importe_hoy??0}</td>
+                  <td data-title="Comisión">${local.comision_hoy??0}</td>
+                  <td data-title="Margen Comercial">${local.importe_hoy??0-local.comision_hoy??0} </td>
                 </tr>
-              );
-            })}
+                <tr >
+                  <td data-title="Momento">Semana</td>
+                  <td data-title="Importe">${local.importe_semana??0}</td>
+                  <td data-title="Comisión">${local.comision_semana??0}</td>
+                  <td data-title="Margen Comercial">${local.importe_semana??0-local.comision_semana??0} </td>
+                </tr>
+                <tr >
+                  <td data-title="Momento">Lunes</td>
+                  <td data-title="Importe">${local.l??0}</td>
+                  <td data-title="Comisión">${local.cl??0}</td>
+                  <td data-title="Margen Comercial">${local.l??0-local.cl??0} </td>
+                </tr>
+                <tr >
+                  <td data-title="Momento">Martes</td>
+                  <td data-title="Importe">${local.m??0}</td>
+                  <td data-title="Comisión">${local.cm??0}</td>
+                  <td data-title="Margen Comercial">${local.m??0-local.cm??0} </td>
+                </tr>
+                <tr >
+                  <td data-title="Momento">Miércoles</td>
+                  <td data-title="Importe">${local.w??0}</td>
+                  <td data-title="Comisión">${local.cw??0}</td>
+                  <td data-title="Margen Comercial">${local.w??0-local.cw??0} </td>
+                </tr>
+                <tr >
+                  <td data-title="Momento">Jueves</td>
+                  <td data-title="Importe">${local.j??0}</td>
+                  <td data-title="Comisión">${local.cj??0}</td>
+                  <td data-title="Margen Comercial">${local.j??0-local.cj??0} </td>
+                </tr>
+                <tr >
+                  <td data-title="Momento">Viernes</td>
+                  <td data-title="Importe">${local.v??0}</td>
+                  <td data-title="Comisión">${local.cv??0}</td>
+                  <td data-title="Margen Comercial">${local.v??0-local.cv??0} </td>
+                </tr>
+                <tr >
+                  <td data-title="Momento">Sábado</td>
+                  <td data-title="Importe">${local.s??0}</td>
+                  <td data-title="Comisión">${local.cs??0}</td>
+                  <td data-title="Margen Comercial">${local.s??0-local.cs??0} </td>
+                </tr><tr >
+                  <td data-title="Momento">Domingo</td>
+                  <td data-title="Importe">${local.d??0}</td>
+                  <td data-title="Comisión">${local.cd??0}</td>
+                  <td data-title="Margen Comercial">${local.d??0-local.cd??0} </td>
+                </tr>
+
+                <tr >
+                  <td data-title="Momento">Mes</td>
+                  <td data-title="Importe">${local.importe_mes??0}</td>
+                  <td data-title="Comisión">${local.comision_mes??0}</td>
+                  <td data-title="Margen Comercial">${local.importe_mes??0-local.comision_mes??0} </td>
+                </tr>
+                <tr >
+                  <td data-title="Momento">Año</td>
+                  <td data-title="Importe">${local.importe_year??0}</td>
+                  <td data-title="Comisión">${local.comision_year??0}</td>
+                  <td data-title="Margen Comercial">${local.importe_year??0-local.comision_year??0} </td>
+                </tr>
+              
           </tbody>
         </Table>
       </div>
-    </div>
+                </Accordion.Body>
+              </Accordion.Item>
+            </Accordion>
+      
+    </div>)
+            })
+            }</div>
   );
 }
 export default Locales;

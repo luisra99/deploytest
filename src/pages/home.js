@@ -5,7 +5,7 @@ import HomeCard from "../components/homeCard.js";
 import HomeCardBody from "../components/homeCardBody.js";
 
 function Home() {
-  const [resumen, setResumen] = useState({"importe":"24","comision":"24","gastos":"9","importew":"24","comisionw":"24","gastosw":"9","l":null,"cl":null,"m":null,"cm":null,"w":null,"cw":null,"j":null,"cj":null,"v":null,"cv":null,"s":null,"cs":null,"d":"24","cd":"24","importey":"586","comisiony":"68","gastosy":"34","ctimporte":"110","ctcomision":"10","stimporte":null,"stcomision":null,"ttimporte":"476","ttcomision":"58","ptimporte":null,"ptcomision":null,"importem":"36","comisionm":"36","gastosm":"34"});
+  const [resume, setResume] = useState({"importe":"24","comision":"24","gastos":"9","importew":"24","comisionw":"24","gastosw":"9","l":null,"cl":null,"m":null,"cm":null,"w":null,"cw":null,"j":null,"cj":null,"v":null,"cv":null,"s":null,"cs":null,"d":"24","cd":"24","importey":"586","comisiony":"68","gastosy":"34","ctimporte":"110","ctcomision":"10","stimporte":null,"stcomision":null,"ttimporte":"476","ttcomision":"58","ptimporte":null,"ptcomision":null,"importem":"36","comisionm":"36","gastosm":"34"});
   function Load() {
     axios
       .get(process.env.REACT_APP_SERVER + "view/resumen/general", {
@@ -14,7 +14,7 @@ function Home() {
         },
       })
       .then((response) => {
-        setResumen(response.data);
+        setResume(response.data);
       });
   }
   useEffect(() => {
@@ -25,38 +25,38 @@ function Home() {
     
     <div style={{color:"whitesmoke",textShadow: "rgb(0, 0, 0) 1px 1px 4px"}}>
        <HomeCard header="Hoy">
-        <HomeCardBody type='primary' title='Ingreso' value={resumen.importe}/>
-        <HomeCardBody type='primary' title='Comisión' value={resumen.comision}/>
-        <HomeCardBody type='primary' title='Gastos' value={resumen.gastos}/>
+        <HomeCardBody type='primary' title='Ingreso' value={resume.importe}/>
+        <HomeCardBody type='primary' title='Comisión' value={resume.comision}/>
+        <HomeCardBody type='primary' title='Gastos' value={resume.gastos}/>
         </HomeCard>
        <HomeCard header="Esta semana">
-        <HomeCardBody type='primary' title='Ingreso' value={resumen.importew}/>
-        <HomeCardBody type='primary' title='Comisión' value={resumen.comisionw}/>
-        <HomeCardBody type='primary' title='Gastos' value={resumen.gastosw}/>
+        <HomeCardBody type='primary' title='Ingreso' value={resume.importew}/>
+        <HomeCardBody type='primary' title='Comisión' value={resume.comisionw}/>
+        <HomeCardBody type='primary' title='Gastos' value={resume.gastosw}/>
         <HomeCard header="Detalles">
-        <HomeCardBody title='Lunes' value={resumen.l}/>
-        <HomeCardBody title='Martes' value={resumen.m}/>
-        <HomeCardBody title='Miércoles' value={resumen.w}/>
-        <HomeCardBody title='Jueves' value={resumen.j}/>
-        <HomeCardBody title='Viernes' value={resumen.v}/>
-        <HomeCardBody title='Sábado' value={resumen.s}/>
-        <HomeCardBody title='Domingo' value={resumen.d}/>
+        <HomeCardBody title='Lunes' value={resume.l}/>
+        <HomeCardBody title='Martes' value={resume.m}/>
+        <HomeCardBody title='Miércoles' value={resume.w}/>
+        <HomeCardBody title='Jueves' value={resume.j}/>
+        <HomeCardBody title='Viernes' value={resume.v}/>
+        <HomeCardBody title='Sábado' value={resume.s}/>
+        <HomeCardBody title='Domingo' value={resume.d}/>
         </HomeCard>
         </HomeCard>
         <HomeCard header="Este Mes">
-        <HomeCardBody type='primary' title='Ingreso' value={resumen.importem}/>
-        <HomeCardBody type='primary' title='Comisión' value={resumen.comisionm}/>
-        <HomeCardBody type='primary' title='Gastos' value={resumen.gastosm}/>
+        <HomeCardBody type='primary' title='Ingreso' value={resume.importem}/>
+        <HomeCardBody type='primary' title='Comisión' value={resume.comisionm}/>
+        <HomeCardBody type='primary' title='Gastos' value={resume.gastosm}/>
         </HomeCard>
         <HomeCard header="Esta año">
-        <HomeCardBody type='primary' title='Ingreso' value={resumen.importey}/>
-        <HomeCardBody type='primary' title='Comisión' value={resumen.comisiony}/>
-        <HomeCardBody type='primary' title='Gastos' value={resumen.gastosy}/>
+        <HomeCardBody type='primary' title='Ingreso' value={resume.importey}/>
+        <HomeCardBody type='primary' title='Comisión' value={resume.comisiony}/>
+        <HomeCardBody type='primary' title='Gastos' value={resume.gastosy}/>
         <HomeCard header="Trimestres">
-        <HomeCardBody title='Primero' value={resumen.ptimporte}/>
-        <HomeCardBody title='Segundo' value={resumen.stimporte}/>
-        <HomeCardBody title='Tercero' value={resumen.ttimporte}/>
-        <HomeCardBody title='Cuarto' value={resumen.ctimporte}/>
+        <HomeCardBody title='Primero' value={resume.ptimporte}/>
+        <HomeCardBody title='Segundo' value={resume.stimporte}/>
+        <HomeCardBody title='Tercero' value={resume.ttimporte}/>
+        <HomeCardBody title='Cuarto' value={resume.ctimporte}/>
         </HomeCard>
         </HomeCard>
       {/*<HomeCard header="Esta Semana" titles={[{h:"Ingreso",v:{importew}},{h:"Comision",v:{comisionw}},{h:"Gastos",v:{gastosw}}]} stitles={[{h:"Lunes",v:{l}},{h:"Martes",v:{m}},{h:"Miercoles",v:{w}},{h:"Jueves",v:{j}},{h:"Viernes",v:{v}},{h:"Sabado",v:{s}},{h:"Domingo",v:{d}}]}/>
