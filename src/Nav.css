@@ -101,7 +101,12 @@ filter: invert(1)}
 #ptable td {
   text-align: center;
   border-bottom: none;
-}}
+}
+.trdetail{
+  background: #5f9ea070;
+  border-bottom-style: solid
+}
+}
 .radio-buttons{
 color: #fff;
 font-weight:600;
@@ -131,6 +136,10 @@ border-color: #111516;
 .buscar::placeholder {
   color: #fff;
 
+}
+.trdetail{
+  background: #5f9ea070;
+  border-bottom-style: hidden
 }
 #acordeonb::after{
   filter: invert(1);

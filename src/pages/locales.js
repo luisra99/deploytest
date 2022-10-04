@@ -408,67 +408,68 @@ function Locales() {
                   <td data-title="Momento">Hoy</td>
                   <td data-title="Importe">${local.importe_hoy??0}</td>
                   <td data-title="Comisión">${local.comision_hoy??0}</td>
-                  <td data-title="Margen Comercial">${local.importe_hoy??0-local.comision_hoy??0} </td>
+                  <td data-title="Margen Comercial">${local.importe_hoy-local.comision_hoy} </td>
                 </tr>
                 <tr >
                   <td data-title="Momento">Semana</td>
                   <td data-title="Importe">${local.importe_semana??0}</td>
                   <td data-title="Comisión">${local.comision_semana??0}</td>
-                  <td data-title="Margen Comercial">${local.importe_semana??0-local.comision_semana??0} </td>
+                  <td data-title="Margen Comercial">${local.importe_semana-local.comision_semana} </td>
                 </tr>
-                <tr >
+              
+                <tr className="trdetail" >
                   <td data-title="Momento">Lunes</td>
                   <td data-title="Importe">${local.l??0}</td>
                   <td data-title="Comisión">${local.cl??0}</td>
-                  <td data-title="Margen Comercial">${local.l??0-local.cl??0} </td>
+                  <td data-title="Margen Comercial">${local.l-local.cl} </td>
                 </tr>
-                <tr >
+                <tr className="trdetail">
                   <td data-title="Momento">Martes</td>
                   <td data-title="Importe">${local.m??0}</td>
                   <td data-title="Comisión">${local.cm??0}</td>
-                  <td data-title="Margen Comercial">${local.m??0-local.cm??0} </td>
+                  <td data-title="Margen Comercial">${local.m-local.cm} </td>
                 </tr>
-                <tr >
+                <tr className="trdetail">
                   <td data-title="Momento">Miércoles</td>
                   <td data-title="Importe">${local.w??0}</td>
                   <td data-title="Comisión">${local.cw??0}</td>
-                  <td data-title="Margen Comercial">${local.w??0-local.cw??0} </td>
+                  <td data-title="Margen Comercial">${local.w-local.cw} </td>
                 </tr>
-                <tr >
+                <tr  className="trdetail">
                   <td data-title="Momento">Jueves</td>
                   <td data-title="Importe">${local.j??0}</td>
                   <td data-title="Comisión">${local.cj??0}</td>
-                  <td data-title="Margen Comercial">${local.j??0-local.cj??0} </td>
+                  <td data-title="Margen Comercial">${local.j-local.cj} </td>
                 </tr>
-                <tr >
+                <tr className="trdetail">
                   <td data-title="Momento">Viernes</td>
                   <td data-title="Importe">${local.v??0}</td>
                   <td data-title="Comisión">${local.cv??0}</td>
-                  <td data-title="Margen Comercial">${local.v??0-local.cv??0} </td>
+                  <td data-title="Margen Comercial">${local.v-local.cv} </td>
                 </tr>
-                <tr >
+                <tr className="trdetail">
                   <td data-title="Momento">Sábado</td>
                   <td data-title="Importe">${local.s??0}</td>
                   <td data-title="Comisión">${local.cs??0}</td>
-                  <td data-title="Margen Comercial">${local.s??0-local.cs??0} </td>
-                </tr><tr >
+                  <td data-title="Margen Comercial">${local.s-local.cs} </td>
+                </tr><tr className="trdetail"  >
                   <td data-title="Momento">Domingo</td>
                   <td data-title="Importe">${local.d??0}</td>
                   <td data-title="Comisión">${local.cd??0}</td>
-                  <td data-title="Margen Comercial">${local.d??0-local.cd??0} </td>
+                  <td data-title="Margen Comercial">${local.d-local.cd} </td>
                 </tr>
 
                 <tr >
                   <td data-title="Momento">Mes</td>
                   <td data-title="Importe">${local.importe_mes??0}</td>
                   <td data-title="Comisión">${local.comision_mes??0}</td>
-                  <td data-title="Margen Comercial">${local.importe_mes??0-local.comision_mes??0} </td>
+                  <td data-title="Margen Comercial">${local.importe_mes-local.comision_mes} </td>
                 </tr>
                 <tr >
                   <td data-title="Momento">Año</td>
                   <td data-title="Importe">${local.importe_year??0}</td>
                   <td data-title="Comisión">${local.comision_year??0}</td>
-                  <td data-title="Margen Comercial">${local.importe_year??0-local.comision_year??0} </td>
+                  <td data-title="Margen Comercial">${local.importe_year-local.comision_year} </td>
                 </tr>
               
           </tbody>
