@@ -87,11 +87,21 @@ text-shadow: rgb(14, 36, 40) 0px 1px 3px
 }
 .accordion-button:not(.collapsed) {
   background: none;
-  box-shadow: none;}
-
+  box-shadow: none;
+filter: invert(1)}
+  .accordion-button {
+    background: none;
+    box-shadow: none;
+  filter: invert(1);
+  }
 .resume-card:hover{
   transform: scale(1.1);
 }
+@media only screen and (max-width: 450px){
+#ptable td {
+  text-align: center;
+  border-bottom: none;
+}}
 .radio-buttons{
 color: #fff;
 font-weight:600;
@@ -102,7 +112,7 @@ border-color: #111516;
   box-shadow: none;
 }
 .badge{
-  text-weight:900;
+  /* text-weight:900; */
   text-shadow: 0px 0px 2px black
 }
 .radio-buttons:hover {
@@ -121,6 +131,22 @@ border-color: #111516;
 .buscar::placeholder {
   color: #fff;
 
+}
+#acordeonb::after{
+  filter: invert(1);
+}
+.details-card {
+    box-shadow: rgb(6 49 57) 0px 0px 5px 0px;
+    margin-bottom: 13px;
+    border-radius: 10px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    background: linear-gradient(340deg, rgb(6, 49, 57) 1%, rgb(34, 80, 89) 67%);
+    color: ghostwhite;
+    text-shadow: rgb(0 0 0) 0px 1px 4px;
+}
+#body-detail td{
+  color:whitesmoke;
 }
 #ptable table{
   --bs-table-striped-bg: rgba(44, 105, 117, 0.13);

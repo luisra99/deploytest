@@ -120,6 +120,7 @@ function Locales() {
   });
   return (
     <div className="newProduct">
+  
       <div onClick={hide}>
         <Alerta2 ref={childCompRef} visible={alerta} />
       </div>
@@ -348,7 +349,7 @@ function Locales() {
         </div>
       {locales.map((local) => {
               return (
-                <div key={local.id}>
+                <div className="details-card" key={local.id}>
                 
                       <Accordion
               defaultActiveKey="1"
@@ -356,11 +357,11 @@ function Locales() {
               className="text-center col-12"
               style={{ padding: "0px" }}
             >
-              <Accordion.Item eventKey="0">
-              <b>{local.nombre} ({local.tipo === 0 ? "Tienda" : "Taller"}) </b> - <i>{local.direccion}</i> <h5>
+              <Accordion.Item  style={{background:"none"}} eventKey="0">
+             <h5><b>{local.nombre} ({local.tipo === 0 ? "Tienda" : "Taller"}) </b></h5>  <h6><i>{local.direccion}</i></h6>  
               <div className="text-center"> <button
                 className="btn btn-sm"
-                style={{padding:"0px",marginBottom:"3px", marginRight:"10px"}}
+                style={{padding:"0px",marginBottom:"3px", marginRight:"10px",color:"whitesmoke"}}
                 onClick={() => {
                   setShow(true)
                   Editar(
@@ -376,7 +377,7 @@ function Locales() {
               </button>
               <button
                 className="btn btn-sm"
-                style={{padding:"0px",marginBottom:"3px"}}
+                style={{padding:"0px",marginBottom:"3px",color:"whitesmoke"}}
                 onClick={() => Eliminar(local.id)}
               >
                 <MdDelete size={20} />
@@ -384,14 +385,14 @@ function Locales() {
               </button> <Accordion.Header
                   style={{ display: "inline-block" ,marginTop:"3px"}}
                 >
-                  </Accordion.Header></div> </h5>
+                  </Accordion.Header></div>
                
                 <Accordion.Body style={{ padding: "0px" }}>
                 
                 <div
         className="table-responsive"
         id="ptable"
-        style={{ paddingBottom: "30px" }}
+        style={{ paddingBottom: "0px" }}
       >
         <Table className="table table-striped table-sm">
           <thead>
@@ -402,7 +403,7 @@ function Locales() {
               <th>Margen</th>
             </tr>
           </thead>
-          <tbody>  
+          <tbody id="body-detail">  
                 <tr >
                   <td data-title="Momento">Hoy</td>
                   <td data-title="Importe">${local.importe_hoy??0}</td>
@@ -473,6 +474,7 @@ function Locales() {
           </tbody>
         </Table>
       </div>
+        <Accordion.Header id="acordeonb" style={{display:"inline-block"}}/>
                 </Accordion.Body>
               </Accordion.Item>
             </Accordion>
