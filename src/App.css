@@ -162,7 +162,7 @@ border:#2c6975;
   50%	{ opacity:0%}
 }
 #ptable tr{
-  text-shadow: 1px 1px 1px #000000;
+  text-shadow: 1px 1px 2px #0000008c;
 }
 #ptable button:hover{
   transform: scale(1.1);
