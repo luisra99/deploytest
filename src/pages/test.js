@@ -1,14 +1,14 @@
 import React from "react";
 import { useState, useEffect, useRef } from "react";
 import { Formik, Form, ErrorMessage, Field } from "formik";
-import Alerta2 from "./notify.js";
-import { Table, Row, Modal, Button } from "react-bootstrap";
-import { MdEdit, MdDelete, MdAddCircle } from "react-icons/md";
+import { Row, Table,Button,Modal } from "react-bootstrap";
 import * as Yup from "yup";
 import Accordion from "react-bootstrap/Accordion";
+import Alerta2 from "./notify.js";
 import axios from "axios";
+import { MdEdit, MdDelete,MdAddCircle} from "react-icons/md";
 
-function Locales() {
+function Trabajadores() {
   const childCompRef = useRef();
   const [alerta, setAlerta] = useState(false);
   function Notificar(respuesta) {
@@ -21,324 +21,450 @@ function Locales() {
   }
   const [show, setShow] = useState(false);
   const Close = () => {
+    setAlerta(false);
     setShow(false);
   };
 
+  //#region Relleno del Contenido
+  //#region Variables
   const [modoEdicion, setmodoEdicion] = useState(false);
   const [id, setId] = useState("");
   const [nombre, setnombre] = useState("");
-  const [direccion, setdireccion] = useState("");
-  const [provincia, setprovincia] = useState("");
-  const [municipio, setmunicipio] = useState("");
-  const [tipo, settipo] = useState(0);
-  const [locales, setLocal] = useState([
-    {"id":1,"direccion":"Matanzas, Jaguey, Calle 36","nombre":"Tienda Jaguey 2","tipo":0,"importe_hoy":null,"comision_hoy":null,"importe_semana":"24","comision_semana":"2","importe_mes":"24","comision_mes":"2","l":"24","cl":"2","m":null,"cm":null,"w":null,"cw":null,"j":null,"cj":null,"v":null,"cv":null,"s":null,"cs":null,"d":null,"cd":null,"trabajadores":"2","importe_year":"216","comision_year":"18"},{"id":35,"direccion":"Matanzas, Cardenas, Calle real entres espada y cuchillo","nombre":"Tienda de Cardenas","tipo":0,"importe_hoy":null,"comision_hoy":null,"importe_semana":null,"comision_semana":null,"importe_mes":null,"comision_mes":null,"l":null,"cl":null,"m":null,"cm":null,"w":null,"cw":null,"j":null,"cj":null,"v":null,"cv":null,"s":null,"cs":null,"d":null,"cd":null,"trabajadores":"1","importe_year":null,"comision_year":null}
-  ]);
+  const [primer_apellido, setPrimerApellido] = useState("");
+  const [segundo_apellido, setSegundoApellido] = useState("");
+  const [ci, setCarnet] = useState("");
+  const [direccion, setDireccion] = useState("");
+  const [salario_base, setSalario] = useState("");
+  const [contacto, setContacto] = useState("");
+  const [local, setLocales] = useState([]);
+  const [localSelected, setLocaleSelected] = useState(-1);
+  const [trabajadores, setTrabajadores] = useState([{"id":7,"ci":"99080100702","direccion":"calle 36 entre 5 y 7","nombre":"Luis Raul","primer_apellido":"Alfonso","segundo_apellido":"Caballero","contacto":"55432748 luisraul.alfonso@gmail.com","salario_base":1000,"createdAt":"2022-07-27T05:59:41.856Z","updatedAt":"2022-07-27T06:00:01.769Z","id_local":2}]);
   function Load() {
-    axios
-      .get(process.env.REACT_APP_SERVER + "view/trabajador", {
-        headers: {
-          "Bypass-Tunnel-Reminder": 1,
-        },
-      })
-      .then((response) => {
-        setLocal(response.data);
-      });
+    axios.get(process.env.REACT_APP_SERVER + "view/trabajador",  {headers:{
+      "Bypass-Tunnel-Reminder":1
+    }}).then((response) => {
+      setTrabajadores(response.data);
+    });
   }
-  useEffect(() => {
-    Load();
-  }, []);
-  const Editar = (id, nombre, direccion, tipo) => {
-    setEditValues(nombre, direccion, tipo);
-    setmodoEdicion(true);
-    setId(id);
-  };
   const Cancelar = () => {
-    setShow(false);
+    setShow(false)
     setmodoEdicion(false);
-    setId(undefined);
+    setId("");
     resetFields();
-  };
-  const Eliminar = (id) => {
-    axios
-      .delete(process.env.REACT_APP_SERVER + "local" + id, {
-        headers: {
-          "Bypass-Tunnel-Reminder": 1,
-        },
-      })
-      .then((response) => {
-        Notificar(response);
-        Load();
-      });
   };
   function resetFields() {
     setnombre("");
-    setdireccion("");
-    setprovincia("");
-    setmunicipio("");
-    settipo(0);
-    setmodoEdicion(false);
-    formikRef.current?.resetForm();
+    setPrimerApellido("");
+    setSegundoApellido("");
+    setCarnet("");
+    setDireccion("");
+    setSalario("");
+    setContacto("");
+    setLocaleSelected(-1);
   }
-
-  function setEditValues(nombre, direccion, tipo) {
-    const adr = direccion.split(",");
-    formikRef.current.setFieldValue("provincia", adr[0]);
-    setprovincia(adr[0]);
-    formikRef.current.setFieldValue("municipio", adr[1].trim());
-    setmunicipio(adr[1].trim());
-    formikRef.current.setFieldValue("direccion", adr[2].trim());
-    setdireccion(adr[2].trim());
-    formikRef.current.setFieldValue("provincia", nombre);
+  useEffect(() => {
+    Load();
+  },[]);
+  // useEffect(() => {
+  //   console.log(localSelected)
+  // }, [localSelected]);
+  useEffect(() => {
+    axios.get(process.env.REACT_APP_SERVER + "local",  {headers:{
+      "Bypass-Tunnel-Reminder":1
+    }}).then((response) => {
+      setLocales(response.data);
+    });
+  }, []);
+  const Eliminar = (id) => {
+    axios.delete(process.env.REACT_APP_SERVER + "trabajador/" + id,  {headers:{
+      "Bypass-Tunnel-Reminder":1
+    }}).then(() => {
+      Load();
+    });
+  };
+  const Editar = (
+    id,
+    ci,
+    nombre,
+    primer_apellido,
+    segundo_apellido,
+    contacto,
+    direccion,
+    salario_base,
+    id_local
+  ) => {
+    setmodoEdicion(true);
+    setId(id);
+    setEditValues(
+      ci,
+      nombre,
+      primer_apellido,
+      segundo_apellido,
+      contacto,
+      direccion,
+      salario_base,
+      id_local
+    );
+  };
+  function setEditValues(
+    ci,
+    nombre,
+    primer_apellido,
+    segundo_apellido,
+    contacto,
+    direccion,
+    salario_base,
+    id_local
+  ) {
+    formikRef.current.setFieldValue("ci", ci);
+    setCarnet(ci);
+    formikRef.current.setFieldValue("nombre", nombre);
     setnombre(nombre);
-    formikRef.current.setFieldValue("tipo", tipo);
-    settipo(tipo);
+    formikRef.current.setFieldValue("primer_apellido", primer_apellido);
+    setPrimerApellido(primer_apellido);
+    formikRef.current.setFieldValue("segundo_apellido", segundo_apellido);
+    setSegundoApellido(segundo_apellido);
+    formikRef.current.setFieldValue("contacto", contacto);
+    setContacto(contacto);
+    formikRef.current.setFieldValue("direccion", direccion);
+    setDireccion(direccion);
+    formikRef.current.setFieldValue("salario_base", salario_base);
+    setSalario(salario_base);
+    formikRef.current.setFieldValue("id_local", id_local);
+    setLocaleSelected(id_local);
   }
+  //#endregion
+  //#region Referencias
   const formikRef = useRef();
+  //#endregion
 
+  //#region useEffects
   useEffect(() => {
     formikRef.current.setFieldValue("nombre", nombre);
+    formikRef.current.setFieldValue("primer_apellido", primer_apellido);
+    formikRef.current.setFieldValue("segundo_apellido", segundo_apellido);
+    formikRef.current.setFieldValue("ci", ci);
     formikRef.current.setFieldValue("direccion", direccion);
-    formikRef.current.setFieldValue("provincia", provincia);
-    formikRef.current.setFieldValue("municipio", municipio);
-    formikRef.current.setFieldValue("tipo", tipo);
-  }, [nombre, direccion, municipio, provincia, tipo]);
+    formikRef.current.setFieldValue("salario_base", salario_base);
+    formikRef.current.setFieldValue("contacto", contacto);
+    formikRef.current.setFieldValue("id_local", localSelected);
+  }, [
+    nombre,
+    primer_apellido,
+    ci,
+    segundo_apellido,
+    direccion,
+    salario_base,
+    contacto,
+    localSelected,
+  ]);
 
+  //#endregion
+  //#region Valores iniciales
   const initialValues = {
-    tipo: 0,
-    municipio: "",
+    ci: "",
     nombre: "",
+    primer_apellido: "",
+    segundo_apellido: "",
+    contacto: "",
+    salario_base: "",
     direccion: "",
-    provincia: "",
   };
+  //#endregion
+  //#region Esquema de Validación
   const validationSchema = Yup.object().shape({
     nombre: Yup.string().required(" *"),
+    ci: Yup.string().length(11, " Debe tener once caracteres"),
+    primer_apellido: Yup.string().required(" *"),
+    segundo_apellido: Yup.string().required(" *"),
+    contacto: Yup.string().required(" *"),
+    salario_base: Yup.number().required(" *"),
     direccion: Yup.string().required(" *"),
-    provincia: Yup.string().required(" *"),
-    municipio: Yup.string().required(" *"),
-    tipo: Yup.number(),
+    id_local: Yup.number().moreThan(-1),
   });
+  //#endregion
+  //#region Componente
   return (
     <div className="newProduct">
-  
-      <div onClick={hide}>
-        <Alerta2 ref={childCompRef} visible={alerta} />
-      </div>
-
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
         validateOnMount
         innerRef={formikRef}
-        onSubmit={(values, { resetForm }) => {
+        onSubmit={(values) => {
           if (!modoEdicion) {
             axios
-              .post(process.env.REACT_APP_SERVER + "local", values, {
-                headers: {
-                  "Bypass-Tunnel-Reminder": 1,
-                },
-              })
+              .post(process.env.REACT_APP_SERVER + "trabajador", values,  {headers:{
+                "Bypass-Tunnel-Reminder":1
+              }})
               .then((response) => {
-                Notificar(response);
-                resetFields();
-                Close();
+                Notificar(response)
+                if (response.data.status !== "primary"){
+                  resetFields();
+                }
+                Close()
                 Load();
               });
           } else {
             axios
-              .put(process.env.REACT_APP_SERVER + "local/" + id, values, {
-                headers: {
-                  "Bypass-Tunnel-Reminder": 1,
-                },
-              })
+              .put(process.env.REACT_APP_SERVER + "trabajador/" + id, values,  {headers:{
+                "Bypass-Tunnel-Reminder":1
+              }})
               .then((response) => {
                 Notificar(response);
                 resetFields();
-                Close()
+                setmodoEdicion(false);
                 Load();
+                Close()
               });
           }
         }}
       >
         {(props) => {
           // console.log(props);
-          return (
+          return (<>
+          
+                <div onClick={hide}>
+                  <Alerta2 ref={childCompRef} visible={alerta} />
+                </div>
             <Modal
               show={show}
-              onExiting={Cancelar}
               onHide={Close}
+              onExiting={Cancelar}
               aria-labelledby="contained-modal-title-vcenter"
               centered
             >
-              <Form className="Formi">
-                <h4 style={{ textAlign: "center" }}>
-                  {id !== undefined ? "Editar" : "Nuevo Local"}
-                </h4>
-                <div>
-                  <Row>
-                    <div className="col-xs-12 col-sm-6 col-md-6 col-lg-6 ">
-                      <label>Provincia </label>
-                      <ErrorMessage
-                        name="provincia"
-                        render={(msg) => (
-                          <span className="up-error">{msg}</span>
-                        )}
-                      />
-                      <Field
-                        className="form-control"
-                        id="inputProvincia"
-                        type="text"
-                        /* This name property is used to access the value of the form element via values.nameOfElement */
-                        name="provincia"
-                        placeholder="Provincia"
-                        value={provincia}
-                        pattern="[a-zA-Z ]*"
-                        onChange={(event) =>
-                          setprovincia((v) =>
-                            event.target.validity.valid ? event.target.value : v
-                          )
-                        }
-                        /* Set onChange to handleChange */
-                      />
-                    </div>
-                    <div className="col-xs-12 col-sm-6 col-md-6 col-lg-6 ">
-                      <label>Municipio </label>
-                      <ErrorMessage
-                        name="municipio"
-                        render={(msg) => (
-                          <span className="up-error">{msg}</span>
-                        )}
-                      />
-                      <Field
-                        className="form-control"
-                        id="inputMunicipio"
-                        type="text"
-                        /* This name property is used to access the value of the form element via values.nameOfElement */
-                        name="municipio"
-                        placeholder="Municipio"
-                        value={municipio}
-                        pattern="[a-zA-Z ]*"
-                        onChange={(event) =>
-                          setmunicipio((v) =>
-                            event.target.validity.valid ? event.target.value : v
-                          )
-                        }
-                        /* Set onChange to handleChange */
-                      />
-                    </div>
-                  </Row>
-                  <Row>
-                    <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
-                      <label>Dirección </label>
-                      <ErrorMessage
-                        name="direccion"
-                        render={(msg) => (
-                          <span className="up-error">{msg}</span>
-                        )}
-                      />
-                      <Field
-                        className="form-control"
-                        id="inputdireccion"
-                        type="text"
-                        /* This name property is used to access the value of the form element via values.nameOfElement */
-                        name="direccion"
-                        placeholder="Dirección"
-                        value={direccion}
-                        pattern="[a-zA-Z0-9/ -]*"
-                        onChange={(event) => {
-                          setdireccion((v) =>
-                            event.target.validity.valid ? event.target.value : v
-                          );
-                        }}
-                        /* Set onChange to handleChange */
-                      />
-                    </div>
-                  </Row>
-                  <Row>
-                    <div className="col-xs-12 col-sm-6 col-md-6 col-lg-6 ">
-                      <label>Nombre</label>
-                      <ErrorMessage
-                        name="nombre"
-                        render={(msg) => (
-                          <span className="up-error">{msg}</span>
-                        )}
-                      />
-                      <Field
-                        className="form-control"
-                        id="inputNombre"
-                        type="text"
-                        /* This name property is used to access the value of the form element via values.nameOfElement */
-                        name="nombre"
-                        placeholder="Nombre"
-                        value={nombre}
-                        pattern="[a-zA-Z0-9 ]*"
-                        onChange={(event) =>
-                          setnombre((v) =>
-                            event.target.validity.valid ? event.target.value : v
-                          )
-                        }
-                        /* Set onChange to handleChange */
-                      />
-                    </div>
-                    <div className="col-xs-12 col-sm-6 col-md-6 col-lg-6 ">
-                      <label>Tipo</label>
-                      <Field
-                        as="select"
-                        className="form-control"
-                        name="tipo"
-                        onChange={(e) => settipo(parseInt(e.target.value))}
-                        value={tipo}
-                      >
-                        <option key="0" value="0">
-                          Tienda
+            <Form className="Formi">
+              <div>
+                <Row>
+                  <div className="col-xs-12 col-sm-6 col-md-6 col-lg-6 ">
+                    <label>Carnet de identidad </label>
+                    <ErrorMessage
+                      name="ci"
+                      render={(msg) => <span className="up-error">{msg}</span>}
+                    />
+                    <Field
+                      className="form-control"
+                      id="inputCarnet"
+                      type="text"
+                      /* This name property is used to access the value of the form element via values.nameOfElement */
+                      name="ci"
+                      placeholder="Carnet"
+                      value={ci}
+                      pattern="[0-9]*"
+                      maxLength="11"
+                      onChange={(event) =>
+                        setCarnet((v) =>
+                          event.target.validity.valid ? event.target.value : v
+                        )
+                      }
+                      /* Set onChange to handleChange */
+                    />
+                  </div>
+                  <div className="col-xs-12 col-sm-6 col-md-6 col-lg-6 ">
+                    <label>Nombre</label>
+                    <ErrorMessage
+                      name="nombre"
+                      render={(msg) => <span className="up-error">{msg}</span>}
+                    />
+                    <Field
+                      className="form-control"
+                      id="inputNombre"
+                      type="text"
+                      /* This name property is used to access the value of the form element via values.nameOfElement */
+                      name="nombre"
+                      placeholder="Nombre"
+                      value={nombre}
+                      pattern="[a-zA-Z ]*"
+                      onChange={(event) =>
+                        setnombre((v) =>
+                          event.target.validity.valid ? event.target.value : v
+                        )
+                      }
+                      /* Set onChange to handleChange */
+                    />
+                  </div>
+                </Row>
+                <Row>
+                  <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 ">
+                    <label>Primer Apellido </label>
+                    <ErrorMessage
+                      name="primer_apellido"
+                      render={(msg) => <span className="up-error">{msg}</span>}
+                    />
+                    <Field
+                      className="form-control"
+                      id="inputdireccion"
+                      type="text"
+                      /* This name property is used to access the value of the form element via values.nameOfElement */
+                      name="primer_apellido"
+                      placeholder="Primer Apellido"
+                      value={primer_apellido}
+                      pattern="[a-zA-Z]*"
+                      onChange={(event) => {
+                        setPrimerApellido((v) =>
+                          event.target.validity.valid ? event.target.value : v
+                        );
+                      }}
+                      /* Set onChange to handleChange */
+                    />
+                  </div>
+                  <div className="col-xs-12 col-sm-6 col-md-6 col-lg-6 ">
+                    <label>Segundo Apellido </label>
+                    <ErrorMessage
+                      name="segundo_apellido"
+                      render={(msg) => <span className="up-error">{msg}</span>}
+                    />
+                    <Field
+                      className="form-control"
+                      id="inputProvincia"
+                      type="text"
+                      /* This name property is used to access the value of the form element via values.nameOfElement */
+                      name="segundo_apellido"
+                      placeholder="Segundo Apellido"
+                      value={segundo_apellido}
+                      pattern="[a-zA-Z ]*"
+                      onChange={(event) =>
+                        setSegundoApellido((v) =>
+                          event.target.validity.valid ? event.target.value : v
+                        )
+                      }
+                      /* Set onChange to handleChange */
+                    />
+                  </div>
+                </Row>
+                <Row>
+                  <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+                    <label>Dirección </label>
+                    <ErrorMessage
+                      name="direccion"
+                      render={(msg) => <span className="up-error">{msg}</span>}
+                    />
+                    <Field
+                      className="form-control"
+                      id="inputdireccion"
+                      type="text"
+                      /* This name property is used to access the value of the form element via values.nameOfElement */
+                      name="direccion"
+                      placeholder="Dirección"
+                      value={direccion}
+                      pattern="[a-zA-Z0-9/ -#]*"
+                      onChange={(event) => {
+                        setDireccion((v) =>
+                          event.target.validity.valid ? event.target.value : v
+                        );
+                      }}
+                      /* Set onChange to handleChange */
+                    />
+                  </div>
+                </Row>
+                <Row>
+                  <div className="col-xs-12 col-sm-6 col-md-6 col-lg-6 ">
+                    <label>Local </label>
+                    <Field
+                      as="select"
+                      className="form-control"
+                      name="id_local"
+                      onChange={(e) => setLocaleSelected(e.target.value)}
+                      value={localSelected}
+                    >
+                      <option key="-1" value="-1">
+                        Seleccione un local
+                      </option>
+                      {local.map((locales) => (
+                        <option key={locales.id} value={locales.id}>
+                          {locales.nombre + " - " + locales.direccion}
                         </option>
-                        <option key="1" value="1">
-                          Taller
-                        </option>
-                      </Field>
-                    </div>
-                  </Row>
-                </div>
-                <div className="row justify-content-center">
-                  <button
-                    className={
-                      !modoEdicion
-                        ? "btn btn-primary col-xs-11 col-sm-5 col-md-5 col-lg-5"
-                        : "btn btn-success col-xs-11 col-sm-5 col-md-5 col-lg-5"
-                    }
-                    variant="success"
-                    disabled={!props.isValid}
-                    type="submit"
-                    style={{
-                      margin: "10px",
-                    }}
-                  >
-                    {!modoEdicion ? "Guardar" : "Actualizar"}
-                  </button>
+                      ))}
+                    </Field>
+                  </div>
+                  <div className="col-xs-12 col-sm-6 col-md-6 col-lg-6 ">
+                    <label>Salario </label>
+                    <ErrorMessage
+                      name="salario_base"
+                      render={(msg) => <span className="up-error">{msg}</span>}
+                    />
+                    <Field
+                      className="form-control"
+                      id="inputSalario"
+                      type="text"
+                      /* This name property is used to access the value of the form element via values.nameOfElement */
+                      name="salario_base"
+                      placeholder="Salario"
+                      value={salario_base}
+                      pattern="[0-9]*"
+                      onChange={(event) =>
+                        setSalario((v) =>
+                          event.target.validity.valid ? event.target.value : v
+                        )
+                      }
+                      /* Set onChange to handleChange */
+                    />
+                  </div>
+                </Row>
+                <Row>
+                  <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+                    <label>Contacto </label>
+                    <ErrorMessage
+                      name="contacto"
+                      render={(msg) => <span className="up-error">{msg}</span>}
+                    />
+                    <Field
+                      className="form-control"
+                      id="inputContacto"
+                      type="text"
+                      /* This name property is used to access the value of the form element via values.nameOfElement */
+                      name="contacto"
+                      placeholder="Contacto"
+                      value={contacto}
+                      pattern="[a-zA-Z0-9 ,@.]*"
+                      onChange={(event) => {
+                        setContacto((v) =>
+                          event.target.validity.valid ? event.target.value : v
+                        );
+                      }}
+                      /* Set onChange to handleChange */
+                    />
+                  </div>
+                </Row>
+              </div>
+
+              <div className="row justify-content-center">
+                <button
+                  className={
+                    !modoEdicion
+                      ? "btn btn-primary col-xs-11 col-sm-5 col-md-5 col-lg-5"
+                      : "btn btn-success col-xs-11 col-sm-5 col-md-5 col-lg-5"
+                  }
+                  variant="success"
+                  disabled={!props.isValid}
+                  type="submit"
+                  style={{
+                    margin: "10px",
+                  }}
+                >
+                  {!modoEdicion ? "Guardar" : "Actualizar"}
+                </button>
+                
+                    <button
+                      className="btn btn-secondary col-xs-11 col-sm-5 col-md-5 col-lg-5"
+                      type="button"
+                      style={{
+                        margin: "10px",
+                      }}
+                      onClick={Cancelar}
+                    >
+                      Cancelar
+                    </button>
                   
-                      <button
-                        className="btn btn-secondary col-xs-11 col-sm-5 col-md-5 col-lg-5"
-                        variant="success"
-                        type="button"
-                        style={{
-                          margin: "10px",
-                        }}
-                        onClick={Cancelar}
-                      >
-                        Cancelar
-                      </button>
-                   
-                  
-                </div>
-              </Form>
+              </div>
+            </Form>
             </Modal>
-          );
+            </> );
         }}
       </Formik>
-      <div className="text-center">
       <h4>
-        Locales{" "}
-        <Button
+        Empleados  <Button
           style={{ maxWidth: "150px" }}
           variant="success btn-sm"
           onClick={() => setShow(true)}
@@ -346,8 +472,7 @@ function Locales() {
           <MdAddCircle size={15} /> Agregar
         </Button>
       </h4>
-        </div>
-      {locales.map((local) => {
+      {trabajadores.map((local) => {
               return (
                 <div className="details-card" key={local.id}>
                 
@@ -358,7 +483,7 @@ function Locales() {
               style={{ padding: "0px" }}
             >
               <Accordion.Item  style={{background:"none"}} eventKey="0">
-             <h5>{local.nombre +" "+local.primer_apellido+" "+local.segundo_apellido}  </h5>  <h6><i>{local.direccion}</i></h6><h6>Contacto: <i>{local.contacto}</i></h6>  <h6>Salario Base: <i>$ {local.salario_base}</i></h6>  <h6>CI: <i>{local.ci}</i></h6>  
+             <h5>{`${local.nombre} ${local.primer_apellido} ${local.segundo_apellido}`}  </h5>  <h6><i>{local.direccion}</i></h6><h6>Contacto: <i>{local.contacto}</i></h6>  <h6>Salario Base: <i>$ {local.salario_base}</i></h6>  <h6>CI: <i>{local.ci}</i></h6> <h6>Comisión hoy: <i>${local.comision_hoy??0}</i></h6>  
               <div className="text-center"> <button
                 className="btn btn-sm"
                 style={{padding:"0px",marginBottom:"3px", marginRight:"10px",color:"whitesmoke"}}
@@ -482,7 +607,9 @@ function Locales() {
       
     </div>)
             })
-            }</div>
-  );
+            }
+    </div>
+    );
 }
-export default Locales;
+//#endregion
+export default Trabajadores;

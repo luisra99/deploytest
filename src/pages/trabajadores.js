@@ -3,8 +3,8 @@ import { useState, useEffect, useRef } from "react";
 import { Formik, Form, ErrorMessage, Field } from "formik";
 import { Row, Table,Button,Modal } from "react-bootstrap";
 import * as Yup from "yup";
+import Accordion from "react-bootstrap/Accordion";
 import Alerta2 from "./notify.js";
-
 import axios from "axios";
 import { MdEdit, MdDelete,MdAddCircle} from "react-icons/md";
 
@@ -40,7 +40,7 @@ function Trabajadores() {
   const [localSelected, setLocaleSelected] = useState(-1);
   const [trabajadores, setTrabajadores] = useState([{"id":7,"ci":"99080100702","direccion":"calle 36 entre 5 y 7","nombre":"Luis Raul","primer_apellido":"Alfonso","segundo_apellido":"Caballero","contacto":"55432748 luisraul.alfonso@gmail.com","salario_base":1000,"createdAt":"2022-07-27T05:59:41.856Z","updatedAt":"2022-07-27T06:00:01.769Z","id_local":2}]);
   function Load() {
-    axios.get(process.env.REACT_APP_SERVER + "trabajador",  {headers:{
+    axios.get(process.env.REACT_APP_SERVER + "view/trabajador",  {headers:{
       "Bypass-Tunnel-Reminder":1
     }}).then((response) => {
       setTrabajadores(response.data);
@@ -472,70 +472,147 @@ function Trabajadores() {
           <MdAddCircle size={15} /> Agregar
         </Button>
       </h4>
-      <div id="ptable" style={{ paddingBottom: "30px" }}>
+      {trabajadores.map((local) => {
+              return (
+                <div className="details-card" key={local.id}>
+                
+                      <Accordion
+              defaultActiveKey="1"
+              flush
+              className="text-center col-12"
+              style={{ padding: "0px" }}
+            >
+              <Accordion.Item  style={{background:"none"}} eventKey="0">
+             <h5>{`${local.nombre} ${local.primer_apellido} ${local.segundo_apellido}`}  </h5>  <h6><i>{local.direccion}</i></h6><h6>Contacto: <i>{local.contacto}</i></h6>  <h6>Salario Base: <i>$ {local.salario_base}</i></h6>  <h6>CI: <i>{local.ci}</i></h6> <h6>Comisión hoy: <i>${local.comision_hoy??0}</i></h6>  
+              <div className="text-center"> <button
+                className="btn btn-sm"
+                style={{padding:"0px",marginBottom:"3px", marginRight:"10px",color:"whitesmoke"}}
+                onClick={() => {
+                  setShow(true)
+                  Editar(
+                    local.id,
+                    local.ci,
+                    local.nombre,
+                    local.primer_apellido,
+                    local.segundo_apellido,
+                    local.contacto,
+                    local.direccion,
+                    local.salario_base,
+                    local.id_local
+                  )
+                }}
+              >
+                <MdEdit size={20} />
+               
+              </button>
+              <button
+                className="btn btn-sm"
+                style={{padding:"0px",marginBottom:"3px",color:"whitesmoke"}}
+                onClick={() => Eliminar(local.id)}
+              >
+                <MdDelete size={20} />
+                
+              </button> <Accordion.Header
+                  style={{ display: "inline-block" ,marginTop:"3px"}}
+                >
+                  </Accordion.Header></div>
+               
+                <Accordion.Body style={{ padding: "0px" }}>
+                
+                <div
+        className="table-responsive"
+        id="ptable"
+        style={{ paddingBottom: "0px" }}
+      >
         <Table className="table table-striped table-sm">
           <thead>
             <tr>
-              <th>Datos</th>
-              <th>Nombre</th>
-              <th>Contacto</th>
-              <th>Local</th>
-              <th style={{textAlign:"center"}}>Acciones</th>
+              <th>Momento</th>
+              <th>Importe</th>
+              <th>Comisión</th>
+              <th>Margen</th>
             </tr>
           </thead>
-          <tbody>
-            {trabajadores.map((item) => {
-              return (
-                <tr key={item.id}>
-                  <td  data-title="CI">
-                    {item.ci}
-                    <br />
-                    {item.direccion}
-                  </td>
-                  <td  data-title="Nombre">
-                    {item.nombre}
-                    <br />
-                    {item.primer_apellido} {item.segundo_apellido}
-                  </td>
-                  <td  data-title="Contacto">{item.contacto}</td>
-                  <td  data-title="Local">{item.id_local}</td>
-                  <td style={{paddingLeft: "0px"}}>
-                  <div
-                      className="text-center" >
-                    <button
-                      className="btn btn-sm "
-                      onClick={() =>{
-                        setShow(true);
-                        Editar(
-                          item.id,
-                          item.ci,
-                          item.nombre,
-                          item.primer_apellido,
-                          item.segundo_apellido,
-                          item.contacto,
-                          item.direccion,
-                          item.salario_base,
-                          item.id_local
-                        )
-                      }}
-                    > <MdEdit size={20}/>
-                    Editar
-                    </button>
-                    <button
-                      className="btn btn-sm "
-                      onClick={() => Eliminar(item.id)}
-                    >
-                      <MdDelete size={20} />
-                      Eliminar
-                    </button>
-                    </div>
-                  </td>
+          <tbody id="body-detail">  
+                <tr >
+                  <td data-title="Momento">Hoy</td>
+                  <td data-title="Importe">${local.importe_hoy??0}</td>
+                  <td data-title="Comisión">${local.comision_hoy??0}</td>
+                  <td data-title="Margen Comercial">${local.importe_hoy-local.comision_hoy} </td>
                 </tr>
-              );
-            })}
+                <tr >
+                  <td data-title="Momento">Semana</td>
+                  <td data-title="Importe">${local.importe_semana??0}</td>
+                  <td data-title="Comisión">${local.comision_semana??0}</td>
+                  <td data-title="Margen Comercial">${local.importe_semana-local.comision_semana} </td>
+                </tr>
+              
+                <tr className="trdetail" >
+                  <td data-title="Momento">Lunes</td>
+                  <td data-title="Importe">${local.l??0}</td>
+                  <td data-title="Comisión">${local.cl??0}</td>
+                  <td data-title="Margen Comercial">${local.l-local.cl} </td>
+                </tr>
+                <tr className="trdetail">
+                  <td data-title="Momento">Martes</td>
+                  <td data-title="Importe">${local.m??0}</td>
+                  <td data-title="Comisión">${local.cm??0}</td>
+                  <td data-title="Margen Comercial">${local.m-local.cm} </td>
+                </tr>
+                <tr className="trdetail">
+                  <td data-title="Momento">Miércoles</td>
+                  <td data-title="Importe">${local.w??0}</td>
+                  <td data-title="Comisión">${local.cw??0}</td>
+                  <td data-title="Margen Comercial">${local.w-local.cw} </td>
+                </tr>
+                <tr  className="trdetail">
+                  <td data-title="Momento">Jueves</td>
+                  <td data-title="Importe">${local.j??0}</td>
+                  <td data-title="Comisión">${local.cj??0}</td>
+                  <td data-title="Margen Comercial">${local.j-local.cj} </td>
+                </tr>
+                <tr className="trdetail">
+                  <td data-title="Momento">Viernes</td>
+                  <td data-title="Importe">${local.v??0}</td>
+                  <td data-title="Comisión">${local.cv??0}</td>
+                  <td data-title="Margen Comercial">${local.v-local.cv} </td>
+                </tr>
+                <tr className="trdetail">
+                  <td data-title="Momento">Sábado</td>
+                  <td data-title="Importe">${local.s??0}</td>
+                  <td data-title="Comisión">${local.cs??0}</td>
+                  <td data-title="Margen Comercial">${local.s-local.cs} </td>
+                </tr><tr className="trdetail"  >
+                  <td data-title="Momento">Domingo</td>
+                  <td data-title="Importe">${local.d??0}</td>
+                  <td data-title="Comisión">${local.cd??0}</td>
+                  <td data-title="Margen Comercial">${local.d-local.cd} </td>
+                </tr>
+
+                <tr >
+                  <td data-title="Momento">Mes</td>
+                  <td data-title="Importe">${local.importe_mes??0}</td>
+                  <td data-title="Comisión">${local.comision_mes??0}</td>
+                  <td data-title="Margen Comercial">${local.importe_mes-local.comision_mes} </td>
+                </tr>
+                <tr >
+                  <td data-title="Momento">Año</td>
+                  <td data-title="Importe">${local.importe_year??0}</td>
+                  <td data-title="Comisión">${local.comision_year??0}</td>
+                  <td data-title="Margen Comercial">${local.importe_year-local.comision_year} </td>
+                </tr>
+              
           </tbody>
         </Table>
       </div>
+        <Accordion.Header id="acordeonb" style={{display:"inline-block"}}/>
+                </Accordion.Body>
+              </Accordion.Item>
+            </Accordion>
+      
+    </div>)
+            })
+            }
     </div>
     );
 }
