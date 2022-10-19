@@ -66,7 +66,7 @@ function SelectList(props, { handleChange }) {
       value={value}
     >
       <option key={-1} value={-1}>
-        Seleccione {nombre}
+        {nombre}
       </option>
       {elementos.map((item) => {
         return (

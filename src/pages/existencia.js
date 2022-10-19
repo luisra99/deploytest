@@ -2,12 +2,12 @@ import React from "react";
 import axios from "axios";
 import { useState, useEffect, useRef } from "react";
 import { Button, Modal, Table } from "react-bootstrap";
-import RadioButtons from "../components/radioButtons.js";
 import Badge from "react-bootstrap/Badge";
 import CrearExistencia from "./crearExistencia.js";
+import RadioButtons from "../components/radioButtons.js";
 import SelectList from "../components/selectList.js";
-import MrmaForm from "./mrmaform.js";
 import Accordion from "react-bootstrap/Accordion";
+import MrmaForm from "./mrmaform.js";
  
 import {
   MdWarning,
@@ -489,10 +489,7 @@ function Existencia() {
   }
   return (
     <div>
-      {productos_existencia.length > 0 ? (
-        <div>
-          {/* <Alerta2/> */}
-          <h5>
+      <h5>
             Artículos{" "}
             <Button
               style={{ maxWidth: "150px" }}
@@ -502,6 +499,60 @@ function Existencia() {
               <MdAddCircle size={15} /> Agregar
             </Button>
           </h5>
+          <Modal
+                show={show}
+                onHide={Close}
+                aria-labelledby="contained-modal-title-vcenter"
+                centered
+              >
+                <div className="container">
+                  <CrearExistencia
+                    id={seleccionado}
+                    close={Close}
+                    save={handleClose}
+                    load={Load}
+                  />
+                </div>
+              </Modal>
+              <Modal
+                show={shown}
+                onHide={Close}
+                aria-labelledby="contained-modal-title-vcenter"
+                centered
+              >
+                <div className="container">
+                  <CrearExistencia
+                    close={Close}
+                    save={handleClose}
+                    load={Load}
+                  />
+                </div>
+              </Modal>
+              <Modal
+                show={showm}
+                onHide={Close}
+                aria-labelledby="contained-modal-title-vcenter"
+                centered
+              >
+                <div className="container">
+                  <MrmaForm
+                    id={seleccionado}
+                    totalp={totalm}
+                    alp={almam}
+                    exp={exposm}
+                    c={costo}
+                    p={precio}
+                    close={Close}
+                    save={handleClose}
+                    mrmc={mrmc}
+                    load={Load}
+                  />
+                </div>
+              </Modal>
+      {productos_existencia.length > 0 ? (
+        <div>
+          {/* <Alerta2/> */}
+          
           <h5>
             <Badge
               pill
@@ -549,7 +600,7 @@ function Existencia() {
                         elemento="nombre"
                         cvalue="id"
                         value={localFilter}
-                        nombre="un local"
+                        nombre="Locales"
                         handleChange={setlocalFilter}
                       />
                     </div>
@@ -559,7 +610,7 @@ function Existencia() {
                         elemento="sub_categoria"
                         cvalue="id"
                         value={subcatFilter}
-                        nombre="una sub-categorias"
+                        nombre="Sub-Categorías"
                         handleChange={setsubcatFilter}
                       />
                     </div>
@@ -569,7 +620,7 @@ function Existencia() {
                         elemento="curvatura"
                         cvalue="id"
                         value={curvaturaFilter}
-                        nombre="una curvaturas"
+                        nombre="Curvaturas"
                         handleChange={setcurvaturaFilter}
                       />
                     </div>
@@ -579,7 +630,7 @@ function Existencia() {
                         elemento="material"
                         cvalue="id"
                         value={materialesFilter}
-                        nombre="un material"
+                        nombre="Materiales"
                         handleChange={setmaterialesFilter}
                       />
                     </div>
@@ -589,7 +640,7 @@ function Existencia() {
                         elemento="talla"
                         cvalue="id"
                         value={tallasFilter}
-                        nombre="una talla"
+                        nombre="Tallas"
                         tipo={"number"}
                         handleChange={settallasFilter}
                       />
@@ -600,7 +651,7 @@ function Existencia() {
                         elemento="color"
                         cvalue="id"
                         value={coloresFilter}
-                        nombre="un color"
+                        nombre="Colores"
                         handleChange={setcoloresFilter}
                       />
                     </div>
@@ -782,56 +833,7 @@ function Existencia() {
                 </Table>
               </div>
 
-              <Modal
-                show={show}
-                onHide={Close}
-                aria-labelledby="contained-modal-title-vcenter"
-                centered
-              >
-                <div className="container">
-                  <CrearExistencia
-                    id={seleccionado}
-                    close={Close}
-                    save={handleClose}
-                    load={Load}
-                  />
-                </div>
-              </Modal>
-              <Modal
-                show={shown}
-                onHide={Close}
-                aria-labelledby="contained-modal-title-vcenter"
-                centered
-              >
-                <div className="container">
-                  <CrearExistencia
-                    close={Close}
-                    save={handleClose}
-                    load={Load}
-                  />
-                </div>
-              </Modal>
-              <Modal
-                show={showm}
-                onHide={Close}
-                aria-labelledby="contained-modal-title-vcenter"
-                centered
-              >
-                <div className="container">
-                  <MrmaForm
-                    id={seleccionado}
-                    totalp={totalm}
-                    alp={almam}
-                    exp={exposm}
-                    c={costo}
-                    p={precio}
-                    close={Close}
-                    save={handleClose}
-                    mrmc={mrmc}
-                    load={Load}
-                  />
-                </div>
-              </Modal>
+             
             </div>
           ) : (
             <h1

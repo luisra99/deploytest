@@ -59,6 +59,7 @@ export const Navbar = ({ children }) => {
         >
           CASACALZADO
         </h4>
+        
         <button
           className="navbar-toggler position-absolute d-md-none collapsed"
           type="button"
@@ -72,14 +73,7 @@ export const Navbar = ({ children }) => {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <Form.Control
-        id="bucar"
-          className="buscar form-control form-control w-100"
-          type="text"
-          placeholder="Search"
-          aria-label="Search"
-          style={{background:"#225059"}}
-        />
+        
         {/* <div className="navbar-nav">
           <div className="nav-item text-nowrap">
             <h6 className="nav-link h5x-3">Sign out</h6>

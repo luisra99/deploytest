@@ -30,7 +30,7 @@ padding:0px;
 }
 @media (max-width: 767.98px) {
   .sidebar {
-    top: 5rem;
+    top: 2.6rem;
     padding-top:0px
   }
   .link-nav{
@@ -162,7 +162,7 @@ border:#2c6975;
   50%	{ opacity:0%}
 }
 #ptable tr{
-  text-shadow: 1px 1px 2px #0000008c;
+  text-shadow: 1px 1px 2px #00000045;
 }
 #ptable button:hover{
   transform: scale(1.1);
