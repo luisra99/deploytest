@@ -88,11 +88,14 @@ text-shadow: rgb(14, 36, 40) 0px 1px 3px
 .accordion-button:not(.collapsed) {
   background: none;
   box-shadow: none;
-filter: invert(1)}
+  color: #074e5b
+/* filter: invert(1)} */
+}
   .accordion-button {
     background: none;
+    color: #074e5b;
     box-shadow: none;
-  filter: invert(1);
+  /* filter: invert(1); */
   }
 .resume-card:hover{
   transform: scale(1.1);
@@ -131,18 +134,19 @@ border-color: #111516;
     padding-bottom: 1px;
     padding-left: 3px;
     padding-right: 1px;
-  top:5px;
+    top:5px;
+    margin: 3px;
 }
-.buscar::placeholder {
-  color: #fff;
 
-}
 .trdetail{
   background: #5f9ea070;
   border-bottom-style: hidden
 }
 #acordeonb::after{
-  filter: invert(1);
+  /* filter: invert(1); */
+}
+.accordion-button::after {
+  margin-top: 2px;
 }
 .details-card {
 

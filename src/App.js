@@ -13,7 +13,8 @@ import MrmaForm from "./pages/mrmaform.js";
 import { Navbar } from "./components/Navbar.jsx";
 import Gastos from "./pages/gastos.js";
 import Test from "./pages/test.js";
-import Home from "./pages/home.js"
+import Home from "./pages/home.js";
+import Signin from "./components/login/Signin.jsx";
 function App() {
   return (
     <div>
@@ -28,9 +29,13 @@ function App() {
             <Route path="/trabajadores" element={<Trabajadores />} exact />
             <Route path="/cont" element={<Gastos />} exact />
             <Route path="/" element={<Home />} exact />
-            <Route path="/test" element={<Test titulo="Gastos" valor="4"/>} exact />
+            <Route path="/test" element={<Test titulo="Gastos" valor="4" />} exact/>
           </Routes>
         </Navbar>
+        {/* <Routes>
+
+            <Route path="/login" element={<Signin />} exact />
+        </Routes> */}
       </Router>
     </div>
   );

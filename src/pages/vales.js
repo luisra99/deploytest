@@ -15,11 +15,14 @@ function Vales() {
   const [materialesFilter, setmaterialesFilter] = useState(-1);
   const [tallasFilter, settallasFilter] = useState(-1);
   const [coloresFilter, setcoloresFilter] = useState(-1);
+  const [fechaFilter, setfechaFilter] = useState("");
+  const [fechaFilterTwo, setfechaFilterTwo] = useState("");
   const [elementosFiltrados, setElementosFiltrados] = useState([])
   useEffect(() => {
     axios.get(process.env.REACT_APP_SERVER + "view/vales").then((response) => {
+      if(response.data.titulo!=="Error"){
       setValesDeVenta(response.data);
-      setElementosFiltrados(response.data)
+      setElementosFiltrados(response.data)}
     });
   }, []);
   function checkFilters() {
@@ -59,13 +62,21 @@ function Vales() {
         return item.id_curvatura === curvaturaFilter;
       });
     }
+    if (fechaFilterTwo !== "") exist = exist.filter((item) => {
+      return fechaFilter<fechaFilterTwo ? item.fecha>= fechaFilter && item.fecha<=fechaFilterTwo : item.fecha<= fechaFilter && item.fecha>=fechaFilterTwo;
+    }); else {
+      if (fechaFilter !== "") {
+        exist = exist.filter((item) => {
+          return item.fecha=== fechaFilter;
+        });
+      }
+    }
     if (coloresFilter !== -1) {
       exist = exist.filter((item) => {
         return item.id_color === coloresFilter;
       });
     }
     setElementosFiltrados(exist);
-    // console.log(localFilter,exist);
     checkFilters();
   }, [
     localFilter,
@@ -74,142 +85,146 @@ function Vales() {
     materialesFilter,
     tallasFilter,
     coloresFilter,
+    fechaFilter,
+    fechaFilterTwo
   ]);
-  return (<>
-  <div className="row">
-            <Accordion
-              defaultActiveKey="1"
-              flush
-              className="col-12 text-center"
-              style={{ padding: "0px" }}
-            >
-              <Accordion.Item eventKey="0">
+  return (
+    <>
+      <div className="row">
+        <Accordion
+          defaultActiveKey="1"
+          flush
+          className="col-12 text-center"
+          style={{ padding: "0px" }}
+        >
+          <Accordion.Item eventKey="0">
+              <Accordion.Header
+              style={{ display: "inline-block" }}
+            >Filtrar</Accordion.Header>
+            <Accordion.Body style={{ padding: "0px" }}>
+              <div className="row" style={{ margin: "5px" }}>
+                <div className="col-6 col-sm-4 col-lg-3 col-xl-3 p-1">
+                  <input
+                    type="date"
+                    className="form-control"
+                    onChange={(e) => {
+                      console.log(e.target.value);
+                      setfechaFilter(e.target.value);
+                    }}
+                  />
+                </div>
+                <div className="col-6 col-sm-4 col-lg-3 col-xl-3 p-1">
+                  <input
+                    type="date"
+                    className="form-control"
+                    disabled={fechaFilter === ""}
+                    onChange={(e) => {
+                      console.log(e.target.value);
+                      setfechaFilterTwo(e.target.value);
+                    }}
+                  />
+                </div>
+                <div className="col-6 col-sm-4 col-lg-3 col-xl-3 p-1">
+                  <SelectList
+                    ruta="color"
+                    elemento="color"
+                    cvalue="id"
+                    value={coloresFilter}
+                    nombre="Colores"
+                    handleChange={setcoloresFilter}
+                  />
+                </div>
+                <div className="col-6 col-sm-6 col-lg-3 col-xl-3 p-1">
+                  <SelectList
+                    ruta="material"
+                    elemento="material"
+                    cvalue="id"
+                    value={materialesFilter}
+                    nombre="Materiales"
+                    handleChange={setmaterialesFilter}
+                  />
+                </div>
+                <div className="col-6 col-sm-6 col-lg-4 col-xl-4 p-1">
+                  <SelectList
+                    ruta="local"
+                    elemento="nombre"
+                    cvalue="id"
+                    value={localFilter}
+                    nombre="Locales"
+                    handleChange={setlocalFilter}
+                  />
+                </div>
+                <div className="col-6 col-sm-6 col-lg-4 col-xl-4 p-1">
+                  <SelectList
+                    ruta="subcategoria"
+                    elemento="sub_categoria"
+                    cvalue="id"
+                    value={subcatFilter}
+                    nombre="Sub-Categorias"
+                    handleChange={setsubcatFilter}
+                  />
+                </div>
+                <div className="col-6 col-sm-6 col-lg-4 col-xl-4 p-1">
+                  <SelectList
+                    ruta="curvatura"
+                    elemento="curvatura"
+                    cvalue="id"
+                    value={curvaturaFilter}
+                    nombre="Curvaturas"
+                    handleChange={setcurvaturaFilter}
+                  />
+                </div>
                 
-                <Accordion.Header
-                  style={{ display: "inline-block" }}
-                ></Accordion.Header>
-                <Accordion.Body style={{ padding: "0px" }}>
-                  <div className="row" style={{ margin: "5px" }}>
-                    <div className="col-6 col-sm-6 col-lg-4 col-xl-4 p-1">
-                      <SelectList
-                        ruta="local"
-                        elemento="nombre"
-                        cvalue="id"
-                        value={localFilter}
-                        nombre="un local"
-                        handleChange={setlocalFilter}
-                      />
-                    </div>
-                    <div className="col-6 col-sm-6 col-lg-4 col-xl-4 p-1">
-                      <SelectList
-                        ruta="subcategoria"
-                        elemento="sub_categoria"
-                        cvalue="id"
-                        value={subcatFilter}
-                        nombre="una sub-categorias"
-                        handleChange={setsubcatFilter}
-                      />
-                    </div>
-                    <div className="col-6 col-sm-6 col-lg-4 col-xl-4 p-1">
-                      <SelectList
-                        ruta="curvatura"
-                        elemento="curvatura"
-                        cvalue="id"
-                        value={curvaturaFilter}
-                        nombre="una curvaturas"
-                        handleChange={setcurvaturaFilter}
-                      />
-                    </div>
-                    <div className="col-6 col-sm-6 col-lg-4 col-xl-4 p-1">
-                      <SelectList
-                        ruta="material"
-                        elemento="material"
-                        cvalue="id"
-                        value={materialesFilter}
-                        nombre="un material"
-                        handleChange={setmaterialesFilter}
-                      />
-                    </div>
-                    <div className="col-6 col-sm-6 col-lg-4 col-xl-4 p-1">
-                      <SelectList
-                        ruta="talla"
-                        elemento="talla"
-                        cvalue="id"
-                        value={tallasFilter}
-                        nombre="una talla"
-                        tipo={"number"}
-                        handleChange={settallasFilter}
-                      />
-                    </div>
-                    <div className="col-6 col-sm-6 col-lg-4 col-xl-4 p-1">
-                      <SelectList
-                        ruta="color"
-                        elemento="color"
-                        cvalue="id"
-                        value={coloresFilter}
-                        nombre="un color"
-                        handleChange={setcoloresFilter}
-                      />
-                    </div>
-                  </div>
-                </Accordion.Body>
-              </Accordion.Item>
-            </Accordion>
-          </div>
-<div  id="ptable">
-      <Table className="table table-striped table-sm">
-        <thead>
-          <tr>
-            <th>Producto</th>
-            <th>Descripción</th>
-            <th>Detalles</th>
-            <th></th>
-            <th>Local</th>
-          </tr>
-        </thead>
-        <tbody>
-          {elementosFiltrados.map((vale) => {
-            return (
-              <tr key={vale.id} id={vale.id}>
-                <td data-title="Producto">
-                  <b>
-                    {vale.sub_categoria} de {vale.material}
+                
+              </div>
+            </Accordion.Body>
+          </Accordion.Item>
+        </Accordion>
+      </div>
+      <div id="ptable">
+        <Table className="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th>Vale de venta</th>
+              <th>Detalles</th>
+            </tr>
+          </thead>
+          <tbody>
+            {elementosFiltrados.map((vale) => {
+              return (
+                <tr key={vale.id} id={vale.id}>
+                  <td data-title="Vale de venta">
+                    <b>Fecha: </b>
+                    {vale.fecha}
                     <br />
+                    <b>Hora: </b> {vale.hora}
+                    <br />
+                    <b>Importe: </b>${vale.precio}
+                    <br />
+                    <b>Comisión: </b>${vale.comision}
+                    <br />
+                    <b>Margen: </b>${vale.precio - vale.comision}
+                    <br />
+                  </td>
+                  <td data-title="Detalles">
+                    <b>Empleado: </b>
+                    {vale.nombre} {vale.primer_apellido} {vale.segundo_apellido}
+                    <br />
+                    <b>Local: </b>
+                    {vale.tienda} <br />
+                    <b>Artículo: </b> {vale.sub_categoria} de {vale.material}{" "}
                     {vale.curvatura === "Standar" ? "" : "para"}{" "}
-                    {vale.curvatura}
-                  </b>
-                  <br />
-                  <b>Color:</b> {vale.color}
-                </td>
-                <td data-title="Descripción">{vale.descripcion}</td>
-                <td data-title="Detalles">
-                  <b>Costo:</b> {vale.costo} <br />
-                  <b>Precio:</b> {vale.precio}
-                  <br />
-                  <b>Comisión:</b> {vale.comision}
-                </td>
-                <td>
-                  <b>Importe:</b> {vale.importe}
-                  <br />
-                  <b>Ganancia:</b> {vale.ganancia}
-                  <br />
-                  <b>Ganancia Pura:</b> {vale.ganancia_pura}
-                </td>
-                <td data-title="Local">
-                  <b>{vale.tienda}</b>
-                  <br />
-                  <b>Empleado:</b>
-                  <br />
-                  {vale.nombre} {vale.primer_apellido} {vale.segundo_apellido}
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </Table>
-    </div>
-  </>
-    
+                    {vale.curvatura} ({vale.color})
+                    <br />
+                    <i>{vale.descripcion}</i>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </Table>
+      </div>
+    </>
   );
 }
 export default Vales;

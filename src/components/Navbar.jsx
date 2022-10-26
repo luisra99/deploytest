@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { Form } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
-import{ MdAddCircle,MdHome,MdShoppingCart,MdReceipt,MdStore,MdPeopleAlt,MdMonetizationOn,MdSettings} from 'react-icons/md'
+import{ MdHome,MdShoppingCart,MdReceipt,MdStore,MdPeopleAlt,MdMonetizationOn,MdSettings,MdKeyboardArrowDown} from 'react-icons/md'
 export const Navbar = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
@@ -53,13 +52,21 @@ export const Navbar = ({ children }) => {
   return (
     <div>
       <header className="navbar navbar-dark sticky-top  flex-md-nowrap p-0 shadow" style={{background:"#063139"}}>
-        <h4
-          className="navbar-brand col-md-3 col-lg-2 col-xl-2 me-0 px-3"
-          onClick={toggle}
-        >
-          CASACALZADO
-        </h4>
         
+          <div className="navbar-brand nav-link dropdown-toggle col-md-3 col-lg-2 col-xl-2 me-0 px-3" data-bs-toggle="dropdown" aria-expanded="false"
+          onClick={()=>{
+            console.log("algo")
+          }} style={{cursor:'pointer',userSelect: 'none'}}>Luis Raul Alfonso </div>
+         <ul className="dropdown-menu">
+          <h6 className="text-center">Administrador</h6>
+          <hr/>
+              <li><a className="text-center dropdown-item" href="#">Mis Ventas</a></li>
+              <li><a className="text-center dropdown-item" href="#">Configuración</a></li>
+              <li><a className="text-center dropdown-item" href="#" style={{color:"red"}}>Cerrar Sesión</a></li>
+            </ul>
+        
+           
+          
         <button
           className="navbar-toggler position-absolute d-md-none collapsed"
           type="button"
@@ -73,12 +80,6 @@ export const Navbar = ({ children }) => {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        
-        {/* <div className="navbar-nav">
-          <div className="nav-item text-nowrap">
-            <h6 className="nav-link h5x-3">Sign out</h6>
-          </div>
-        </div> */}
       </header>
       <div className="container-fluid">
         <div className="row">
@@ -107,18 +108,6 @@ export const Navbar = ({ children }) => {
                   </NavLink>
                 ))}
               </div>
-              {/* 
-        <h6 className="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-          <span>Saved reports</span>
-        </h6>
-        {
-          menuItem.map((item,index)=>(
-<NavLink to={item.path} key={index} className="link-nav" >
-  <div className="icon">{item.icon}</div>
-          <div style={{display:"block"} } className="link_text-nav">{item.name}</div>
-</NavLink>
-         ))
-        }  */}
             </div>
           </nav>
           <main

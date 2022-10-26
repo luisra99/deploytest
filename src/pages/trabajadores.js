@@ -36,6 +36,7 @@ function Trabajadores() {
   const [direccion, setDireccion] = useState("");
   const [salario_base, setSalario] = useState("");
   const [contacto, setContacto] = useState("");
+  const [passw, setPassw] = useState("");
   const [local, setLocales] = useState([]);
   const [localSelected, setLocaleSelected] = useState(-1);
   const [trabajadores, setTrabajadores] = useState([
@@ -61,6 +62,7 @@ function Trabajadores() {
         },
       })
       .then((response) => {
+        if(response.data.titulo!=="Error")
         setTrabajadores(response.data);
       });
   }
@@ -188,6 +190,7 @@ function Trabajadores() {
   //#endregion
   //#region Valores iniciales
   const initialValues = {
+    passw:"",
     ci: "",
     nombre: "",
     primer_apellido: "",
@@ -207,6 +210,7 @@ function Trabajadores() {
     salario_base: Yup.number().required(" *"),
     direccion: Yup.string().required(" *"),
     id_local: Yup.number().moreThan(-1),
+    passw:Yup.string().matches('[a-zA-Z0-9 ,@.]*'," No válida")
   });
   //#endregion
   //#region Componente
@@ -485,6 +489,35 @@ function Trabajadores() {
                         />
                       </div>
                     </Row>
+                    <Row>
+                      <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+                        <label>Contraseña </label>
+                        <ErrorMessage
+                          name="passw"
+                          render={(msg) => (
+                            <span className="up-error">{msg}</span>
+                          )}
+                        />
+                        <Field
+                          className="form-control"
+                          id="inputContacto"
+                          type="text"
+                          /* This name property is used to access the value of the form element via values.nameOfElement */
+                          name="passw"
+                          placeholder="Contraseña"
+                          value={passw}
+                          pattern="[a-zA-Z0-9@.]*"
+                          onChange={(event) => {
+                            setPassw((v) =>
+                              event.target.validity.valid
+                                ? event.target.value
+                                : v
+                            );
+                          }}
+                          /* Set onChange to handleChange */
+                        />
+                      </div>
+                    </Row>
                   </div>
 
                   <div className="row justify-content-center">
@@ -626,7 +659,7 @@ function Trabajadores() {
                             ${local.comision_hoy ?? 0}
                           </td>
                           <td data-title="Margen Comercial">
-                            ${local.importe_hoy - local.comision_hoy}{" "}
+                            ${local.importe_hoy - local.comision_hoy||0}
                           </td>
                         </tr>
                         <tr>
@@ -638,7 +671,7 @@ function Trabajadores() {
                             ${local.comision_semana ?? 0}
                           </td>
                           <td data-title="Margen Comercial">
-                            ${local.importe_semana - local.comision_semana}{" "}
+                            ${local.importe_semana - local.comision_semana||0}
                           </td>
                         </tr>
 
@@ -647,7 +680,7 @@ function Trabajadores() {
                           <td data-title="Importe">${local.l ?? 0}</td>
                           <td data-title="Comisión">${local.cl ?? 0}</td>
                           <td data-title="Margen Comercial">
-                            ${local.l - local.cl}{" "}
+                            ${local.l - local.cl||0}{" "}
                           </td>
                         </tr>
                         <tr className="trdetail">
@@ -655,7 +688,7 @@ function Trabajadores() {
                           <td data-title="Importe">${local.m ?? 0}</td>
                           <td data-title="Comisión">${local.cm ?? 0}</td>
                           <td data-title="Margen Comercial">
-                            ${local.m - local.cm}{" "}
+                            ${local.m - local.cm||0}{" "}
                           </td>
                         </tr>
                         <tr className="trdetail">
@@ -663,7 +696,7 @@ function Trabajadores() {
                           <td data-title="Importe">${local.w ?? 0}</td>
                           <td data-title="Comisión">${local.cw ?? 0}</td>
                           <td data-title="Margen Comercial">
-                            ${local.w - local.cw}{" "}
+                            ${local.w - local.cw||0}{" "}
                           </td>
                         </tr>
                         <tr className="trdetail">
@@ -671,7 +704,7 @@ function Trabajadores() {
                           <td data-title="Importe">${local.j ?? 0}</td>
                           <td data-title="Comisión">${local.cj ?? 0}</td>
                           <td data-title="Margen Comercial">
-                            ${local.j - local.cj}{" "}
+                            ${local.j - local.cj||0}{" "}
                           </td>
                         </tr>
                         <tr className="trdetail">
@@ -679,7 +712,7 @@ function Trabajadores() {
                           <td data-title="Importe">${local.v ?? 0}</td>
                           <td data-title="Comisión">${local.cv ?? 0}</td>
                           <td data-title="Margen Comercial">
-                            ${local.v - local.cv}{" "}
+                            ${local.v - local.cv||0}{" "}
                           </td>
                         </tr>
                         <tr className="trdetail">
@@ -687,7 +720,7 @@ function Trabajadores() {
                           <td data-title="Importe">${local.s ?? 0}</td>
                           <td data-title="Comisión">${local.cs ?? 0}</td>
                           <td data-title="Margen Comercial">
-                            ${local.s - local.cs}{" "}
+                            ${local.s - local.cs||0}{" "}
                           </td>
                         </tr>
                         <tr className="trdetail">
@@ -695,7 +728,7 @@ function Trabajadores() {
                           <td data-title="Importe">${local.d ?? 0}</td>
                           <td data-title="Comisión">${local.cd ?? 0}</td>
                           <td data-title="Margen Comercial">
-                            ${local.d - local.cd}{" "}
+                            ${local.d - local.cd||0}{" "}
                           </td>
                         </tr>
 
@@ -708,7 +741,7 @@ function Trabajadores() {
                             ${local.comision_mes ?? 0}
                           </td>
                           <td data-title="Margen Comercial">
-                            ${local.importe_mes - local.comision_mes}{" "}
+                            ${local.importe_mes - local.comision_mes||0}{" "}
                           </td>
                         </tr>
                         <tr>
@@ -720,7 +753,7 @@ function Trabajadores() {
                             ${local.comision_year ?? 0}
                           </td>
                           <td data-title="Margen Comercial">
-                            ${local.importe_year - local.comision_year}{" "}
+                            ${local.importe_year - local.comision_year||0}{" "}
                           </td>
                         </tr>
                       </tbody>
